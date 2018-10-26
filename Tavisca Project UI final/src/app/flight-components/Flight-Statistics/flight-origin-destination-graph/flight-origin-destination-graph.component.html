@@ -1,9 +1,10 @@
-<div id="origin-destination-chart-container"><mat-select placeholder="Graph Type">
+<div id="origin-destination-chart-container">
+  <mat-select placeholder="Graph Type" class="graph-types">
   <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="GraphSelect(graph.value)">
     {{graph.viewValue}}
   </mat-option>
 </mat-select>
-<form class="Forms" novalidate [formGroup]="sourceDestinationForm" >
+<form class="flightForms" novalidate [formGroup]="sourceDestinationForm" >
   <mat-form-field>
     <input type="text" placeholder="Source" aria-label="Number" matInput [matAutocomplete]="sourceAuto" [(ngModel)]="sourceTerm" formControlName="sourceControl" name="sourceTerm" required>
     <mat-error *ngIf="sourceDestinationForm.controls.sourceControl.hasError('required')">

@@ -12,3 +12,11 @@ mat-select{
     width: 200px;
     align-content: right;
 }
+.flightForms{
+    border:2px solid grey;
+    margin: 10px auto;
+    display: flex;
+    width: 50%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

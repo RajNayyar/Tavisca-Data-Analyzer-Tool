@@ -1,8 +1,8 @@
 
 button,mat-form-field{
     height: 40px;
-    margin-top: 10px;
-    margin-left:2em;
+    margin: 15px;
+    min-width: 200px;
 }
 #graphs {
     width: 90%;
@@ -19,5 +19,21 @@ button,mat-form-field{
     text-align: center;
     z-index : 1;
     position: absolute;
-
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.forms{
+    margin: 0 auto;
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+@media only screen and (max-width: 600px) {
+    .forms {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        
+    }
 }

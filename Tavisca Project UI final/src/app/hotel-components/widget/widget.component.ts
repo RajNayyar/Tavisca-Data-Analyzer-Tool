@@ -41,7 +41,7 @@ export class WidgetComponent implements OnInit {
   isDisabled:boolean;
   @HostListener('window:resize', ['$event.target']) 
 onResize(event) { 
-  if(event.innerWidth > 990){
+  if(event.innerWidth > 600){
     
     this.show=false;
     this._isNavbarCollapsedAnim = 'open';

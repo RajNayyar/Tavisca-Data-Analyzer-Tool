@@ -6,7 +6,7 @@
      </button>
     <form novalidate [formGroup]="flightInputForm"  [ngbCollapse]="isFlightNavbarCollapsed" id="theFlightNavbar"
     [@collapse]="isFlightNavbarCollapsedAnim"
-    class="flightForms navbar-collapse collapse navbar-toggleable" >
+    class="flight-form-content navbar-collapse collapse navbar-toggleable" >
 <mat-form-field>
     <input matInput  #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
     <mat-error *ngIf="flightInputForm.controls.startDateControl.hasError('required')">

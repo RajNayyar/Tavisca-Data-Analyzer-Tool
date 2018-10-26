@@ -36,7 +36,7 @@ export class FlightWidgetComponent implements OnInit {
   _isFlightNavbarCollapsedAnim = 'closed';
   @HostListener('window:resize', ['$event.target']) 
 onScreenResize(event) { 
-  if(event.innerWidth > 990){
+  if(event.innerWidth > 600){
     
     this.showButton=false;
     this._isFlightNavbarCollapsedAnim = 'open';

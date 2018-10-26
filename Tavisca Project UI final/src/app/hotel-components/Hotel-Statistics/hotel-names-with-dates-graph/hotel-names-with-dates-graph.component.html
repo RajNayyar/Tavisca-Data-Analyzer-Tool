@@ -1,4 +1,4 @@
-<div id="hotel-with-dates-chart-container"><mat-select placeholder="Graph Type">
+<div id="hotel-with-dates-chart-container"><mat-select placeholder="Graph Type" class="graph-types">
   <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="GraphSelect(graph.value)">
     {{graph.viewValue}}
   </mat-option>

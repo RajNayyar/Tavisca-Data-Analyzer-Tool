@@ -1,7 +1,7 @@
 button,mat-form-field{
     height: 40px;
-    margin-top: 10px;
-    margin-left:2em;
+    margin: 15px;
+    min-width: 300px;
 }
 #flight-graphs {
     width: 90%;
@@ -9,9 +9,27 @@ button,mat-form-field{
 }
 .flight-form{
     width: 100%;
-    margin: 0 auto;
+    margin: 0px auto;
     position: absolute;
     background-color: white;
     text-align: center;
     z-index : 1;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.flight-form-content{
+    margin: 10px auto;
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+@media only screen and (max-width: 600px) {
+    .flight-form-content {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        
+    }
 }
