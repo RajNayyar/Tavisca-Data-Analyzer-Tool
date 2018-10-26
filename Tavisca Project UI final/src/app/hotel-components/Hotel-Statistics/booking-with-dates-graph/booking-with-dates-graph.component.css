@@ -1,0 +1,14 @@
+#booking-with-dates-chart{
+    margin: 20px auto;
+    height: 400px;
+}
+#booking-with-dates-chart-container{
+    box-shadow: 10px 10px 20px #888888;  
+}
+#lol{
+    color: red;
+}
+mat-select{
+    width: 200px;
+    align-content: right;
+}

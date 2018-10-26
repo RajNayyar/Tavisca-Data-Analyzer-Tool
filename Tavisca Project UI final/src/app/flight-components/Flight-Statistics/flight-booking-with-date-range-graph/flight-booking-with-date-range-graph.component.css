@@ -1,0 +1,14 @@
+#flight-booking-date-chart{
+    margin: 10px auto;
+    height: 400px;
+}
+#flight-bookingDate-chart-container{
+    box-shadow: 10px 10px 20px #888888;  
+}
+#lol{
+    color: red;
+}
+mat-select{
+    width: 200px;
+    align-content: right;
+}

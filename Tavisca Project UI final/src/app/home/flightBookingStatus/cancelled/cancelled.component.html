@@ -1,0 +1,20 @@
+<circle-progress [(ngModel)]="flightCancellationCount" ngDefaultControl
+[titleFontSize]="40"
+[subtitleFontSize]="20"
+[showUnits]=false
+[responsive]=false
+[showSubtitle]=false
+[title]="flightCancellationCount"
+[percent]="flightCancellationCount"
+[radius]="130"
+[titleColor]="'#d8b00d'"
+[outerStrokeWidth]="22"
+[innerStrokeWidth]="12"
+[outerStrokeColor]="'#d8b00d'"
+[innerStrokeColor]="'#c1bbb4'"
+[animation]="true"
+[animationDuration]="300"
+></circle-progress>
+<div class="cancel">
+  <p>Cancelled</p>
+  </div>

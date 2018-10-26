@@ -1,0 +1,9 @@
+<div id="hotel-with-dates-chart-container"><mat-select placeholder="Graph Type">
+  <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="GraphSelect(graph.value)">
+    {{graph.viewValue}}
+  </mat-option>
+</mat-select>
+<div id="hotel-with-dates-chart">
+  <img class="loader" *ngIf="loaderDisplay" src="..\src\assets\images\loader.gif">
+</div>
+</div>

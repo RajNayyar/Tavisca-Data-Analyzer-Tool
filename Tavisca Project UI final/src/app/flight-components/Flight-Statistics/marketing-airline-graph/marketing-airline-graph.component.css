@@ -1,0 +1,11 @@
+#marketing-airline-chart{
+    margin: 10px auto;
+    height: 400px;
+}
+#flight-marketingAirline-chart-container{
+    box-shadow: 10px 10px 20px #888888;  
+}
+mat-select{
+    width: 200px;
+    align-content: right;
+}
