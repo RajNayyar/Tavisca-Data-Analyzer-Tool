@@ -1,0 +1,37 @@
+<div id="origin-destination-chart-container"><mat-select placeholder="Graph Type">
+  <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="GraphSelect(graph.value)">
+    {{graph.viewValue}}
+  </mat-option>
+</mat-select>
+<form class="Forms" novalidate [formGroup]="sourceDestinationForm" >
+  <mat-form-field>
+    <input type="text" placeholder="Source" aria-label="Number" matInput [matAutocomplete]="sourceAuto" [(ngModel)]="sourceTerm" formControlName="sourceControl" name="sourceTerm" required>
+    <mat-error *ngIf="sourceDestinationForm.controls.sourceControl.hasError('required')">
+        *Required
+      </mat-error> 
+ <mat-autocomplete #sourceAuto="matAutocomplete">
+          <mat-option *ngFor="let item of res | flightSource : sourceTerm" [value]="item" >
+            {{ item }}
+          </mat-option>
+        </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input type="text" placeholder="Destination" aria-label="Number" matInput [matAutocomplete]="destinationAuto" formControlName="destinationControl" [(ngModel)]="destinationTerm" name="destinationTerm" required>
+       <mat-error *ngIf="sourceDestinationForm.controls.destinationControl.hasError('required')">
+          *Required
+        </mat-error> 
+      <mat-autocomplete #destinationAuto="matAutocomplete">
+        <mat-option *ngFor="let item of res | flightDestination : destinationTerm" [value]="item" >
+          {{ item }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-raised-button color="warn" type="submit" (click) ="AirportCheck()" [disabled]="!sourceDestinationForm.valid" >
+        Go
+        </button>
+      </form>
+<div id="origin-destination-chart">  
+    <img class="loader" *ngIf="loaderDisplay" src="..\src\assets\images\loader.gif">
+</div>
+</div>

@@ -1,0 +1,44 @@
+.realtime-date-time{
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: lighter;
+}
+.circle{
+    border-radius: 50%;
+    border: 1px solid;
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+}
+.booking-text{
+    margin: 0 auto;
+}
+.progress,.progress1,.images{
+    margin:3.5em auto;
+    text-align: center;
+    display:flex;
+    flex-wrap:wrap;
+height: 52%;
+    justify-content: center;
+    width:100%;
+}
+.images{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction:row;
+}
+.imgs{
+    width:13%;
+    height:13%;
+}
+
+.img{
+    text-align: center;
+}
+.progressBar{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+app-hotel-booking-status-stats,app-flight-booking-status-stats{
+    width:30%;
+}

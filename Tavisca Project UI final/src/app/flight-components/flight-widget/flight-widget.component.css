@@ -1,0 +1,17 @@
+button,mat-form-field{
+    height: 40px;
+    margin-top: 10px;
+    margin-left:2em;
+}
+#flight-graphs {
+    width: 90%;
+    margin: 100px auto;
+}
+.flight-form{
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    background-color: white;
+    text-align: center;
+    z-index : 1;
+}

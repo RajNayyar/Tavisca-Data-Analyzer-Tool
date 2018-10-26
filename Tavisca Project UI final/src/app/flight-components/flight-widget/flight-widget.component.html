@@ -1,0 +1,37 @@
+<div class="flight-form">
+    <form class="flightForms" novalidate [formGroup]="flightInputForm" >
+<mat-form-field>
+    <input matInput  #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
+    <mat-error *ngIf="flightInputForm.controls.startDateControl.hasError('required')">
+        *Required
+      </mat-error>
+    <mat-datepicker-toggle matSuffix [for]="firstPicker"></mat-datepicker-toggle>
+    <mat-datepicker #firstPicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput #ldate [min]="currentStartDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" [disabled]="IsVisible" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
+    <mat-error *ngIf="flightInputForm.controls.endDateControl.hasError('required')">
+        *Required
+      </mat-error>
+    <mat-datepicker-toggle matSuffix [for]="secondPicker"></mat-datepicker-toggle>
+    <mat-datepicker #secondPicker></mat-datepicker>
+  </mat-form-field>
+   <mat-form-field>
+      <mat-select placeholder="Graph Type" #check multiple>
+        <mat-option *ngFor="let graph of graphs" [value]="graph.value" >
+          {{graph.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click) =dataAnalysis(sdate.value,ldate.value,check.value) [disabled]="!flightInputForm.valid" >
+        Get Flights Data
+        </button>
+      </form>
+    </div>
+    <div id="flight-graphs">
+      <app-flight-booking-with-date-range-graph *ngIf="checkValue.includes('bookDate')"></app-flight-booking-with-date-range-graph>
+      <app-flight-origin-destination-graph *ngIf="checkValue.includes('place')"></app-flight-origin-destination-graph>
+      <app-flight-payment-mode *ngIf="checkValue.includes('paymentMode')"></app-flight-payment-mode>
+      <app-flight-total-bookings-graph *ngIf="checkValue.includes('allBookings')"></app-flight-total-bookings-graph>
+      <app-marketing-airline-graph *ngIf="checkValue.includes('marketingAirline')"></app-marketing-airline-graph>
+    </div>
