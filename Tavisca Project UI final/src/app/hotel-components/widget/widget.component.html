@@ -1,45 +1,57 @@
+
 <div class="hotel-form">
-<form class="forms" novalidate [formGroup]="inputForm" >
-  <mat-form-field>
-      <input matInput #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
-      <mat-error *ngIf="inputForm.controls.startDateControl.hasError('required')">
-        *Required
-      </mat-error>
-      <mat-datepicker-toggle matSuffix [for]="firstPicker"></mat-datepicker-toggle>
-      <mat-datepicker #firstPicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput #ldate [min]="currentStartDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" [disabled]="IsVisible" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
-      <mat-error *ngIf="inputForm.controls.endDateControl.hasError('required')">
-          *Required
-        </mat-error>
-      <mat-datepicker-toggle matSuffix [for]="secondPicker"></mat-datepicker-toggle>
-      <mat-datepicker #secondPicker></mat-datepicker>
-    </mat-form-field>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+     
+     <button *ngIf="show" class="navbar-toggler navbar-toggler-right" (click)="toggleNavbar()" type="button" aria-controls="theNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        Search
+  </button>
+      <form novalidate [formGroup]="inputForm" [ngbCollapse]="isNavbarCollapsed" id="theNavbar"
+                        [@collapse]="isNavbarCollapsedAnim"
+                        class="forms navbar-collapse collapse navbar-toggleable" >
+                            <mat-form-field>
+                                <input matInput #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
+                                <mat-error *ngIf="inputForm.controls.startDateControl.hasError('required')">
+                                  *Required
+                                </mat-error>
+                                <mat-datepicker-toggle matSuffix [for]="firstPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #firstPicker></mat-datepicker>
+                              </mat-form-field>
+                              <mat-form-field>
+                                <input matInput #ldate [min]="currentStartDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" [disabled]="IsVisible" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
+                                <mat-error *ngIf="inputForm.controls.endDateControl.hasError('required')">
+                                    *Required
+                                  </mat-error>
+                                <mat-datepicker-toggle matSuffix [for]="secondPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #secondPicker></mat-datepicker>
+                              </mat-form-field>
+                          
+                              <mat-form-field>
+                                  <input type="text" placeholder="Location" aria-label="Number" matInput [matAutocomplete]="auto" [(ngModel)]="searchTerm" formControlName="location" name="searchTerm" required>
+                                  <mat-error *ngIf="inputForm.controls.location.hasError('required')">
+                                      *Required
+                                    </mat-error>
+                                  <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let item of res | hotelLocations : searchTerm" [value]="item" >
+                                      {{ item }}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                </mat-form-field>
+                          
+                              <mat-form-field>
+                                <mat-select placeholder="Graph Type" #check multiple>
+                                  <mat-option *ngFor="let graph of graphs" [value]="graph.value" >
+                                    {{graph.viewValue}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <button mat-raised-button color="warn" type="submit" (click) =dataAnalysis(sdate.value,ldate.value,check.value) [disabled]="!inputForm.valid" >
+                                  Get Hotel Data
+                                  </button>
+                                </form>
+                
+        
+</nav>
 
-    <mat-form-field>
-        <input type="text" placeholder="Location" aria-label="Number" matInput [matAutocomplete]="auto" [(ngModel)]="searchTerm" formControlName="location" name="searchTerm" required>
-        <mat-error *ngIf="inputForm.controls.location.hasError('required')">
-            *Required
-          </mat-error>
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let item of res | hotelLocations : searchTerm" [value]="item" >
-            {{ item }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Graph Type" #check multiple>
-        <mat-option *ngFor="let graph of graphs" [value]="graph.value" >
-          {{graph.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button color="warn" type="submit" (click) =dataAnalysis(sdate.value,ldate.value,check.value) [disabled]="!inputForm.valid" >
-        Get Hotel Data
-        </button>
-      </form>
         </div>
           <div id="graphs">
           <booking-with-dates-graph *ngIf="checkValue.includes('bookDate')"></booking-with-dates-graph>

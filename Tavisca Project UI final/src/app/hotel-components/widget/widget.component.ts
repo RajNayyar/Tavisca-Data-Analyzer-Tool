@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, Validators,FormControl,FormBuilder } from '@angular/forms';
 import {  GraphsServiceService } from '../../service/hotel-service/graphs-service.service';
@@ -9,6 +9,8 @@ import { HotelNamesWithDatesGraphComponent } from '../Hotel-Statistics/hotel-nam
 import { LocationBasedGraphComponent } from '../Hotel-Statistics/location-based-graph/location-based-graph.component';
 import { PaymentModeBasedGraphComponent } from '../Hotel-Statistics/payment-mode-based-graph/payment-mode-based-graph.component';
 import { SupplierNameBasedGraphComponent } from '../Hotel-Statistics/supplier-name-based-graph/supplier-name-based-graph.component';
+
+import { trigger, state, style, transition, animate } from '@angular/animations';
 export interface Graph {
   value: string;
   viewValue: string;
@@ -16,10 +18,51 @@ export interface Graph {
 @Component({
   selector: 'widget',
   templateUrl: './widget.component.html',
-  styleUrls: ['./widget.component.css']
+  styleUrls: ['./widget.component.css'],   
+  animations: [
+    trigger('collapse', [
+      state('open', style({
+        opacity: '1'
+      })),
+      state('closed',   style({
+        opacity: '0',
+        display: 'none',   
+      })),
+      transition('closed => open', animate('400ms ease-in')),
+      transition('open => closed', animate('100ms ease-out'))
+    ])
+  ]
 })
 
 export class WidgetComponent implements OnInit {
+  isNavbarCollapsed=true;
+  _isNavbarCollapsedAnim = 'closed';
+  isDisabled:boolean;
+  @HostListener('window:resize', ['$event.target']) 
+onResize(event) { 
+  if(event.innerWidth > 990){
+    
+    this.show=false;
+    this._isNavbarCollapsedAnim = 'open';
+      this.isNavbarCollapsed = true;
+  }else{
+    this.show=true;
+      this._isNavbarCollapsedAnim = 'closed';
+  }
+}
+  toggleNavbar(): void {
+    if(this.isNavbarCollapsed){
+        this._isNavbarCollapsedAnim = 'open';
+      this.isNavbarCollapsed = false;
+    } else {
+    this._isNavbarCollapsedAnim = 'closed';
+  
+      this.isNavbarCollapsed = true;
+    }
+  }
+  get isNavbarCollapsedAnim() : string {
+    return this._isNavbarCollapsedAnim;
+  }
 
  currentStartDate:Date;
   currentEndDate:Date=new Date();
@@ -36,7 +79,7 @@ export class WidgetComponent implements OnInit {
   searchTerm:any;
   checkValue:Array<string>=['location', 'name', 'bookDate', 'supplierName', 'failure', 'paymentMode'];
   paymentServiceResponse: any;
-
+  show:boolean;
   graphs: Graph[] = [
     {value: 'location', viewValue: 'Hotel Location'},
    // {value: 'chain', viewValue: 'Hotel Chain'},
@@ -62,6 +105,8 @@ export class WidgetComponent implements OnInit {
  }
 
   ngOnInit() {
+    this.show=false;
+    this.onResize(window);
     this.inputForm=this.fb.group({
       'startDateControl':[null,[Validators.required]],
       'endDateControl':[null,[Validators.required]],

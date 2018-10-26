@@ -1,5 +1,12 @@
 <div class="flight-form">
-    <form class="flightForms" novalidate [formGroup]="flightInputForm" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+     
+        <button *ngIf="showButton" class="navbar-toggler navbar-toggler-right" (click)="flightToggleNavbar()" type="button" aria-controls="theFlightNavbar" aria-expanded="false" aria-label="Toggle navigation">
+           Search
+     </button>
+    <form novalidate [formGroup]="flightInputForm"  [ngbCollapse]="isFlightNavbarCollapsed" id="theFlightNavbar"
+    [@collapse]="isFlightNavbarCollapsedAnim"
+    class="flightForms navbar-collapse collapse navbar-toggleable" >
 <mat-form-field>
     <input matInput  #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
     <mat-error *ngIf="flightInputForm.controls.startDateControl.hasError('required')">
@@ -27,6 +34,7 @@
         Get Flights Data
         </button>
       </form>
+      </nav>
     </div>
     <div id="flight-graphs">
       <app-flight-booking-with-date-range-graph *ngIf="checkValue.includes('bookDate')"></app-flight-booking-with-date-range-graph>

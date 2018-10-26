@@ -45,7 +45,7 @@ import { FlightBookingStatusStatsComponent } from './home/flightBookingStatus/fl
 import { FlightSourcePipe } from './pipes/flight-pipes/flight-source.pipe';
 import { FlightDestinationPipe } from './pipes/flight-pipes/flight-destination.pipe';
 import { StatsReportNotifierComponent } from './stats-report-notifier/stats-report-notifier.component';
-
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +83,7 @@ import { StatsReportNotifierComponent } from './stats-report-notifier/stats-repo
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgbModule.forRoot(),
     NgCircleProgressModule.forRoot({
       radius: 130,
       outerStrokeWidth: 22,
