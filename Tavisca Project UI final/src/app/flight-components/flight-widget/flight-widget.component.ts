@@ -1,3 +1,4 @@
+
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
@@ -15,7 +16,7 @@ export interface Graph {
 @Component({
   selector: 'flight-widget',
   templateUrl: './flight-widget.component.html',
-  styleUrls: ['./flight-widget.component.css'],
+ styleUrls: ['./flight-widget.component.css'],
   animations: [
     trigger('collapse', [
       state('open', style({
@@ -58,7 +59,6 @@ onScreenResize(event) {
   get isFlightNavbarCollapsedAnim() : string {
     return this._isFlightNavbarCollapsedAnim;
   }
-
   flightPaymentMode = new  FlightPaymentModeComponent(this.service)
   marketingAirline = new MarketingAirlineGraphComponent(this.service)
   flightTotalBookings = new FlightTotalBookingsGraphComponent(this.service)
@@ -77,8 +77,8 @@ currentStartDate:Date;
  IsVisible:boolean=true;
  searchTerm:any;
  checkValue:Array<string>=['place', 'marketingAirline', 'bookDate', 'allBookings', 'paymentMode'];
- showButton:boolean;
 
+ showButton:boolean;
   graphs: Graph[] = [
     {value: 'place', viewValue: 'Origin and Destination Scenario'},
     {value: 'marketingAirline', viewValue: 'Marketing Airline'},

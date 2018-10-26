@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, Validators,FormControl,FormBuilder } from '@angular/forms';
@@ -79,6 +80,7 @@ onResize(event) {
   searchTerm:any;
   checkValue:Array<string>=['location', 'name', 'bookDate', 'supplierName', 'failure', 'paymentMode'];
   paymentServiceResponse: any;
+
   show:boolean;
   graphs: Graph[] = [
     {value: 'location', viewValue: 'Hotel Location'},
