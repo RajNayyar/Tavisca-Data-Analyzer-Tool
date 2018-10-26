@@ -47,7 +47,7 @@ export class FlightBookingStatusStatsComponent implements OnInit {
         zoomEnabled:true,
         animationEnabled: true,
         exportEnabled: true,
-        theme: "light1", 
+        theme: "light2", 
       
         data: [{
           type: chart,
@@ -55,7 +55,7 @@ export class FlightBookingStatusStatsComponent implements OnInit {
           indexLabelPlacement: "outside",
           dataPoints: this.graphDataPoints,
           click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
+            //alert(e.dataPoint.y +" "+e.dataPoint.label)
           }
         }]
       });

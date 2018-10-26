@@ -1,21 +1,19 @@
 
 <circle-progress [(ngModel)]="failureCount" ngDefaultControl
-    [titleFontSize]="40"
+    [titleFontSize]="30"
     [showUnits]=false
     [responsive]=false
     [showSubtitle]=false
     [title]="failureCount"
     [percent]="failureCount"
-    [radius]="130"
+    [radius]="70"
 [titleColor]="'#d8350d'"
-    [outerStrokeWidth]="22"
-    [innerStrokeWidth]="12"
+    [outerStrokeWidth]="10"
+    [innerStrokeWidth]="6"
     [outerStrokeColor]="'#d8350d'"
     [innerStrokeColor]="'#c1bbb4'"
     [animation]="true"
     [animationDuration]="300">
 
 </circle-progress>
-<div class="failure">
-<p>Failure</p>
-</div>
+

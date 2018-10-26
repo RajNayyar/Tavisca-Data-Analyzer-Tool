@@ -44,18 +44,18 @@ export class HotelBookingStatusStatsComponent implements OnInit {
       this.setDataPoints(this.bookingStatus,this.numberOfBookings)
 
       var chart = new CanvasJS.Chart("stats-hotel", {
+        backgroundColor: "transparent",
         zoomEnabled:true,
         animationEnabled: true,
         exportEnabled: true,
         theme: "light1", 
-      
         data: [{
           type: chart,
           indexLabelFontColor: "#5A5757",
           indexLabelPlacement: "outside",
           dataPoints: this.graphDataPoints,
           click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
+          //  alert(e.dataPoint.y +" "+e.dataPoint.label)
           }
         }]
       });
