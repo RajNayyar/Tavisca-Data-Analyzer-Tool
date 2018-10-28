@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-
+declare var CanvasJS: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -17,18 +17,53 @@ export class GraphsServiceService {
   cancelCount:any;
   statsReport = []
   SearchParam:any;
+  graphDataPoints=[]
   //locationServiceResponse: any;
   constructor(private http: HttpClient) { }
 
   httpResponseFilters(productName, filterParameters): Observable<any> {
-    return this.http.get<any>('http://localhost:53783/api/'+productName+'/'+filterParameters)
+    return this.http.get<any>('http://taviscadataanalyzertool.ap-south-1.elasticbeanstalk.com/api/'+productName+'/'+filterParameters)
                      .catch(this.errorHandler);
                      
   }
   httpEmailSending(EmailDetails):Observable<any>{
-    return this.http.post('http://localhost:53783/api/EmailSender',EmailDetails)
+    return this.http.post('http://taviscadataanalyzertool.ap-south-1.elasticbeanstalk.com/api/EmailSender',EmailDetails)
                     .catch(this.errorHandler);
   }
+  setDataPoints(xAxis, yAxis)
+  {
+    this.graphDataPoints = [];
+    for(var i = 0; i<xAxis.length;i++)
+    {
+      this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
+    }
+    
+  }
+  DisplayGraph(chart, xAxis, yAxis, id ) {
+    
+    this.setDataPoints(xAxis,yAxis);
+
+   var chart = new CanvasJS.Chart(id, {
+     zoomEnabled:true,
+     animationEnabled: true,
+     exportEnabled: true,
+     theme: "light1", 
+     title:{
+       text: "Supplier Name Graph"
+     },
+     data: [{
+       type: chart,
+       indexLabelFontColor: "#5A5757",
+       indexLabelPlacement: "outside",
+       dataPoints: this.graphDataPoints,
+       click: function (e) {
+         alert(e.dataPoint.y +" "+e.dataPoint.label)
+       }
+     }]
+   });
+   chart.render();
+   
+ }
   errorHandler(error: HttpErrorResponse){
     return Observable.throw(error.message || "Server Error");
   }

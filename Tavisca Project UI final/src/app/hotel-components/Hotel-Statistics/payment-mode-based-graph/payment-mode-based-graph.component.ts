@@ -39,7 +39,7 @@ export class PaymentModeBasedGraphComponent implements OnInit {
 
  
   ngOnInit(){
-    this.reRender()
+  //  this.reRender()
     }
     reRender()
     {

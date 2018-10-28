@@ -66,7 +66,7 @@ export class LocationBasedGraphComponent implements OnInit  {
     }
   }
   ngOnInit(){
-    this.reRender()
+    //this.reRender()
     }
     reRender()
     {

@@ -52,6 +52,7 @@ currentStartDate:Date;
 }
 
 ngOnInit() {
+  this.ServiceCalls()
   this.flightInputForm=this.fb.group({
     'startDateControl':[null,[Validators.required]],
     'endDateControl':[null,[Validators.required]]

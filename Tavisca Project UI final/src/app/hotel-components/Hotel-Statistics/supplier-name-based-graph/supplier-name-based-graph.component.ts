@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Chart, ChartDataSets, ChartArea} from 'chart.js';
 import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
-declare var CanvasJS: any;
+
 
 export interface GraphTypes {
   value: string;
@@ -27,17 +27,17 @@ export class SupplierNameBasedGraphComponent implements OnInit
   defaultStartDate: string = "2015-05-15"
   defaultEndDate: string = "2018-05-15"
   defaultLocation: string = "Las Vegas"
-  graphDataPoints=[]
+  
   loaderDisplay: boolean
   id:string="supplier-name-chart";
   constructor (private service:GraphsServiceService) { }
   
   ngOnInit(){
-    this.reRender()
+    //this.reRender()
   }
   reRender(){
     this.loaderDisplay=true
-   this.hotelLocationGraph = null;
+    this.hotelLocationGraph = null;
     this.defaultGraphType = "line";
     this.SupplierName = [];
     this.NumberOfBooking= [];
@@ -59,8 +59,8 @@ export class SupplierNameBasedGraphComponent implements OnInit
                           statistics: this.NumberOfBooking
                         })
                       }
-                      this.DisplayGraph( this.chart);
-                },
+                     this.service.DisplayGraph( this.chart, this.SupplierName, this.NumberOfBooking, this.id);
+                    },
         error=>{ this.errorMsg = error;}
 
           );
@@ -77,43 +77,11 @@ export class SupplierNameBasedGraphComponent implements OnInit
     GraphSelect(graphValue)
     {
       this.chart = graphValue;
-     this.DisplayGraph(this.chart);
+      this.service.DisplayGraph( this.chart, this.SupplierName, this.NumberOfBooking, this.id);
     }
 
-  setDataPoints(xAxis, yAxis)
-    {
-      this.graphDataPoints = [];
-      for(var i = 0; i<xAxis.length;i++)
-      {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-      }
-      
-    }
-    DisplayGraph(chart ) {
-       this.loaderDisplay=false
-      this.setDataPoints(this.SupplierName,this.NumberOfBooking);
-
-      var chart = new CanvasJS.Chart(this.id, {
-        zoomEnabled:true,
-        animationEnabled: true,
-        exportEnabled: true,
-        theme: "light1", 
-        title:{
-          text: "Supplier Name Graph"
-        },
-        data: [{
-          type: chart,
-          indexLabelFontColor: "#5A5757",
-          indexLabelPlacement: "outside",
-          dataPoints: this.graphDataPoints,
-          click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
-          }
-        }]
-      });
-      chart.render();
-      
-    }
+ 
+ 
       showDetails(event)
       {
         alert("working");

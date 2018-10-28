@@ -62,6 +62,7 @@ export class WidgetComponent implements OnInit {
  }
 
   ngOnInit() {
+    this.ServiceCalls()
     this.inputForm=this.fb.group({
       'startDateControl':[null,[Validators.required]],
       'endDateControl':[null,[Validators.required]],

@@ -45,6 +45,8 @@ import { FlightBookingStatusStatsComponent } from './home/flightBookingStatus/fl
 import { FlightSourcePipe } from './pipes/flight-pipes/flight-source.pipe';
 import { FlightDestinationPipe } from './pipes/flight-pipes/flight-destination.pipe';
 import { StatsReportNotifierComponent } from './stats-report-notifier/stats-report-notifier.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,8 @@ import { StatsReportNotifierComponent } from './stats-report-notifier/stats-repo
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports:[
     MatCheckboxModule,
