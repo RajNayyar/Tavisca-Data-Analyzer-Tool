@@ -21,12 +21,12 @@ export class GraphsServiceService {
   constructor(private http: HttpClient) { }
 
   httpResponseFilters(productName, filterParameters): Observable<any> {
-    return this.http.get<any>('http://localhost:53783/api/'+productName+'/'+filterParameters)
+    return this.http.get<any>('http://taviscadataanalyzertool.ap-south-1.elasticbeanstalk.com/api/'+productName+'/'+filterParameters)
                      .catch(this.errorHandler);
                      
   }
   httpEmailSending(EmailDetails):Observable<any>{
-    return this.http.post('http://localhost:53783/api/EmailSender',EmailDetails)
+    return this.http.post('http://taviscadataanalyzertool.ap-south-1.elasticbeanstalk.com/api/EmailSender',EmailDetails)
                     .catch(this.errorHandler);
   }
   errorHandler(error: HttpErrorResponse){

@@ -1,6 +1,6 @@
 
- <div id="booking-with-dates-chart-container">
-    <mat-select placeholder="Graph Type" class="graph-types">
+ <div id="booking-with-dates-chart-container" tabindex="1">
+    <mat-select placeholder="Graph Type" class="graph-types" tabindex="2">
         <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="GraphSelect(graph.value)">
           {{graph.viewValue}}
         </mat-option>

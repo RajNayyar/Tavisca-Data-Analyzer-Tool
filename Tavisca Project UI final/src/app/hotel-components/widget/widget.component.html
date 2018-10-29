@@ -1,5 +1,5 @@
 
-<div class="hotel-form">
+<div class="hotel-form" tabindex="-1">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
      
      <button *ngIf="show" class="navbar-toggler navbar-toggler-right" (click)="toggleNavbar()" type="button" aria-controls="theNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +10,7 @@
                         class="forms navbar-collapse collapse navbar-toggleable" >
                             <mat-form-field>
                                 <input matInput #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
-                                <mat-error *ngIf="inputForm.controls.startDateControl.hasError('required')">
+                                <mat-error tabindex="-1" *ngIf="inputForm.controls.startDateControl.hasError('required')">
                                   *Required
                                 </mat-error>
                                 <mat-datepicker-toggle matSuffix [for]="firstPicker"></mat-datepicker-toggle>
@@ -18,7 +18,7 @@
                               </mat-form-field>
                               <mat-form-field>
                                 <input matInput #ldate [min]="currentStartDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" [disabled]="IsVisible" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
-                                <mat-error *ngIf="inputForm.controls.endDateControl.hasError('required')">
+                                <mat-error tabindex="-1" *ngIf="inputForm.controls.endDateControl.hasError('required')">
                                     *Required
                                   </mat-error>
                                 <mat-datepicker-toggle matSuffix [for]="secondPicker"></mat-datepicker-toggle>
@@ -27,7 +27,7 @@
                           
                               <mat-form-field>
                                   <input type="text" placeholder="Location" aria-label="Number" matInput [matAutocomplete]="auto" [(ngModel)]="searchTerm" formControlName="location" name="searchTerm" required>
-                                  <mat-error *ngIf="inputForm.controls.location.hasError('required')">
+                                  <mat-error tabindex="-1" *ngIf="inputForm.controls.location.hasError('required')">
                                       *Required
                                     </mat-error>
                                   <mat-autocomplete #auto="matAutocomplete">
@@ -53,12 +53,12 @@
 </nav>
         </div>
           <div id="graphs">
-          <booking-with-dates-graph *ngIf="checkValue.includes('bookDate')"></booking-with-dates-graph>
-          <supplier-name-based-graph *ngIf="checkValue.includes('supplierName')"></supplier-name-based-graph>
-          <hotel-names-with-dates-graph *ngIf="checkValue.includes('name')"></hotel-names-with-dates-graph>
-          <payment-mode-based-graph  *ngIf="checkValue.includes('paymentMode')"></payment-mode-based-graph> 
-          <hotel-location-based-graph class = "hotel-location" *ngIf="checkValue.includes('location')"></hotel-location-based-graph >
-          <app-stats-report-notifier></app-stats-report-notifier>
+          <booking-with-dates-graph tabindex="1" *ngIf="checkValue.includes('bookDate')"></booking-with-dates-graph>
+          <supplier-name-based-graph tabindex="2" *ngIf="checkValue.includes('supplierName')"></supplier-name-based-graph>
+          <hotel-names-with-dates-graph tabindex="3" *ngIf="checkValue.includes('name')"></hotel-names-with-dates-graph>
+          <payment-mode-based-graph tabindex="4" *ngIf="checkValue.includes('paymentMode')"></payment-mode-based-graph> 
+          <hotel-location-based-graph tabindex="5" class = "hotel-location" *ngIf="checkValue.includes('location')"></hotel-location-based-graph >
+          <app-stats-report-notifier tabindex="6"></app-stats-report-notifier>
           </div>
      
     

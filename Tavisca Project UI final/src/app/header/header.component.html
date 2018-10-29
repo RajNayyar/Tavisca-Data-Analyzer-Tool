@@ -1,33 +1,33 @@
 
-  <div class = "header">
-  <div class = "header-logo-area">
-    <div ><img class="logo" src="/src/assets/images/tavisca.png"></div>        
+  <div class = "header" tabindex="-1">
+  <div class = "header-logo-area" tabindex="-1">
+    <div tabindex="-1" ><img class="logo" id="abc" aria-label="Logo" tabindex="1" src="/src/assets/images/tavisca.png"></div>        
   </div>
 
-<mat-tab-group class="tab-bar">
+<mat-tab-group class="tab-bar" tabindex="-1">
   
-  <mat-tab >
-    <ng-template mat-tab-label>
-      <a [routerLink] = "homeRoute"><span></span><img class="product-icon" src="/src/assets/images/home.png"></a>
+  <mat-tab  tabindex="2" aria-label="Home">
+    <ng-template mat-tab-label >
+      <a [routerLink] = "homeRoute" tabindex="-1"><span></span><img class="product-icon" src="/src/assets/images/home.png"></a>
     </ng-template>
-    <ng-template matTabContent>
+    <ng-template matTabContent >
         <div class="tab-content">
       <home></home>
     </div>
     </ng-template>
 </mat-tab>
-<mat-tab>
+<mat-tab tabindex="3" aria-label="Hotel">
   <ng-template mat-tab-label>
-      <a [routerLink] = "hotelRoute"><span>Hotel</span></a>
+      <a [routerLink] = "hotelRoute" tabindex="-1"><span>Hotel</span></a>
       <img class="product-icon" src="/src/assets/images/hotel.png">
   </ng-template>
   <ng-template matTabContent>
     <widget></widget>
   </ng-template>
 </mat-tab>
-<mat-tab>
+<mat-tab tabindex="4" aria-label="Flight">
   <ng-template mat-tab-label>
-      <a [routerLink]="flightRoute"><span>Flight</span></a>
+      <a [routerLink]="flightRoute" tabindex="-1"><span>Flight</span></a>
       <img class="product-icon" src="/src/assets/images/flight.png">
   </ng-template>
   <ng-template matTabContent>
