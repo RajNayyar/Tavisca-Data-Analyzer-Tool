@@ -16,22 +16,22 @@ export interface GraphTypes {
 })
 export class BookingWithDatesGraphComponent implements OnInit {
 
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
-  BookingDates: any=[];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  BookingDates: any = []
+  graphDataPoints=[]
+  graphName: string = "Dates-Booking analysis";
   id:string="booking-with-dates-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    
-   //  this.reRender()
+    this.loaderDisplay = true;
     }
     reRender()
     {
-      this.loaderDisplay = true;
+      
       this.BookingDates = []
       this.NumberOfBooking= []
 
@@ -45,7 +45,7 @@ export class BookingWithDatesGraphComponent implements OnInit {
                         }
                         this.service.statsReport.push(
                           {
-                            filter: "Booking on date range",
+                            filter: this.graphName,
                             startDate: this.service.start,
                             endDate: this.service.end,
                             location: this.service.location,
@@ -53,8 +53,15 @@ export class BookingWithDatesGraphComponent implements OnInit {
                             statistics: this.NumberOfBooking
                           }
                         )
+                        if(data.length ==0)
+                        {
+                          this.graphName = "No Data Found for " + this.graphName;
+           
+                        }
+                          this.loaderDisplay = false
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingDates, this.NumberOfBooking, this.id);
+                          
                         
-                        this.DisplayGraph( this.chart);
                   },
           error=>{ this.errorMsg = error;}
 
@@ -69,51 +76,7 @@ export class BookingWithDatesGraphComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
-
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.BookingDates,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Booking with Dates Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
-      showDetails(event)
-      {
-        alert("working");
-      }
-      
-   
+  
     }
    
   

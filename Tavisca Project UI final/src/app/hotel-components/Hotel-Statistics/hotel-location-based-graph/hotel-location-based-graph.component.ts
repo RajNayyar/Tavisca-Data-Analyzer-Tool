@@ -16,20 +16,20 @@ export interface GraphTypes {
 })
 export class HotelLocationBasedGraphComponent implements OnInit  {
 
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
-  Hotels: any=[];
   Bookings: any = [];
-  graphDataPoints= [];
-  id:string="booking-with-dates-chart";
+  Hotels: any = []
+  graphDataPoints=[]
+  graphName: string = "Hotel-Booking analysis";
+  id:string="hotel-location-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    //  this.reRender();
-    }
+    this.loaderDisplay = true;
+   }
     async reRender(){
-      this.loaderDisplay=true
     this.Bookings = []
     this.Hotels = []
     await this.service.httpResponseFilters("Hotels","HotelNamesWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
@@ -38,7 +38,6 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
                       {
                         this.Bookings.push(data[i].bookings);
                         this.Hotels.push(data[i].hotelName);
-                      //  console.log(this.Bookings);
                       }
                       if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
@@ -51,7 +50,15 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
                           statistics: this.Bookings
                         })
                       }
-                     this.DisplayGraph( this.chart);
+                      if(data.length ==0)
+                      {
+                        this.graphName = "No Data Found for " + this.graphName;
+         
+                      }
+                        this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Hotels, this.Bookings, this.id);
+                        this.loaderDisplay = false
+                      
+                     
                 },
         error=>{ this.errorMsg = error;}
 
@@ -66,50 +73,6 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
     ];
 
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-     this.DisplayGraph(this.chart);
-    }
-
-
-    setDataPoints(xAxis, yAxis)
-    {
-      this.graphDataPoints = []
-      for(var i = 0; i<xAxis.length;i++)
-      {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-      }
-      
-    }
-    DisplayGraph(chart ) {
-      this.loaderDisplay=false;
-      this.setDataPoints(this.Hotels,this.Bookings)
-
-      var chart = new CanvasJS.Chart("hotel-location-chart", {
-        zoomEnabled:true,
-        animationEnabled: true,
-        exportEnabled: true,
-        theme: "light1", 
-        title:{
-          text: "Hotel Location Graph"
-        },
-        data: [{
-          type: chart,
-          indexLabelFontColor: "#5A5757",
-          indexLabelPlacement: "outside",
-          dataPoints: this.graphDataPoints,
-          click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
-          }
-        }]
-      });
-      chart.render();
-    }
-      showDetails(event)
-      {
-        alert("working");
-      }
-
+  
 
     }

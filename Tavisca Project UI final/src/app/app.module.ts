@@ -12,8 +12,6 @@ import {MatAutocompleteModule,MatButtonModule,MatFormFieldModule,MatInputModule,
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { FlightWidgetComponent } from './flight-components/flight-widget/flight-widget.component';
-import { LocationBasedGraphComponent } from './hotel-components/Hotel-Statistics/location-based-graph/location-based-graph.component';
-import { HotelLocationBasedGraphComponent } from './hotel-components/Hotel-Statistics/hotel-location-based-graph/hotel-location-based-graph.component';
 import { BookingWithDatesGraphComponent } from './hotel-components/Hotel-Statistics/booking-with-dates-graph/booking-with-dates-graph.component';
 import { SupplierNameBasedGraphComponent } from './hotel-components/Hotel-Statistics/supplier-name-based-graph/supplier-name-based-graph.component';
 import { PaymentModeBasedGraphComponent } from './hotel-components/Hotel-Statistics/payment-mode-based-graph/payment-mode-based-graph.component';
@@ -24,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import  'chartjs-plugin-zoom';
 import 'hammerjs';
 import { HotelNamesWithDatesGraphComponent } from './hotel-components/Hotel-Statistics/hotel-names-with-dates-graph/hotel-names-with-dates-graph.component';
-
+import { HotelLocationBasedGraphComponent } from './hotel-components/Hotel-Statistics/hotel-location-based-graph/hotel-location-based-graph.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FailureComponent } from './Home/BookingStatus/failure/failure.component';
 import { SuccessComponent } from './Home/BookingStatus/success/success.component';
@@ -33,7 +31,6 @@ import { PastComponent } from './Home/BookingStatus/past/past.component';
 import { flightFailureComponent } from './Home/flightBookingStatus/failure/failure.component';
 import { flightSuccessComponent } from './Home/flightBookingStatus/success/success.component';
 import { flightCancelledComponent } from './Home/flightBookingStatus/cancelled/cancelled.component';
-import { GraphsComponentComponent } from './graphs-component/graphs-component.component';
 import {MatCardModule} from '@angular/material/card';
 import { HotelBookingStatusStatsComponent } from './home/BookingStatus/hotel-booking-status-stats/hotel-booking-status-stats.component';
 import { FlightPaymentModeComponent } from './flight-components/Flight-Statistics/flight-payment-mode/flight-payment-mode.component';
@@ -45,9 +42,7 @@ import { FlightBookingStatusStatsComponent } from './home/flightBookingStatus/fl
 import { FlightSourcePipe } from './pipes/flight-pipes/flight-source.pipe';
 import { FlightDestinationPipe } from './pipes/flight-pipes/flight-destination.pipe';
 import { StatsReportNotifierComponent } from './stats-report-notifier/stats-report-notifier.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
-
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,8 +51,6 @@ import { environment } from '../environments/environment';
     WidgetComponent,
     HomeComponent,
     FlightWidgetComponent,
-    LocationBasedGraphComponent,
-    HotelLocationBasedGraphComponent,
     BookingWithDatesGraphComponent,
     SupplierNameBasedGraphComponent,
     PaymentModeBasedGraphComponent,
@@ -70,7 +63,6 @@ import { environment } from '../environments/environment';
     SuccessComponent,
     CancelledComponent,
     PastComponent,
-    GraphsComponentComponent,
     HotelBookingStatusStatsComponent,
     FlightPaymentModeComponent,
     MarketingAirlineGraphComponent,
@@ -80,11 +72,13 @@ import { environment } from '../environments/environment';
     FlightBookingStatusStatsComponent,
     FlightSourcePipe,
     FlightDestinationPipe,
-    StatsReportNotifierComponent
+    StatsReportNotifierComponent,
+    HotelLocationBasedGraphComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgbModule.forRoot(),
     NgCircleProgressModule.forRoot({
       radius: 130,
       outerStrokeWidth: 22,
@@ -110,8 +104,7 @@ import { environment } from '../environments/environment';
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
   exports:[
     MatCheckboxModule,

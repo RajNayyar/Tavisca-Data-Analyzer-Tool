@@ -14,22 +14,22 @@ export interface GraphTypes {
 export class MarketingAirlineGraphComponent implements OnInit {
 
  
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
   AirlineName: any=[];
   NumberOfBooking: any = [];
   graphDataPoints= [];
+  graphName: string = "Marketing-Airline-Booking Analysis";
   id:string="marketing-airline-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    
-     this.reRender()
+    this.loaderDisplay = true;
+     //this.reRender()
     }
     reRender()
     {
-      this.loaderDisplay = true;
       this.AirlineName = []
       this.NumberOfBooking= []
 
@@ -41,7 +41,17 @@ export class MarketingAirlineGraphComponent implements OnInit {
                           this.AirlineName.push(data[i].airlineName+"("+data[i].airLineCode+")");
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        debugger
+                        if(data.length ==0)
+                        {
+                          this.graphName = "No Data Found for " + this.graphName;
+           
+                        }
+                      
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.AirlineName, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
+                        
+                        
                   },
           error=>{ this.errorMsg = error;}
 
@@ -55,45 +65,5 @@ export class MarketingAirlineGraphComponent implements OnInit {
       {value: 'area', viewValue: 'area Graph'},
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
-
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
-
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.AirlineName,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Marketing Airline Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
 
 }

@@ -21,6 +21,7 @@ export class StatsReportNotifierComponent implements OnInit {
   ngOnInit() {
   }
   SendEmail(){
+    debugger
     console.log(this.service.statsReport)
     this.FilterName = []
     this.StartDate = []

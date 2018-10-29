@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
 import { FlightPaymentModeComponent } from '../Flight-Statistics/flight-payment-mode/flight-payment-mode.component';
@@ -6,6 +7,8 @@ import { FlightBookingWithDateRangeGraphComponent } from '../Flight-Statistics/f
 import { FlightTotalBookingsGraphComponent } from '../Flight-Statistics/flight-total-bookings-graph/flight-total-bookings-graph.component';
 import { MarketingAirlineGraphComponent } from '../Flight-Statistics/marketing-airline-graph/marketing-airline-graph.component';
 import { FlightOriginDestinationGraphComponent } from '../Flight-Statistics/flight-origin-destination-graph/flight-origin-destination-graph.component';
+
+import { trigger, state, style, transition, animate } from '@angular/animations';
 export interface Graph {
   value: string;
   viewValue: string;
@@ -13,10 +16,49 @@ export interface Graph {
 @Component({
   selector: 'flight-widget',
   templateUrl: './flight-widget.component.html',
-  styleUrls: ['./flight-widget.component.css']
+ styleUrls: ['./flight-widget.component.css'],
+  animations: [
+    trigger('collapse', [
+      state('open', style({
+        opacity: '1'
+      })),
+      state('closed',   style({
+        opacity: '0',
+        display: 'none',   
+      })),
+      transition('closed => open', animate('400ms ease-in')),
+      transition('open => closed', animate('100ms ease-out'))
+    ])
+  ]
 })
 export class FlightWidgetComponent implements OnInit {
- 
+  isFlightNavbarCollapsed=true;
+  _isFlightNavbarCollapsedAnim = 'closed';
+  @HostListener('window:resize', ['$event.target']) 
+onScreenResize(event) { 
+  if(event.innerWidth > 600){
+    
+    this.showButton=false;
+    this._isFlightNavbarCollapsedAnim = 'open';
+      this.isFlightNavbarCollapsed = true;
+  }else{
+    this.showButton=true;
+      this._isFlightNavbarCollapsedAnim = 'closed';
+  }
+}
+  flightToggleNavbar(): void {
+    if(this.isFlightNavbarCollapsed){
+        this._isFlightNavbarCollapsedAnim = 'open';
+      this.isFlightNavbarCollapsed = false;
+    } else {
+    this._isFlightNavbarCollapsedAnim = 'closed';
+  
+      this.isFlightNavbarCollapsed = true;
+    }
+  }
+  get isFlightNavbarCollapsedAnim() : string {
+    return this._isFlightNavbarCollapsedAnim;
+  }
   flightPaymentMode = new  FlightPaymentModeComponent(this.service)
   marketingAirline = new MarketingAirlineGraphComponent(this.service)
   flightTotalBookings = new FlightTotalBookingsGraphComponent(this.service)
@@ -36,7 +78,7 @@ currentStartDate:Date;
  searchTerm:any;
  checkValue:Array<string>=['place', 'marketingAirline', 'bookDate', 'allBookings', 'paymentMode'];
 
-
+ showButton:boolean;
   graphs: Graph[] = [
     {value: 'place', viewValue: 'Origin and Destination Scenario'},
     {value: 'marketingAirline', viewValue: 'Marketing Airline'},
@@ -52,7 +94,14 @@ currentStartDate:Date;
 }
 
 ngOnInit() {
-  this.ServiceCalls()
+  this.service.source = "LAX";
+  this.service.destination="LAS";
+  this.service.start = "2015-05-15";
+  this.service.end = "2018-05-15";
+  this.ServiceCalls();
+  this.showButton=false;
+  
+  this.onScreenResize(window);
   this.flightInputForm=this.fb.group({
     'startDateControl':[null,[Validators.required]],
     'endDateControl':[null,[Validators.required]]

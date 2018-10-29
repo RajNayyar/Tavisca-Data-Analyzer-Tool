@@ -14,22 +14,22 @@ export interface GraphTypes {
 export class FlightTotalBookingsGraphComponent implements OnInit {
 
 
-  chart: string = "line";
+  
+  defaultGraphType: string = "line" 
   errorMsg: any
   BookingStatus: any=["Failure","Success","Cancelled"];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  graphName: string = "Status-Booking Analysis";
   id:string="total-bookings-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    
-     this.reRender()
+    this.loaderDisplay = true;
+    // this.reRender()
     }
     reRender()
     {
-      this.loaderDisplay = true;
       this.BookingStatus = ["Failure","Success","Cancelled"]
       this.NumberOfBooking= []
 
@@ -40,7 +40,14 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
                         {
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        if(data.length ==0)
+                        {
+                          this.graphName = "No Data Found for " + this.graphName;
+           
+                        }
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingStatus, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
+                        
                   },
           error=>{ this.errorMsg = error;}
 
@@ -55,43 +62,5 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
 
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.BookingStatus,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Total Bookings Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
 }

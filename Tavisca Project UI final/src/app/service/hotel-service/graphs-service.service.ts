@@ -3,10 +3,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+
 declare var CanvasJS: any;
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class GraphsServiceService {
   //hotelLocation = {};
   location:string = "Las Vegas";
@@ -30,6 +33,11 @@ export class GraphsServiceService {
     return this.http.post('http://taviscadataanalyzertool.ap-south-1.elasticbeanstalk.com/api/EmailSender',EmailDetails)
                     .catch(this.errorHandler);
   }
+  errorHandler(error: HttpErrorResponse){
+    return Observable.throw(error.message || "Server Error");
+  }
+
+
   setDataPoints(xAxis, yAxis)
   {
     this.graphDataPoints = [];
@@ -37,11 +45,11 @@ export class GraphsServiceService {
     {
       this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
     }
-    
   }
-  DisplayGraph(chart, xAxis, yAxis, id ) {
+  
+  DisplayGraph(chart, graphName, xAxis, yAxis, id ) {
     
-    this.setDataPoints(xAxis,yAxis);
+   this.setDataPoints(xAxis,yAxis);
 
    var chart = new CanvasJS.Chart(id, {
      zoomEnabled:true,
@@ -49,7 +57,7 @@ export class GraphsServiceService {
      exportEnabled: true,
      theme: "light1", 
      title:{
-       text: "Supplier Name Graph"
+       text: graphName
      },
      data: [{
        type: chart,
@@ -62,9 +70,11 @@ export class GraphsServiceService {
      }]
    });
    chart.render();
-   
  }
-  errorHandler(error: HttpErrorResponse){
-    return Observable.throw(error.message || "Server Error");
-  }
+ GraphSelect(graphValue, graphName, xAxis, yAxis, id)
+    {
+     var chart = graphValue;
+     this.DisplayGraph( chart, graphName, xAxis, yAxis, id);
+    }
+
 }

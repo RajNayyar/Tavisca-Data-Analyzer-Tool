@@ -3,6 +3,7 @@ import {Chart, ChartDataSets, ChartArea} from 'chart.js';
 import 'hammerjs';
 import 'chartjs-plugin-zoom';
 import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { debug } from 'util';
 declare var CanvasJS: any;
 
 export interface GraphTypes {
@@ -16,46 +17,36 @@ export interface GraphTypes {
 })
 export class PaymentModeBasedGraphComponent implements OnInit {
 
-  GraphTypeValue: string
-  title = 'Modes of Payment';
-  chart: string = "line";
-  hotelLocationGraph: any;
-  defaultGraphType: string
+  defaultGraphType: string = "line" 
   errorMsg: any
-  PaymentType: any=[];
-  NumberOfBooking: any = [];
-  paymentStartDate: string;
-  paymentEndDate: string;
-  paymentLocation: string;
-  defaultStartDate: string = "2015-05-15"
-  defaultEndDate: string = "2018-05-15"
-  defaultLocation: string = "Las Vegas"
-  graphDataPoints= [];
-  id:string="payment-mode-chart";
+  paymentType: any=[];
+  numberOfBooking: any = [];
+  graphDataPoints=[]
   loaderDisplay: boolean
+  id:string = "payment-mode-chart";
+  graphName: string = "Mode of Payment Analysis";
   constructor (private service:GraphsServiceService) {
    
    }
 
  
   ngOnInit(){
-  //  this.reRender()
+    this.loaderDisplay = true;
     }
     reRender()
     {
-      this.loaderDisplay=true
-    this.hotelLocationGraph = null;
+    this.loaderDisplay=true
     this.defaultGraphType = "line";
-    this.PaymentType = []
-    this.NumberOfBooking= []
+    this.paymentType = []
+    this.numberOfBooking= []
 
        this.service.httpResponseFilters("Hotels","PaymentType?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
     .subscribe( data=>{
            
                     for(var i=0;i<Object.keys(data).length;i++)
                       {
-                        this.PaymentType.push(data[i].paymentType);
-                        this.NumberOfBooking.push(data[i].numberOfBooking);
+                        this.paymentType.push(data[i].paymentType);
+                        this.numberOfBooking.push(data[i].numberOfBooking);
                       //  console.log(this.Bookings);
                       } 
                       if(!this.service.statsReport.includes(this.service.statsReport.filter)){
@@ -65,11 +56,19 @@ export class PaymentModeBasedGraphComponent implements OnInit {
                           startDate: this.service.start,
                           endDate: this.service.end,
                           location: this.service.location,
-                          labels: this.PaymentType,
-                          statistics: this.NumberOfBooking
+                          labels: this.paymentType,
+                          statistics: this.numberOfBooking
                         })
                       }
-                      this.DisplayGraph( this.chart);
+                      if(data.length ==0)
+                      {
+                        this.graphName = "No Data Found for " + this.graphName;
+         
+                      }
+                        this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.numberOfBooking, this.id);
+                        this.loaderDisplay = false
+                      
+                      
                       
  
                 },
@@ -84,55 +83,6 @@ export class PaymentModeBasedGraphComponent implements OnInit {
       {value: 'area', viewValue: 'Area Graph'},
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
-
-
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-     this.DisplayGraph(this.chart);
-    }
-
-
-    setDataPoints(xAxis, yAxis)
-    {
-      this.graphDataPoints = [];
-      for(var i = 0; i<xAxis.length;i++)
-      {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-      }
-
-    }
-   DisplayGraph(chart ) {
-    //   if(this.hotelLocationGraph!=null)
-    //   {this.hotelLocationGraph.destroy();}
-    this.loaderDisplay=false;
-      this.setDataPoints(this.PaymentType,this.NumberOfBooking)
-
-      var chart = new CanvasJS.Chart(this.id, {
-        zoomEnabled:true,
-        animationEnabled: true,
-        exportEnabled: true,
-        theme: "light1", 
-        title:{
-          text: "Payment Mode Graph"
-        },
-        data: [{
-          type: chart,
-          indexLabelFontColor: "#5A5757",
-          indexLabelPlacement: "outside",
-          dataPoints: this.graphDataPoints,
-          click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
-          }
-        }]
-      });
-      chart.render();
-    }
-      showDetails(event)
-      {
-        alert("working");
-      }
- 
     }
    
   

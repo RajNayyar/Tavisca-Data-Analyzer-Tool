@@ -13,22 +13,21 @@ export interface GraphTypes {
 })
 export class FlightPaymentModeComponent implements OnInit {
 
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
-  paymentType: any=[];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  paymentType: any = []
+  graphName: string = "Payment Mode Analysis";
   id:string="flight-payment-mode-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    
-     this.reRender()
+    this.loaderDisplay = true;
+     //this.reRender()
     }
     reRender()
     {
-      this.loaderDisplay = true;
       this.paymentType = []
       this.NumberOfBooking= []
 
@@ -40,7 +39,14 @@ export class FlightPaymentModeComponent implements OnInit {
                           this.paymentType.push(data[i].paymentType);
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        if(data.length ==0)
+                        {
+                          this.graphName = "No Data Found for " + this.graphName;
+           
+                        }
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
+                        
                   },
           error=>{ this.errorMsg = error;}
 
@@ -55,44 +61,6 @@ export class FlightPaymentModeComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
-
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.paymentType,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Payment Mode Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
+   
  
 }
