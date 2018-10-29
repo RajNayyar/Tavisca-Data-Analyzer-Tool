@@ -1,0 +1,12 @@
+<div class="email-popup"> 
+    <div mat-dialog-content class="dialog-content">
+      <h2>Please Enter your Email Address: </h2>
+      <mat-form-field class="email-input">
+        <input matInput [(ngModel)]="notifierLabel.EmailId">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="popup-buttons">
+      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button (click)="notifierLabel.SendEmail()" cdkFocusInitial>Ok</button>
+    </div>
+    </div>

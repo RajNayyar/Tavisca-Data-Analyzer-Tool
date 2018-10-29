@@ -60,7 +60,7 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       this.service.destination=this.destinationTerm;
       
       }
-     this.reRender()
+     //this.reRender()
     }
     reRender()
     {
@@ -77,6 +77,15 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
                           this.AirlineName.push(data[i].airlineName);
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
+                        this.service.statsReport.push(
+                          {
+                            filter: "Booking for Specific Trip",
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: this.service.location,
+                            labels: this.AirlineName,
+                            statistics: this.NumberOfBooking
+                          });
                         this.DisplayGraph( this.chart);
                   },
           error=>{ this.errorMsg = error;}

@@ -25,7 +25,7 @@ export class MarketingAirlineGraphComponent implements OnInit {
  
   ngOnInit(){
     
-     this.reRender()
+   //  this.reRender()
     }
     reRender()
     {
@@ -41,6 +41,15 @@ export class MarketingAirlineGraphComponent implements OnInit {
                           this.AirlineName.push(data[i].airlineName+"("+data[i].airLineCode+")");
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
+                        this.service.statsReport.push(
+                          {
+                            filter: "Marketing Airline Booking",
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: this.service.location,
+                            labels: this.AirlineName,
+                            statistics: this.NumberOfBooking
+                          });
                         this.DisplayGraph( this.chart);
                   },
           error=>{ this.errorMsg = error;}

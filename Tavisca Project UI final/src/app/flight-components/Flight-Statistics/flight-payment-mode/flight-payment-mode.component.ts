@@ -24,7 +24,7 @@ export class FlightPaymentModeComponent implements OnInit {
  
   ngOnInit(){
     
-     this.reRender()
+   //  this.reRender()
     }
     reRender()
     {
@@ -40,6 +40,15 @@ export class FlightPaymentModeComponent implements OnInit {
                           this.paymentType.push(data[i].paymentType);
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
+                        this.service.statsReport.push(
+                          {
+                            filter: "Payment Mode",
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: this.service.location,
+                            labels: this.paymentType,
+                            statistics: this.NumberOfBooking
+                          });
                         this.DisplayGraph( this.chart);
                   },
           error=>{ this.errorMsg = error;}

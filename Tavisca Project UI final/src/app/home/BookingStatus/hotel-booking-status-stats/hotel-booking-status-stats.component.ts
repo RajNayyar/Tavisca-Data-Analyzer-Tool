@@ -9,9 +9,9 @@ declare var CanvasJS: any;
 export class HotelBookingStatusStatsComponent implements OnInit {
   chart: string = "doughnut";
   errorMsg: any
-  bookingStatus: any=["Success","Failure","Cancelled"];
+  bookingStatus: any=[];
   numberOfBookings: any = [];
-  colors:any=["#175b15","#d8350d","#d8b00d"];
+  colors:any=[];
   count:any;
   graphDataPoints= [];
   id:string="booking-with-dates-chart";
@@ -20,10 +20,25 @@ export class HotelBookingStatusStatsComponent implements OnInit {
    
     this.service.httpResponseFilters("Hotels","TotalBookings")
     .subscribe( data=>{
-                   
-                        this.numberOfBookings.push(data[1].count);
-                        this.numberOfBookings.push(data[0].count);
-                        this.numberOfBookings.push(data[3].count);
+      for(var i=0;i<Object.keys(data).length;i++)
+      {
+        if(data[i].type=="Purchased") {
+          this.bookingStatus.push(data[i].type);
+            this.numberOfBookings.push(data[i].count);
+            this.colors.push("#175b15");
+        }
+            if(data[i].type=="Canceled"){
+              this.bookingStatus.push(data[i].type);
+            this.numberOfBookings.push(data[i].count);
+            this.colors.push("#d8b00d");
+            }
+            if(data[i].type=="Planned"){
+              this.bookingStatus.push(data[i].type);
+            this.numberOfBookings.push(data[i].count);
+            this.colors.push("#d8350d");
+            }
+      }
+              
                      this.DisplayGraph( this.chart);
                 },
         error=>{ this.errorMsg = error;}

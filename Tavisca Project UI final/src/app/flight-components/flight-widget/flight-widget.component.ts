@@ -94,12 +94,18 @@ currentStartDate:Date;
 }
 
 ngOnInit() {
+  this.service.start = "2015-05-15";
+  this.service.end = "2018-05-15";
+  this.service.source="LAX";
+  this.service.destination ="LAS";
   this.showButton=false;
-  
+  this.service.statsReport = []
+  this.ServiceCalls()
   this.onScreenResize(window);
   this.flightInputForm=this.fb.group({
     'startDateControl':[null,[Validators.required]],
-    'endDateControl':[null,[Validators.required]]
+    'endDateControl':[null,[Validators.required]],
+    'flightFilterControl':[null,[Validators.required]]
   });
 
 }
@@ -132,6 +138,7 @@ dataAnalysis(startDate, endDate,checkVal){
   this.flightStartDate = startDate.toString();
   this.flightEndDate = this.dateFormatter(this.flightEndDate)
   this.flightStartDate = this.dateFormatter(this.flightStartDate)
+  this.service.statsReport = []
   this.service.start=this.flightStartDate;
   this.service.end=this.flightEndDate;
    this.ServiceCalls()

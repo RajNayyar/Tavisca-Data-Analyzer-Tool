@@ -10,9 +10,9 @@ export class FlightBookingStatusStatsComponent implements OnInit {
 
   chart: string = "doughnut";
   errorMsg: any
-  bookingStatus: any=["Success","Failure","Cancelled"];
+  bookingStatus: any=[];
   numberOfBookings: any = [];
-  colors:any=["#175b15","#d8350d","#d8b00d"];
+  colors:any=[];
   count:any;
   graphDataPoints= [];
   constructor (private service:GraphsServiceService) { }
@@ -20,10 +20,24 @@ export class FlightBookingStatusStatsComponent implements OnInit {
    
     this.service.httpResponseFilters("Air","TotalBookings")
     .subscribe( data=>{
-                   
-                        this.numberOfBookings.push(data[1].numberOfBookings);
-                        this.numberOfBookings.push(data[0].numberOfBookings);
-                        this.numberOfBookings.push(data[2].numberOfBookings);
+      for(var i=0;i<Object.keys(data).length;i++)
+      {           
+      if(data[i].bookingStatus=="Purchased") {
+        this.bookingStatus.push(data[i].bookingStatus);
+          this.numberOfBookings.push(data[i].numberOfBookings);
+          this.colors.push("#175b15");
+      }
+          if(data[i].bookingStatus=="Canceled"){
+            this.bookingStatus.push(data[i].bookingStatus);
+          this.numberOfBookings.push(data[i].numberOfBookings);
+          this.colors.push("#d8b00d");
+          }
+          if(data[i].bookingStatus=="Planned"){
+            this.bookingStatus.push(data[i].bookingStatus);
+          this.numberOfBookings.push(data[i].numberOfBookings);
+          this.colors.push("#d8350d");
+          }
+        }
                      this.DisplayGraph( this.chart);
                 },
         error=>{ this.errorMsg = error;}

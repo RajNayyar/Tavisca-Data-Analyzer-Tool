@@ -25,21 +25,41 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
  
   ngOnInit(){
     
-     this.reRender()
+   //  this.reRender()
     }
     reRender()
     {
       this.loaderDisplay = true;
-      this.BookingStatus = ["Failure","Success","Cancelled"]
+      this.BookingStatus = []
       this.NumberOfBooking= []
 
       this.service.httpResponseFilters("Air","TotalBookings")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
-                        {
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
-                        }
+        for(var i=0;i<Object.keys(data).length;i++)
+        {           
+        if(data[i].bookingStatus=="Purchased") {
+          this.BookingStatus.push(data[i].bookingStatus);
+            this.NumberOfBooking.push(data[i].numberOfBookings);
+        }
+            if(data[i].bookingStatus=="Canceled"){
+              this.BookingStatus.push(data[i].bookingStatus);
+            this.NumberOfBooking.push(data[i].numberOfBookings);
+            }
+            if(data[i].bookingStatus=="Planned"){
+              this.BookingStatus.push(data[i].bookingStatus);
+            this.NumberOfBooking.push(data[i].numberOfBookings);
+            }
+          }
+                        this.service.statsReport.push(
+                          {
+                            filter: "Total Bookings",
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: this.service.location,
+                            labels: this.BookingStatus,
+                            statistics: this.NumberOfBooking
+                          });
                         this.DisplayGraph( this.chart);
                   },
           error=>{ this.errorMsg = error;}

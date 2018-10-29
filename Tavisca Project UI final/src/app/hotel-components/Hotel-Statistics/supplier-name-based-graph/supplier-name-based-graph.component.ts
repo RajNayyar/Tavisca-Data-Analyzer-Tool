@@ -33,7 +33,7 @@ export class SupplierNameBasedGraphComponent implements OnInit
   constructor (private service:GraphsServiceService) { }
   
   ngOnInit(){
-    this.reRender()
+   // this.reRender()
   }
   reRender(){
     this.loaderDisplay=true

@@ -24,7 +24,7 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
  
   ngOnInit(){
     
-     this.reRender()
+     //this.reRender()
     }
     reRender()
     {
@@ -40,6 +40,15 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
                           this.Date.push(data[i].date);
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
+                        this.service.statsReport.push(
+                          {
+                            filter: "Bookings within date range",
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: this.service.location,
+                            labels: this.Date,
+                            statistics: this.NumberOfBooking
+                          });
                         this.DisplayGraph( this.chart);
                   },
           error=>{ this.errorMsg = error;}

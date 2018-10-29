@@ -20,8 +20,12 @@ export class SuccessComponent implements OnInit {
   ngOnInit() {
   
     this.service.httpResponseFilters("Hotels","TotalBookings")
-    .subscribe( data=>{
-      this.successCount=data[1].count;
+    .subscribe( data=>{ 
+      for(var i=0;i<Object.keys(data).length;i++)
+      {
+        if(data[i].type=="Purchased")
+            this.successCount=data[i].count;
+      }
                 },
         error=>{ this.errorMsg = error;}
 

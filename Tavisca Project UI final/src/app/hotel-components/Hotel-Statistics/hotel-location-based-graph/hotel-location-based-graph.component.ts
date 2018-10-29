@@ -26,7 +26,7 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-      this.reRender();
+     // this.reRender();
     }
     async reRender(){
       this.loaderDisplay=true

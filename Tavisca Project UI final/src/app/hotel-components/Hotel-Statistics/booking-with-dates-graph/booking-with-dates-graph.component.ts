@@ -27,7 +27,7 @@ export class BookingWithDatesGraphComponent implements OnInit {
  
   ngOnInit(){
     
-     this.reRender()
+    // this.reRender()
     }
     reRender()
     {

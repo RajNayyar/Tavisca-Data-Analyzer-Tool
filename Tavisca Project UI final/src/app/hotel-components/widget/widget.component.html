@@ -38,7 +38,10 @@
                                 </mat-form-field>
                           
                               <mat-form-field>
-                                <mat-select placeholder="Graph Type" #check multiple>
+                                <mat-select placeholder="Graph Type" #check multiple  formControlName="hotelFilterControl" required>
+                                    <mat-error tabindex="-1" *ngIf="inputForm.controls.hotelFilterControl.hasError('required')">
+                                        *Required
+                                      </mat-error>
                                   <mat-option *ngFor="let graph of graphs" [value]="graph.value" >
                                     {{graph.viewValue}}
                                   </mat-option>
@@ -58,7 +61,7 @@
           <hotel-names-with-dates-graph tabindex="3" *ngIf="checkValue.includes('name')"></hotel-names-with-dates-graph>
           <payment-mode-based-graph tabindex="4" *ngIf="checkValue.includes('paymentMode')"></payment-mode-based-graph> 
           <hotel-location-based-graph tabindex="5" class = "hotel-location" *ngIf="checkValue.includes('location')"></hotel-location-based-graph >
-          <app-stats-report-notifier tabindex="6"></app-stats-report-notifier>
+          <!-- <app-stats-report-notifier tabindex="6"></app-stats-report-notifier> -->
           </div>
      
     

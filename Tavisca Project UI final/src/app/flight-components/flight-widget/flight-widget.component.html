@@ -24,7 +24,10 @@
     <mat-datepicker #secondPicker></mat-datepicker>
   </mat-form-field>
    <mat-form-field>
-      <mat-select placeholder="Graph Type" #check multiple>
+      <mat-select placeholder="Graph Type" #check multiple formControlName="flightFilterControl" required>
+          <mat-error *ngIf="flightInputForm.controls.flightFilterControl.hasError('required')">
+              *Required
+            </mat-error>
         <mat-option *ngFor="let graph of graphs" [value]="graph.value" >
           {{graph.viewValue}}
         </mat-option>
