@@ -42,7 +42,7 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
                       if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
                         {
-                          filter: "Hotel based on location",
+                          filter: this.graphName,
                           startDate: this.service.start,
                           endDate: this.service.end,
                           location: this.service.location,

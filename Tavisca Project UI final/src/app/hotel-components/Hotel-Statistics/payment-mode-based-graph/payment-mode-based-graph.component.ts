@@ -52,7 +52,7 @@ export class PaymentModeBasedGraphComponent implements OnInit {
                       if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
                         {
-                          filter: "Payment Type Analysis",
+                          filter: this.graphName,
                           startDate: this.service.start,
                           endDate: this.service.end,
                           location: this.service.location,
@@ -63,8 +63,8 @@ export class PaymentModeBasedGraphComponent implements OnInit {
                       if(data.length ==0)
                       {
                         this.graphName = "No Data Found for " + this.graphName;
-         
                       }
+                        
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.numberOfBooking, this.id);
                         this.loaderDisplay = false
                       

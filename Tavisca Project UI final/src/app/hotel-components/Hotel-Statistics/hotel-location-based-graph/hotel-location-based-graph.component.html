@@ -1,5 +1,5 @@
 <div id="hotel-location-chart-container"><mat-select placeholder="Graph Type" class="graph-types">
-    <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="service.GraphSelect(graph.value, this.graphName, this.SupplierName, this.NumberOfBooking, this.id)">
+    <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="service.GraphSelect(graph.value, this.graphName, this.id)">
       {{graph.viewValue}}
     </mat-option>
   </mat-select>
