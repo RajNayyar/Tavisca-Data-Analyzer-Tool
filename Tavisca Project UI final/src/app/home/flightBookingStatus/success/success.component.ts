@@ -13,8 +13,12 @@ export class flightSuccessComponent implements OnInit {
 
   ngOnInit() {
     this.service.httpResponseFilters("Air","TotalBookings")
-    .subscribe( data=>{
-      this.flightSuccessCount=data[1].numberOfBookings;
+    .subscribe( data=>{   
+       for(var i=0;i<Object.keys(data).length;i++)
+      {
+        if(data[i].bookingStatus=="Purchased")
+            this.flightSuccessCount=data[i].numberOfBookings;
+      }
                 },
         error=>{ this.errorMsg = error;}
 

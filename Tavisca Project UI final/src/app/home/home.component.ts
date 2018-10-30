@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GraphsServiceService } from '../service/hotel-service/graphs-service.service';
 
 @Component({
   selector: 'home',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 dateMessage: string;
-  constructor() { 
+  constructor(private service: GraphsServiceService) { 
     setInterval(()=> {
       let currentDate = new Date();
       this.dateMessage = currentDate.toDateString() + ' ' + currentDate.toLocaleTimeString()
@@ -15,6 +16,7 @@ dateMessage: string;
   }
 
   ngOnInit() {
+    this.service.statsReport=[];
     let currentDate = new Date();
     this.dateMessage = currentDate.toDateString() + ' ' + currentDate.toLocaleTimeString()
   }

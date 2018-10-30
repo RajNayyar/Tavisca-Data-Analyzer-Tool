@@ -106,6 +106,7 @@ onResize(event) {
  }
 
   ngOnInit() {
+    this.service.statsReport = [];
     this.service.location = "Las Vegas";
     this.service.start = "2015-05-15";
     this.service.end = "2018-05-15";
@@ -115,7 +116,8 @@ onResize(event) {
     this.inputForm=this.fb.group({
       'startDateControl':[null,[Validators.required]],
       'endDateControl':[null,[Validators.required]],
-      'location':[null,[Validators.required]]
+      'location':[null,[Validators.required]],
+      'filterControl':[null,[Validators.required]]
     });
   
   }
@@ -128,7 +130,7 @@ onResize(event) {
    var hotelLocation = new HotelLocationBasedGraphComponent(this.service)
    var hotelNames = new HotelNamesWithDatesGraphComponent(this.service)
    var book = new BookingWithDatesGraphComponent(this.service)
-   var    supplierName = new SupplierNameBasedGraphComponent(this.service)
+   var supplierName = new SupplierNameBasedGraphComponent(this.service)
    var payment = new PaymentModeBasedGraphComponent(this.service)
     console.log(this.checkValue);
 

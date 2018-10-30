@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphsServiceService } from '../service/hotel-service/graphs-service.service';
-
+import { NotifierLabelDialogComponent } from './notifier-label-dialog/notifier-label-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
+export interface DialogData {
+ 
+}
 @Component({
   selector: 'app-stats-report-notifier',
   templateUrl: './stats-report-notifier.component.html',
@@ -16,13 +20,21 @@ export class StatsReportNotifierComponent implements OnInit {
   Labels = []
   Statistics = []
   EmailJson ={}
-  constructor(private service: GraphsServiceService) { }
+  constructor(private service: GraphsServiceService,public dialog: MatDialog) { }
 
   ngOnInit() {
   }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NotifierLabelDialogComponent, {
+      width: '500px'
+    });
+    
+  // dialogRef.afterClosed().subscribe(result => {
+  //   console.log('The dialog was closed');
+    
+  // });
+}
   SendEmail(){
-    debugger
-    console.log(this.service.statsReport)
     this.FilterName = []
     this.StartDate = []
     this.EndDate = []

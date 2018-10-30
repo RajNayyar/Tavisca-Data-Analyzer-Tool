@@ -38,7 +38,10 @@
                                 </mat-form-field>
                           
                               <mat-form-field>
-                                <mat-select placeholder="Graph Type" #check multiple>
+                                <mat-select placeholder="Graph Type" #check multiple formControlName="filterControl" required>
+                                    <mat-error *ngIf="inputForm.controls.filterControl.hasError('required')">
+                                        *Required
+                                      </mat-error>
                                   <mat-option *ngFor="let graph of graphs" [value]="graph.value" >
                                     {{graph.viewValue}}
                                   </mat-option>

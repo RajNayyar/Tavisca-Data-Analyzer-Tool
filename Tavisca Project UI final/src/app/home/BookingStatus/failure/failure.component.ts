@@ -15,7 +15,11 @@ export class FailureComponent implements OnInit {
   
     this.service.httpResponseFilters("Hotels","TotalBookings")
     .subscribe( data=>{
-            this.failureCount=data[0].count;
+      for(var i=0;i<Object.keys(data).length;i++)
+      {
+        if(data[i].type=="Planned")
+            this.failureCount=data[i].count;
+      }
                 },
         error=>{ this.errorMsg = error;}
 

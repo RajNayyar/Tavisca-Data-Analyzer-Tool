@@ -43,6 +43,7 @@ import { FlightSourcePipe } from './pipes/flight-pipes/flight-source.pipe';
 import { FlightDestinationPipe } from './pipes/flight-pipes/flight-destination.pipe';
 import { StatsReportNotifierComponent } from './stats-report-notifier/stats-report-notifier.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NotifierLabelDialogComponent } from './stats-report-notifier/notifier-label-dialog/notifier-label-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     FlightSourcePipe,
     FlightDestinationPipe,
     StatsReportNotifierComponent,
-    HotelLocationBasedGraphComponent
+    HotelLocationBasedGraphComponent,
+    NotifierLabelDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -112,6 +114,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     MatIconModule,
     MatButtonModule
   ],
+  entryComponents: [
+    NotifierLabelDialogComponent
+],
   providers: [ GraphsServiceService],
   bootstrap: [AppComponent]
 })

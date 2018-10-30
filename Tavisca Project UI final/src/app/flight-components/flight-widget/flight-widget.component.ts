@@ -94,6 +94,7 @@ currentStartDate:Date;
 }
 
 ngOnInit() {
+  this.service.statsReport = [];
   this.service.source = "LAX";
   this.service.destination="LAS";
   this.service.start = "2015-05-15";
@@ -104,7 +105,8 @@ ngOnInit() {
   this.onScreenResize(window);
   this.flightInputForm=this.fb.group({
     'startDateControl':[null,[Validators.required]],
-    'endDateControl':[null,[Validators.required]]
+    'endDateControl':[null,[Validators.required]],
+    'flightFilterControl':[null,[Validators.required]]
   });
 
 }

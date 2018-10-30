@@ -2,8 +2,12 @@
 section{
     width: 100%;
 }
-header{
-
+.footer{
+    position: fixed;
+ background-color: #133764;
+    box-shadow: 0px 4px 8px 8px grey;
+    bottom: 0;
+    width: 100%;
 }
 .loader{
     width: 100px;

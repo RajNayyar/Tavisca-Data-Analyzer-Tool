@@ -21,7 +21,6 @@ export class GraphsServiceService {
   statsReport = []
   SearchParam:any;
   graphDataPoints=[]
-  TempCache = []
   //locationServiceResponse: any;
   constructor(private http: HttpClient) { }
 
@@ -51,7 +50,7 @@ export class GraphsServiceService {
   DisplayGraph(chart, graphName, xAxis, yAxis, id ) {
     
    this.setDataPoints(xAxis,yAxis);
-    debugger
+
    var chart = new CanvasJS.Chart(id, {
      zoomEnabled:true,
      animationEnabled: true,
@@ -72,9 +71,8 @@ export class GraphsServiceService {
    });
    chart.render();
  }
- GraphSelect(graphValue, graphName, id)
+  GraphSelect(graphValue, graphName, id)
     {
-      debugger
       for(var i = 0; i< this.statsReport.length;i++)
       {
         console.log(this.statsReport[i].filter)

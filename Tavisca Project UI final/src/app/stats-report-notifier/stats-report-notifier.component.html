@@ -1,5 +1,5 @@
 <div class="email-container">
-    <div><h2 class="email-stats-text">Send Statistics report to yourself:</h2></div>
-    <div><input class="email-text" type="text" placeholder="E-mail" [(ngModel)]="EmailId">
-    <button class="mail-button"><img class="mail-img" src="..\src\assets\images\mail.png" (click)="SendEmail()"></button></div>
-  </div>
+  <div><span class="info">Send Statistics report to yourself:</span>
+     
+    <button  class="mail-button" mat-raised-button (click)="openDialog()">Send Email <img class="mail-img" src="..\src\assets\images\mail.png"></button>
+  </div> </div>
