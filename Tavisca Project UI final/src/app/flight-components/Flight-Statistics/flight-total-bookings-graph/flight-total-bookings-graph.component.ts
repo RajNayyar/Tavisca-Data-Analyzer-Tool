@@ -40,13 +40,24 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
                         {
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
-                        if(data.length ==0)
-                        {
-                          this.graphName = "No Data Found for " + this.graphName;
-           
-                        }
-                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingStatus, this.NumberOfBooking, this.id);
-                          this.loaderDisplay = false
+                        this.service.statsReport.push(
+                          {
+                            filter: this.graphName,
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: "-",
+                            labels: this.BookingStatus,
+                            statistics: this.NumberOfBooking
+                          })
+                          if(data.length ==0)
+                          {
+                            this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.BookingStatus, this.NumberOfBooking, this.id);
+                            this.loaderDisplay = false
+                          }
+                          else{
+                            this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingStatus, this.NumberOfBooking, this.id);
+                            this.loaderDisplay = false
+                            }
                         
                   },
           error=>{ this.errorMsg = error;}

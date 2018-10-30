@@ -52,6 +52,7 @@ export class StatsReportNotifierComponent implements OnInit {
       this.Labels.push(this.service.statsReport[i].labels)
       this.Statistics.push(this.service.statsReport[i].statistics)
     }
+    debugger
    this.EmailJson = {
       "RecipientEmialId":this.EmailId,
       "FilterName":this.FilterName,
@@ -61,7 +62,7 @@ export class StatsReportNotifierComponent implements OnInit {
       "Labels":this.Labels,
       "Statistics": this.Statistics
     }
-
+debugger
     this.service.httpEmailSending(this.EmailJson)
     .subscribe(
       data=>{console.log(data);},

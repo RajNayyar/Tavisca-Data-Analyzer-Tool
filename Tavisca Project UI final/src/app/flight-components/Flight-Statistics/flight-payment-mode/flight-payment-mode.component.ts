@@ -39,13 +39,25 @@ export class FlightPaymentModeComponent implements OnInit {
                           this.paymentType.push(data[i].paymentType);
                           this.NumberOfBooking.push(data[i].numberOfBookings);
                         }
-                        if(data.length ==0)
+                        this.service.statsReport.push(
+                          {
+                            filter: this.graphName,
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: "-",
+                            labels: this.paymentType,
+                            statistics: this.NumberOfBooking
+                          })
+                        if(data.length == 0)
                         {
-                          this.graphName = "No Data Found for " + this.graphName;
-           
+                          this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.paymentType, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
                         }
+                        else{
                           this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.NumberOfBooking, this.id);
                           this.loaderDisplay = false
+                          }
+                          
                         
                   },
           error=>{ this.errorMsg = error;}

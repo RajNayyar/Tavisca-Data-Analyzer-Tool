@@ -139,9 +139,10 @@ dataAnalysis(startDate, endDate,checkVal){
   this.flightStartDate = startDate.toString();
   this.flightEndDate = this.dateFormatter(this.flightEndDate)
   this.flightStartDate = this.dateFormatter(this.flightStartDate)
+  this.service.statsReport = [];
   this.service.start=this.flightStartDate;
   this.service.end=this.flightEndDate;
-   this.ServiceCalls()
+  this.ServiceCalls()
 }
 dateFormatter(yourDate)
 {
