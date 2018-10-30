@@ -8,7 +8,7 @@ import { GraphsServiceService } from '../service/hotel-service/graphs-service.se
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private service: GraphsServiceService) { }
+  constructor(public service: GraphsServiceService) { }
 
   ngOnInit() {
   }

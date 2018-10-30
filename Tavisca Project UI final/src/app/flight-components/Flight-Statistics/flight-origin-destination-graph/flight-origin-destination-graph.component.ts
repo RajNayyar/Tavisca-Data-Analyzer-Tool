@@ -104,7 +104,8 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
                           this.loaderDisplay = false
                         }
                           
-                        
+                        this.sourceTerm=null;
+                        this.destinationTerm=null;
                   },
           error=>{ this.errorMsg = error;}
 
