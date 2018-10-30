@@ -1,14 +1,30 @@
-#supplier-name-chart{
-    margin: 10px auto;
-    height: 400px;
+#supplier-name-chart {
+    height: 350px;
 }
-#supplier-name-chart-container{
-    box-shadow: 10px 10px 20px #888888;  
+
+#supplier-name-chart-container {
+    margin: 30px auto;
+    box-shadow: 10px 10px 20px #888888;
 }
-#lol{
+
+#lol {
     color: red;
 }
-mat-select{
+
+mat-select {
     width: 200px;
     align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #supplier-name-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #supplier-name-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
 }

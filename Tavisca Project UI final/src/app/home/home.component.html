@@ -1,39 +1,32 @@
-
-<!-- <div class="home-container"> -->
-  
-  <h1 tabindex="1" class="realtime-date-time">
+<h1 class="realtime-date-time">
     {{dateMessage}}
-  </h1>
-  <hr>
-  <!-- <div class="hotel-stats-container"> -->
-<div class = "products-container">
+</h1>
+<hr>
+<div class="products-container">
     <div class="hotel-stats">
-    <div class="img">
-      <h1 tabindex="2">Hotel Statistics</h1>
-   </div>
-<div class="progress" tabindex="-1">
-  <app-hotel-booking-status-stats class="progressBar" tabindex="3"></app-hotel-booking-status-stats>
-  <div>
-    <app-success class="progressBar" tabindex="4"></app-success>
-    <app-cancelled class="progressBar" tabindex="5"></app-cancelled>
-    <app-failure class="progressBar" tabindex="6"></app-failure>
-  </div>
+        <div class="img">
+            <h1 tabindex="2">Hotel Statistics</h1>
+        </div>
+        <div class="progress">
+            <app-hotel-booking-status-stats class="progressBar"></app-hotel-booking-status-stats>
+            <div>
+                <app-success class="progressBar"></app-success>
+                <app-cancelled class="progressBar"></app-cancelled>
+                <app-failure class="progressBar"></app-failure>
+            </div>
+        </div>
+    </div>
+    <div class="flights-stats">
+        <div class="img">
+            <h1>Flight Statistics</h1>
+        </div>
+        <div class="progress1">
+            <app-flight-booking-status-stats></app-flight-booking-status-stats>
+            <div>
+                <flight-app-success class="progressBar"></flight-app-success>
+                <flight-app-cancelled class="progressBar"></flight-app-cancelled>
+                <flight-app-failure class="progressBar"></flight-app-failure>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-
-<div class="flights-stats">
-<div class="img">
-<h1 tabindex="7">Flight Statistics</h1></div>
-
-<div class="progress1">
-    <app-flight-booking-status-stats tabindex="8"></app-flight-booking-status-stats>
-<div>
-  <flight-app-success class="progressBar" tabindex="9"></flight-app-success>
-  <flight-app-cancelled class="progressBar" tabindex="10"></flight-app-cancelled>
-  <flight-app-failure class="progressBar" tabindex="11"></flight-app-failure>
-</div>
-</div>
-</div>
-</div>
-<!-- </div>
-</div> -->

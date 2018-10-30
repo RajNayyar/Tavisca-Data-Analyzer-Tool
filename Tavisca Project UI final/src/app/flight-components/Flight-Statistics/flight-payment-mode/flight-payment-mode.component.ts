@@ -48,7 +48,7 @@ export class FlightPaymentModeComponent implements OnInit {
                             labels: this.paymentType,
                             statistics: this.NumberOfBooking
                           })
-                        if(data.length == 0)
+                        if(data.length ==0)
                         {
                           this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.paymentType, this.NumberOfBooking, this.id);
                           this.loaderDisplay = false
@@ -57,7 +57,6 @@ export class FlightPaymentModeComponent implements OnInit {
                           this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.NumberOfBooking, this.id);
                           this.loaderDisplay = false
                           }
-                          
                         
                   },
           error=>{ this.errorMsg = error;}

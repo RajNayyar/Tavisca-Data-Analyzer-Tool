@@ -1,39 +1,111 @@
-
-button,mat-form-field{
+mat-form-field {
     height: 40px;
-    margin: 15px;
-    min-width: 200px;
+    margin: 15px auto;
+    width: 200px;
 }
-#graphs {
-    width: 90%;
-    margin: 105px auto;
-    /*height: 100vh;*/
+
+
+.hotel-submit{
+    height: 40px;
+    margin-top: 1.5em;
 }
-/*.hotel-form{
+.hotel-filter-widget-button {
+    border: 0;
+    width: 200px;
+    font-weight: lighter;
+    border-radius: 50px;
+    font-family: sans-serif;
+    font-size: 20px;
+    height: 40px;
+    color: white;
+    background: #D84315;
+    outline: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 10px auto;
+}
+
+.pop{
+    width: 200px;
+    height: 200px;
+}
+
+.hotel-form {
     width: 100%;
-}*/
-.hotel-form{
-    width: 100%; 
     margin: 0 auto;
     background-color: white;
     text-align: center;
-    z-index : 1;
+    z-index: 1;
     position: absolute;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.forms{
+
+.forms {
     margin: 13px auto;
     display: flex;
     width: 70%;
     flex-wrap: wrap;
     justify-content: space-around;
-    
 }
-@media only screen and (max-width: 600px) {
+.graphs {
+    width: 90%;
+    margin: 8em auto;
+    margin-bottom: 10em;
+}
+@media only screen and (max-width: 656px) {
     .forms {
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
-        
+    }
+    mat-form-field {
+        margin: 5px auto;
+        width: 300px;
+    }
+    .graphs {
+        width: 90%;
+        margin: 6em auto;
+        margin-bottom: 10em;
+    }
+    /* button {
+        width: 200px;
+        margin: 5px auto;
+        height: 40px;
+    } */
+    
+}
+
+
+@media only screen and (max-width: 978px) {
+    .graphs {
+        width: 90%;
+        margin: 6em auto;
+        margin-bottom: 10em;
+    }
+    mat-form-field {
+        height: 40px;
+        margin: 15px auto;
+        width: 250px;
     }
 }
+@media only screen and (max-width: 1360px) {
+    .graphs {
+        width: 90%;
+        margin: 6em auto;
+        margin-bottom: 10em;
+    }
+    .forms {
+        margin: 13px auto;
+        display: flex;
+        width: 70%;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    mat-form-field {
+        height: 40px;
+        margin: 15px auto;
+        width: 100%;
+    }
+   
+}
+

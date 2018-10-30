@@ -9,8 +9,8 @@ import { HotelLocationBasedGraphComponent } from '../Hotel-Statistics/hotel-loca
 import { HotelNamesWithDatesGraphComponent } from '../Hotel-Statistics/hotel-names-with-dates-graph/hotel-names-with-dates-graph.component';
 import { PaymentModeBasedGraphComponent } from '../Hotel-Statistics/payment-mode-based-graph/payment-mode-based-graph.component';
 import { SupplierNameBasedGraphComponent } from '../Hotel-Statistics/supplier-name-based-graph/supplier-name-based-graph.component';
-
 import { trigger, state, style, transition, animate } from '@angular/animations';
+
 export interface Graph {
   value: string;
   viewValue: string;
@@ -39,32 +39,32 @@ export class WidgetComponent implements OnInit {
   _isNavbarCollapsedAnim = 'closed';
   isDisabled:boolean;
   @HostListener('window:resize', ['$event.target']) 
-onResize(event) { 
-  if(event.innerWidth > 600){
-    
-    this.show=false;
-    this._isNavbarCollapsedAnim = 'open';
-      this.isNavbarCollapsed = true;
-  }else{
-    this.show=true;
-      this._isNavbarCollapsedAnim = 'closed';
-  }
-}
+  onResize(event) { 
+      if(event.innerWidth > 1360){
+         this.show=false;
+         this._isNavbarCollapsedAnim = 'open';
+         this.isNavbarCollapsed = true;
+      }
+      else {
+         this.show=true;
+         this._isNavbarCollapsedAnim = 'closed';
+      }
+ }
   toggleNavbar(): void {
     if(this.isNavbarCollapsed){
         this._isNavbarCollapsedAnim = 'open';
-      this.isNavbarCollapsed = false;
-    } else {
-    this._isNavbarCollapsedAnim = 'closed';
-  
-      this.isNavbarCollapsed = true;
+        this.isNavbarCollapsed = false;
+    } 
+    else {
+        this._isNavbarCollapsedAnim = 'closed';
+        this.isNavbarCollapsed = true;
     }
   }
   get isNavbarCollapsedAnim() : string {
-    return this._isNavbarCollapsedAnim;
+      return this._isNavbarCollapsedAnim;
   }
 
- currentStartDate:Date;
+  currentStartDate:Date;
   currentEndDate:Date=new Date();
   hotelEndDate:string;
   hotelStartDate: string;
@@ -79,17 +79,12 @@ onResize(event) {
   searchTerm:any;
   checkValue:Array<string>=['location', 'name', 'bookDate', 'supplierName', 'failure', 'paymentMode'];
   paymentServiceResponse: any;
-
   show:boolean;
   graphs: Graph[] = [
     {value: 'location', viewValue: 'Hotel Location'},
-   // {value: 'chain', viewValue: 'Hotel Chain'},
-   // {value: 'rating', viewValue: 'Rating'},
     {value: 'name', viewValue: 'Hotel Name'},
- //  {value: 'date', viewValue: 'Check-in and Check-out Date'},
     {value: 'bookDate', viewValue: 'Booking Date'},
     {value: 'supplierName', viewValue: 'Supplier Name'},
-    //{value: 'failure', viewValue: 'Booking Failure Count'},
     {value: 'paymentMode', viewValue: 'Payment Mode'}
   ];
 
@@ -98,11 +93,10 @@ onResize(event) {
     errorMsg:any;
     inputForm:FormGroup;
     constructor(private fb:FormBuilder, private service:GraphsServiceService ){
-      
-      this.service.httpResponseFilters("Hotels","HotelLocations")
-      .subscribe( data=>{ this.response = data;
+       this.service.httpResponseFilters("Hotels","HotelLocations")
+         .subscribe( data=>{ this.response = data;
                           this.res = data["city"]; },
-                  error=>{ this.errorMsg = error;});
+                error=>{ this.errorMsg = error;});
  }
 
   ngOnInit() {
@@ -136,21 +130,18 @@ onResize(event) {
 
     if(this.checkValue.includes('location'))
     { 
-      debugger;
       hotelLocation.reRender();
     }
     if(this.checkValue.includes ('name'))
     {
-      debugger;
       hotelNames.reRender();}
-    if(this.checkValue.includes('bookDate'))
-    { debugger;
+    if(this.checkValue.includes('bookDate')){
       book.reRender();}
     if(this.checkValue.includes('supplierName'))
-    { debugger;
+    { 
       supplierName.reRender();}
     if(this.checkValue.includes('paymentMode'))
-    {debugger;
+    {
        payment.reRender();}
 
   }
@@ -164,16 +155,11 @@ onResize(event) {
     this.hotelStartDate = startDate.toString();
     this.hotelEndDate = this.dateFormatter(this.hotelEndDate)
     this.hotelStartDate = this.dateFormatter(this.hotelStartDate)
-
     this.service.start=this.hotelStartDate;
     this.service.end=this.hotelEndDate;
     this.service.location=this.searchTerm;
-this.service.statsReport = [];
-   
-    //debugger
-     this.ServiceCalls()
-     //this.GetLocationData();
-    
+    this.service.statsReport = [];
+    this.ServiceCalls()
   }
   dateFormatter(yourDate)
   {

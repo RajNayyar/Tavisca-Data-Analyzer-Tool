@@ -1,43 +1,53 @@
-
-.header{
+.header {
     width: 100%;
     height: 100vh;
 }
-.header-logo-area{
+
+.header-logo-area {
     position: absolute;
     width: 100%;
     background-color: #133764;
 }
-.tab-bar{
+
+.tab-bar {
     margin-top: 71px;
     position: fixed;
     width: 100%;
     height: 100vh;
 }
-.home1{
+
+.home1 {
     z-index: 4;
 }
-span{
+
+span {
     font-family: sans-serif;
     font-size: 1.3em;
 }
-.logo{
+
+.logo {
     margin-top: 10px;
     margin-left: 20px;
-    width:150px;
+    width: 150px;
 }
+
 .tab {
     background-color: #f1f1f1;
     display: flex;
 }
-.tab-content{
+
+.tab-content {
     margin-bottom: 100px;
-    }
-a:hover, a:visited, a:link, a:active
-{
-    color:black;
+}
+
+a:hover,
+a:visited,
+a:link,
+a:active {
+    color: black;
     text-decoration: none;
 }
+
 /* Style the buttons inside the tab */
 .tab button {
     background-color: inherit;
@@ -65,12 +75,14 @@ a:hover, a:visited, a:link, a:active
     border: 1px solid #ccc;
     border-top: none;
 }
-.product-icon{
-    width:30px;
+
+.product-icon {
+    width: 30px;
     height: 30px;
     padding-left: 10px;
 }
-.product-button{
+
+.product-button {
     display: flex;
     padding: 10px 10px;
 }

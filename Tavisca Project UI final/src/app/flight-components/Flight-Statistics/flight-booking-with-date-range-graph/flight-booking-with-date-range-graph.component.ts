@@ -17,7 +17,7 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
   errorMsg: any
   NumberOfBooking: any = [];
   Date: any = []
-  graphName: string = "Date-Booking Analysis (Flights)";
+  graphName: string = "Date-Booking Analysis";
   id:string="flight-booking-date-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
@@ -47,7 +47,7 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
                             labels: this.Date,
                             statistics: this.NumberOfBooking
                           })
-                        if(data.length ==0)
+                        if(data.length == 0)
                         {
                           this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.Date, this.NumberOfBooking, this.id);
                           this.loaderDisplay = false;
@@ -55,13 +55,10 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
                         else
                         {
                           this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Date, this.NumberOfBooking, this.id);
-                          this.loaderDisplay = false
-
+                          this.loaderDisplay = false; 
                         }
-                                                  
                   },
           error=>{ this.errorMsg = error;}
-
             );
 
     }

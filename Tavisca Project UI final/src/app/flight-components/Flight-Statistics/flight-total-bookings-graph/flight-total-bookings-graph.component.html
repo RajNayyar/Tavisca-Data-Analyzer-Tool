@@ -1,10 +1,10 @@
 <div id="flight-totalBookings-chart-container">
-  <mat-select class="graph-types" placeholder="Graph Type">
-    <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="service.GraphSelect(graph.value, this.graphName, this.id)">
-      {{graph.viewValue}}
-    </mat-option>
-  </mat-select>
-  <div id="total-bookings-chart">  
-      <img class="loader" *ngIf="loaderDisplay" src="..\src\assets\images\loader.gif">
-  </div>
-  </div>
+    <mat-select class="graph-types" placeholder="Graph Type">
+        <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="service.GraphSelect(graph.value, this.graphName, this.id)">
+            {{graph.viewValue}}
+        </mat-option>
+    </mat-select>
+    <div id="total-bookings-chart">
+        <img class="loader" *ngIf="loaderDisplay" src="..\src\assets\images\loader.gif">
+    </div>
+</div>

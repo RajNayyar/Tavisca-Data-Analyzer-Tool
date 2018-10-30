@@ -27,7 +27,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FailureComponent } from './home/BookingStatus/failure/failure.component';
 import { SuccessComponent } from './home/BookingStatus/success/success.component';
 import { CancelledComponent } from './home/BookingStatus/cancelled/cancelled.component';
-import { PastComponent } from './home/BookingStatus/past/past.component';
 import { flightFailureComponent } from './home/flightBookingStatus/failure/failure.component';
 import { flightSuccessComponent } from './home/flightBookingStatus/success/success.component';
 import { flightCancelledComponent } from './home/flightBookingStatus/cancelled/cancelled.component';
@@ -43,7 +42,7 @@ import { FlightSourcePipe } from './pipes/flight-pipes/flight-source.pipe';
 import { FlightDestinationPipe } from './pipes/flight-pipes/flight-destination.pipe';
 import { StatsReportNotifierComponent } from './stats-report-notifier/stats-report-notifier.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { NotifierLabelDialogComponent } from './stats-report-notifier/notifier-label-dialog/notifier-label-dialog.component';
+import { NotifierEmailDialogComponent } from './notifier-email-dialog/notifier-email-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +62,6 @@ import { NotifierLabelDialogComponent } from './stats-report-notifier/notifier-l
     flightCancelledComponent, 
     SuccessComponent,
     CancelledComponent,
-    PastComponent,
     HotelBookingStatusStatsComponent,
     FlightPaymentModeComponent,
     MarketingAirlineGraphComponent,
@@ -75,7 +73,7 @@ import { NotifierLabelDialogComponent } from './stats-report-notifier/notifier-l
     FlightDestinationPipe,
     StatsReportNotifierComponent,
     HotelLocationBasedGraphComponent,
-    NotifierLabelDialogComponent
+    NotifierEmailDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +113,7 @@ import { NotifierLabelDialogComponent } from './stats-report-notifier/notifier-l
     MatButtonModule
   ],
   entryComponents: [
-    NotifierLabelDialogComponent
+    NotifierEmailDialogComponent
 ],
   providers: [ GraphsServiceService],
   bootstrap: [AppComponent]

@@ -36,7 +36,7 @@ export class FlightWidgetComponent implements OnInit {
   _isFlightNavbarCollapsedAnim = 'closed';
   @HostListener('window:resize', ['$event.target']) 
 onScreenResize(event) { 
-  if(event.innerWidth > 600){
+  if(event.innerWidth > 1360){
     
     this.showButton=false;
     this._isFlightNavbarCollapsedAnim = 'open';
@@ -139,10 +139,10 @@ dataAnalysis(startDate, endDate,checkVal){
   this.flightStartDate = startDate.toString();
   this.flightEndDate = this.dateFormatter(this.flightEndDate)
   this.flightStartDate = this.dateFormatter(this.flightStartDate)
-  this.service.statsReport = [];
   this.service.start=this.flightStartDate;
   this.service.end=this.flightEndDate;
-  this.ServiceCalls()
+  this.service.statsReport = [];
+   this.ServiceCalls()
 }
 dateFormatter(yourDate)
 {

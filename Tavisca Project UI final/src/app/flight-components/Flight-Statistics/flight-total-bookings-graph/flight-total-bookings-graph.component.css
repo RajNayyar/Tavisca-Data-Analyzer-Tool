@@ -1,14 +1,24 @@
-#total-bookings-chart{
-    margin: 10px auto;
-    height: 400px;
+#total-bookings-chart {
+    
+    height: 350px;
 }
-#flight-totalBookings-chart-container{
-    box-shadow: 10px 10px 20px #888888;  
+#flight-totalBookings-chart-container {
+    margin: 20px auto;
+    box-shadow: 10px 10px 20px #888888;
 }
-#lol{
-    color: red;
-}
-mat-select{
+mat-select {
     width: 200px;
     align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #total-bookings-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #total-bookings-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
 }

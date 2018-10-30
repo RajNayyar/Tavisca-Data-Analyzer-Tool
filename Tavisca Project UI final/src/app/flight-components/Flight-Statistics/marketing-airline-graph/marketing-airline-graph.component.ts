@@ -60,6 +60,7 @@ export class MarketingAirlineGraphComponent implements OnInit {
                             this.loaderDisplay = false
                             }
                         
+                        
                   },
           error=>{ this.errorMsg = error;}
 

@@ -1,14 +1,23 @@
-#hotel-location-chart{
-    margin: 10px auto;
-    height: 400px;
+#hotel-location-chart {
+    height: 350px;
 }
-#hotel-location-chart-container{
-    box-shadow: 10px 10px 20px #888888;  
+#hotel-location-chart-container {
+    margin: 30px auto;
+    box-shadow: 10px 10px 20px #888888;
 }
-#lol{
-    color: red;
-}
-mat-select{
+mat-select {
     width: 200px;
     align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #hotel-location-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #hotel-location-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
 }

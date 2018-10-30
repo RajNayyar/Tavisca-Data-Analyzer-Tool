@@ -3,15 +3,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-
 declare var CanvasJS: any;
-
 @Injectable({
   providedIn: 'root'
 })
 
 export class GraphsServiceService {
-  //hotelLocation = {};
   location:string = "Las Vegas";
   start:string = "2015-05-15";
   end:string = "2018-05-15";
@@ -21,7 +18,6 @@ export class GraphsServiceService {
   statsReport = []
   SearchParam:any;
   graphDataPoints=[]
-  //locationServiceResponse: any;
   constructor(private http: HttpClient) { }
 
   httpResponseFilters(productName, filterParameters): Observable<any> {
@@ -56,7 +52,9 @@ export class GraphsServiceService {
      animationEnabled: true,
      exportEnabled: true,
      theme: "light1", 
+    
      title:{
+      fontSize: 20,
        text: graphName
      },
      data: [{
@@ -78,7 +76,6 @@ export class GraphsServiceService {
         console.log(this.statsReport[i].filter)
         if(this.statsReport[i].filter == graphName)
         {
-          debugger
             this.DisplayGraph(graphValue, graphName, this.statsReport[i].labels, this.statsReport[i].statistics, id)
             break
         }

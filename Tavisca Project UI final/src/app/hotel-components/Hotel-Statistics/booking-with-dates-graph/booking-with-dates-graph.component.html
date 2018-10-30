@@ -1,10 +1,9 @@
-
- <div id="booking-with-dates-chart-container" tabindex="1">
+<div id="booking-with-dates-chart-container" tabindex="1">
     <mat-select placeholder="Graph Type" class="graph-types" tabindex="2">
         <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="service.GraphSelect(graph.value, this.graphName, this.id)">
-          {{graph.viewValue}}
+            {{graph.viewValue}}
         </mat-option>
-      </mat-select>
-  <div id ="booking-with-dates-chart"><img class="loader" *ngIf="loaderDisplay" src="..\src\assets\images\loader.gif">
-  </div>
-  </div>
+    </mat-select>
+    <div id="booking-with-dates-chart"><img class="loader" *ngIf="loaderDisplay" src="..\src\assets\images\loader.gif">
+    </div>
+</div>

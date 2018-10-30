@@ -1,22 +1,33 @@
-#origin-destination-chart{
-    margin: 10px auto;
-    height: 400px;
-}
-#origin-destination-chart-container{
-    box-shadow: 10px 10px 20px #888888;  
-}
-#lol{
-    color: red;
-}
-mat-select{
-    width: 200px;
-    align-content: right;
-}
-.flightForms{
-    border:2px solid grey;
+.flightForms {
+    border: 2px solid grey;
     margin: 10px auto;
     display: flex;
     width: 50%;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+#origin-destination-chart {
+   
+    height: 350px;
+}
+#origin-destination-chart-container {
+    margin: 20px auto;
+    box-shadow: 10px 10px 20px #888888;
+}
+mat-select {
+    width: 200px;
+    align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #origin-destination-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #origin-destination-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
 }

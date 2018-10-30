@@ -60,22 +60,23 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       if(this.sourceTerm!=null) {
         this.src=this.sourceTerm.split("-");
         this.sourceTerm=this.src[1];
+        
       this.service.source=this.sourceTerm;
       }
       if(this.destinationTerm!=null) {
         this.dest=this.destinationTerm.split("-");
         this.destinationTerm=this.dest[1];
-        this.service.destination=this.destinationTerm; 
-      }
+      this.deleteFromStatsReportIfExists() 
+      this.service.destination=this.destinationTerm;
       
-     this.deleteFromStatsReportIfExists() 
+      }
      this.reRender()
     }
     reRender()
     {
       this.AirlineName = []
       this.NumberOfBooking= []
-      
+
       this.service.httpResponseFilters("Air","BookingsForSpecificTrip?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&departAirportCode="+this.service.source+"&arrivalAirportCode="+this.service.destination)
       .subscribe( data=>{
               
@@ -93,19 +94,16 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
                             labels: this.AirlineName,
                             statistics: this.NumberOfBooking
                           })
-                        if(data.length == 0)
+                        if(data.length ==0)
                         {
                           this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName + " for: "+ this.service.source + " to " + this.service.destination , this.AirlineName, this.NumberOfBooking, this.id);
-                          this.loaderDisplay = false
+                          this.loaderDisplay = false        
                         }
                         else
                         {
                           this.service.DisplayGraph( this.defaultGraphType, this.graphName + " for: "+ this.service.source + " to " + this.service.destination , this.AirlineName, this.NumberOfBooking, this.id);
                           this.loaderDisplay = false
                         }
-                          
-                        this.sourceTerm=null;
-                        this.destinationTerm=null;
                   },
           error=>{ this.errorMsg = error;}
 
