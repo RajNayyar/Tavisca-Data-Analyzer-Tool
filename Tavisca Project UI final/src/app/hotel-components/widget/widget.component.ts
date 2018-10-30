@@ -40,7 +40,7 @@ export class WidgetComponent implements OnInit {
   isDisabled:boolean;
   @HostListener('window:resize', ['$event.target']) 
   onResize(event) { 
-      if(event.innerWidth > 1360){
+      if(event.innerWidth > 1360) {
          this.show=false;
          this._isNavbarCollapsedAnim = 'open';
          this.isNavbarCollapsed = true;
@@ -49,7 +49,7 @@ export class WidgetComponent implements OnInit {
          this.show=true;
          this._isNavbarCollapsedAnim = 'closed';
       }
- }
+  }
   toggleNavbar(): void {
     if(this.isNavbarCollapsed){
         this._isNavbarCollapsedAnim = 'open';
@@ -63,29 +63,26 @@ export class WidgetComponent implements OnInit {
   get isNavbarCollapsedAnim() : string {
       return this._isNavbarCollapsedAnim;
   }
-
   currentStartDate:Date;
   currentEndDate:Date=new Date();
   hotelEndDate:string;
   hotelStartDate: string;
   selectedValue:string;
-  temp = "hello";
-  minDate = new Date(2016, 0, 1);
+  minDate = new Date(2014, 0, 1);
   maxDate = new Date();
   startDate:Date=null;
   location:any;
-  ids:any;
   IsVisible:boolean=true;
-  searchTerm:any;
+  selectedLocation:any;
   checkValue:Array<string>=['location', 'name', 'bookDate', 'supplierName', 'failure', 'paymentMode'];
   paymentServiceResponse: any;
   show:boolean;
   graphs: Graph[] = [
-    {value: 'location', viewValue: 'Hotel Location'},
-    {value: 'name', viewValue: 'Hotel Name'},
-    {value: 'bookDate', viewValue: 'Booking Date'},
-    {value: 'supplierName', viewValue: 'Supplier Name'},
-    {value: 'paymentMode', viewValue: 'Payment Mode'}
+    {value: 'location', viewValue: 'Hotels-Bookings at Location'},
+    {value: 'name', viewValue: 'Bookings at all locations'},
+    {value: 'bookDate', viewValue: 'Bookings on specified dates '},
+    {value: 'supplierName', viewValue: 'Supplier-booking Statistics'},
+    {value: 'paymentMode', viewValue: 'Payment-Mode Statistics'}
   ];
 
     response:any;
@@ -115,87 +112,48 @@ export class WidgetComponent implements OnInit {
     });
   
   }
-  
-  checkStartDate(){
+  checkStartDate() {
     this.IsVisible=false;
   }
-   ServiceCalls()
-  {
+   ServiceCalls() {
    var hotelLocation = new HotelLocationBasedGraphComponent(this.service)
    var hotelNames = new HotelNamesWithDatesGraphComponent(this.service)
    var book = new BookingWithDatesGraphComponent(this.service)
    var supplierName = new SupplierNameBasedGraphComponent(this.service)
    var payment = new PaymentModeBasedGraphComponent(this.service)
     console.log(this.checkValue);
-
-    if(this.checkValue.includes('location'))
-    { 
-      hotelLocation.reRender();
+    if(this.checkValue.includes('location')) { 
+      hotelLocation.reRenderChart();
     }
-    if(this.checkValue.includes ('name'))
-    {
-      hotelNames.reRender();}
-    if(this.checkValue.includes('bookDate')){
-      book.reRender();}
-    if(this.checkValue.includes('supplierName'))
-    { 
-      supplierName.reRender();}
-    if(this.checkValue.includes('paymentMode'))
-    {
-       payment.reRender();}
-
+    if(this.checkValue.includes ('name')) {
+      hotelNames.reRenderChart();
+    }
+    if(this.checkValue.includes('bookDate')) {
+      book.reRenderChart();
+    }
+    if(this.checkValue.includes('supplierName')) { 
+      supplierName.reRenderChart();
+    }
+    if(this.checkValue.includes('paymentMode')) {
+       payment.reRenderChart();
+    }
   }
-
-
   dataAnalysis(startDate, endDate,checkVal){
-    
     this._markAsDirty(this.inputForm);
-    this.hotelEndDate = endDate.toString();
     this.checkValue=checkVal;
-    this.hotelStartDate = startDate.toString();
-    this.hotelEndDate = this.dateFormatter(this.hotelEndDate)
-    this.hotelStartDate = this.dateFormatter(this.hotelStartDate)
+    this.hotelEndDate = this.service.dateFormatter(endDate.toString())
+    this.hotelStartDate = this.service.dateFormatter(startDate.toString())
     this.service.start=this.hotelStartDate;
     this.service.end=this.hotelEndDate;
-    this.service.location=this.searchTerm;
+    this.service.location=this.selectedLocation;
     this.service.statsReport = [];
     this.ServiceCalls()
   }
-  dateFormatter(yourDate)
-  {
-     var currentDate = yourDate.toString()
-     var dd: string = "";
-     var mm: string = "";
-     var yyyy: string = "";
-     var formattedDate: string;
-     var flag: number= 0;
-
-     for(var i = 0; i< currentDate.length; i++)
-     {
-        if(currentDate[i]=="/")
-        {
-          flag = flag +1;
-        }
-       else if(flag ==0)
-        {
-          mm = mm + currentDate[i];
-        }
-        else if(flag ==1)
-        {
-          dd = dd + currentDate[i];
-        }
-        else if(flag ==2)
-        {
-          yyyy = yyyy + currentDate[i];
-        }
-      } 
-        formattedDate = yyyy+"-"+mm+"-"+dd;
-        return formattedDate ;    
-     }
+ 
   private _markAsDirty(group:FormGroup){
     group.markAsDirty();
-    for(let i in group.controls){
-      group.controls[i].markAsDirty();
+    for(let groupIndex in group.controls){
+      group.controls[groupIndex].markAsDirty();
     }
   }
 }

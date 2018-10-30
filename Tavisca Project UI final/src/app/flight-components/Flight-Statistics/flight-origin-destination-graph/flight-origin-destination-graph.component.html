@@ -1,4 +1,4 @@
-<div id="origin-destination-chart-container">
+<div class="origin-destination-chart-container">
     <mat-select placeholder="Graph Type" class="graph-types">
         <mat-option *ngFor="let graph of graphs" [(value)]="graph.value" (click)="service.GraphSelect(graph.value, this.graphName, this.id)">
             {{graph.viewValue}}
@@ -28,7 +28,7 @@
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
-        <button mat-raised-button color="warn" type="submit" (click)="AirportCheck()" [disabled]="!sourceDestinationForm.valid">
+        <button mat-raised-button color="warn" class="goButton" type="submit" (click)="AirportCheck()" [disabled]="!sourceDestinationForm.valid">
             Go
         </button>
     </form>

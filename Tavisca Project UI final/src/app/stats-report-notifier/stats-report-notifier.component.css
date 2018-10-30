@@ -2,7 +2,6 @@
     text-align: center;
     margin: 10px auto;
 }
-
 .email-text {
     width: 20%;
     font-family: sans-serif;
@@ -10,35 +9,29 @@
     border: 0px;
     border-bottom: 1px solid;
 }
-
 .mail-img {
     width: 30px;
 }
-
 .info {
     color: #FFFFFF;
     margin-right: 12px;
     font-size: 20px;
     font-weight: lighter;
 }
-
 .mail-button {
     font-size: 20px;
     border-radius: 9px;
     margin: 0 auto;
 }
-
 .email-stats-text {
     font-family: sans-serif;
     font-weight: lighter;
 }
-
 @media only screen and (max-width: 600px) {
     .email-container {
         text-align: center;
         margin: 5px auto;
     }
-
     .email-text {
         width: 20%;
         font-family: sans-serif;
@@ -46,13 +39,11 @@
         border: 0px;
         border-bottom: 1px solid;
     }
-
     .mail-button {
         font-size: 15px;
         border-radius: 9px;
         margin: 0 auto;
     }
-
     .info {
         color: #FFFFFF;
         margin-right: 12px;
@@ -60,13 +51,11 @@
         font-weight: lighter;
     }
 }
-
 @media only screen and (max-width: 330px) {
     .email-container {
         text-align: center;
         margin: 2px auto;
     }
-
     .email-text {
         width: 20%;
         font-family: sans-serif;
@@ -74,13 +63,11 @@
         border: 0px;
         border-bottom: 1px solid;
     }
-
     .mail-button {
         font-size: 10px;
         border-radius: 9px;
         margin: 0 auto;
     }
-
     .info {
         color: #FFFFFF;
         font-size: 10px;

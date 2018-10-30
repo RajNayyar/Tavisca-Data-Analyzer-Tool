@@ -43,6 +43,7 @@ import { FlightDestinationPipe } from './pipes/flight-pipes/flight-destination.p
 import { StatsReportNotifierComponent } from './stats-report-notifier/stats-report-notifier.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NotifierEmailDialogComponent } from './notifier-email-dialog/notifier-email-dialog.component';
+import { MainComponent } from './main/main.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import { NotifierEmailDialogComponent } from './notifier-email-dialog/notifier-e
     FlightDestinationPipe,
     StatsReportNotifierComponent,
     HotelLocationBasedGraphComponent,
-    NotifierEmailDialogComponent
+    NotifierEmailDialogComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

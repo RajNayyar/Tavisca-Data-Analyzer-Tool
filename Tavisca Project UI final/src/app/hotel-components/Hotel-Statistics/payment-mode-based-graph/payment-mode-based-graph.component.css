@@ -1,7 +1,8 @@
 #payment-mode-chart{
     height: 350px;
+    text-align: center;
 }
-#payment-mode-chart-container{
+.payment-mode-chart-container{
     margin: 30px auto;
     box-shadow: 10px 10px 20px #888888;  
 }

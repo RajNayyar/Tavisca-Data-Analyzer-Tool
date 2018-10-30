@@ -6,8 +6,6 @@ padding: 0;
  }
 
 .loader{
-    margin-left:45em;
-}
-.graph-types{
-    border:1px solid grey;
+    margin:0 auto;
+    
 }

@@ -1,8 +1,9 @@
 #hotel-with-dates-chart {
+    text-align: center;
     height: 350px;
 }
 
-#hotel-with-dates-chart-container {
+.hotel-with-dates-chart-container {
     margin: 30px auto;
     box-shadow: 10px 10px 20px #888888;
 }

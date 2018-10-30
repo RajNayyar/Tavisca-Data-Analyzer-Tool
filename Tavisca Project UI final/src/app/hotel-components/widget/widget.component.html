@@ -21,12 +21,12 @@
                 <mat-datepicker touchUi #secondPicker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-                <input type="text" placeholder="Location" aria-label="Number" matInput [matAutocomplete]="auto" [(ngModel)]="searchTerm" formControlName="location" name="searchTerm" required>
+                <input type="text" placeholder="Location" aria-label="Number" matInput [matAutocomplete]="auto" [(ngModel)]="selectedLocation" formControlName="location" name="selectedLocation" required>
                 <mat-error tabindex="-1" *ngIf="inputForm.controls.location.hasError('required')">
                     *Required
                 </mat-error>
                 <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let item of res | hotelLocations : searchTerm" [value]="item">
+                    <mat-option *ngFor="let item of res | hotelLocations : selectedLocation" [value]="item">
                         {{ item }}
                     </mat-option>
                 </mat-autocomplete>

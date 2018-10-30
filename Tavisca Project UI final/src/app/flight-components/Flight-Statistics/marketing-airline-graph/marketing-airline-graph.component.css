@@ -1,8 +1,8 @@
 #marketing-airline-chart {
-    
+    text-align: center;
     height: 350px;
 }
-#flight-marketing-airline-chart-container {
+.flight-marketing-airline-chart-container {
     margin: 20px auto;
     box-shadow: 10px 10px 20px #888888;
 }

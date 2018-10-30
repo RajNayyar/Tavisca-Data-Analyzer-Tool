@@ -1,25 +1,25 @@
-#stats-hotel {
+.stats-hotel {
     width: 700px;
     height: 500px;
 
 }
 
 @media only screen and (max-width: 800px) {
-    #stats-hotel {
+    .stats-hotel {
         width: 600px;
         height: 400px;
     }
 }
 
 @media only screen and (max-width: 650px) {
-    #stats-hotel {
+    .stats-hotel {
         width: 400px;
         height: 300px;
     }
 }
 
 @media only screen and (max-width: 450px) {
-    #stats-hotel {
+    .stats-hotel {
         width: 300px;
         height: 200px;
     }

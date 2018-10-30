@@ -27,17 +27,16 @@ export class SupplierNameBasedGraphComponent implements OnInit
   ngOnInit(){
     this.loaderDisplay = true;
    }
-  reRender(){
+   reRenderChart() {
     this.loaderDisplay=true
     this.SupplierName = [];
     this.NumberOfBooking= [];
     this.service.httpResponseFilters("Hotels","SupplierNamesWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
     .subscribe( data=>{
-              for(var i=0;i<Object.keys(data).length;i++)
-                      {
-                        this.SupplierName.push(data[i].supplierName);
-                        this.NumberOfBooking.push(data[i].bookings);
-                      }
+                    for(var index=0;index<Object.keys(data).length;index++) {
+                        this.SupplierName.push(data[index].supplierName);
+                        this.NumberOfBooking.push(data[index].bookings);
+                    }
                     if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
                         {
@@ -49,15 +48,11 @@ export class SupplierNameBasedGraphComponent implements OnInit
                           statistics: this.NumberOfBooking
                         })
                       }
-                      if(data.length ==0)
-                      {
+                      if(data.length ==0) {
                         this.graphName = "No Data Found for " + this.graphName;
-         
                       }
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.SupplierName, this.NumberOfBooking, this.id);
-                        this.loaderDisplay = false  
-                      
-                      
+                        this.loaderDisplay = false                   
                 },
         error=>{ this.errorMsg = error;}
           );

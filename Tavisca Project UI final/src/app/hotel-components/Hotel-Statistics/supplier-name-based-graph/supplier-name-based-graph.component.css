@@ -1,16 +1,12 @@
 #supplier-name-chart {
+    text-align: center;
     height: 350px;
 }
 
-#supplier-name-chart-container {
+.supplier-name-chart-container {
     margin: 30px auto;
     box-shadow: 10px 10px 20px #888888;
 }
-
-#lol {
-    color: red;
-}
-
 mat-select {
     width: 200px;
     align-content: right;

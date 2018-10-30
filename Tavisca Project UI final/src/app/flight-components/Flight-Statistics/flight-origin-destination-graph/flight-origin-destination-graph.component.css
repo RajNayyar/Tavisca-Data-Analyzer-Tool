@@ -1,17 +1,18 @@
 .flightForms {
-    border: 2px solid grey;
     margin: 10px auto;
     display: flex;
     width: 50%;
     flex-wrap: wrap;
     justify-content: space-around;
 }
-
+.goButton{
+    height:50px;
+}
 #origin-destination-chart {
-   
+    text-align: center;
     height: 350px;
 }
-#origin-destination-chart-container {
+.origin-destination-chart-container {
     margin: 20px auto;
     box-shadow: 10px 10px 20px #888888;
 }

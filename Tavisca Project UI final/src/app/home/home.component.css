@@ -8,8 +8,8 @@
     margin: 0 auto;
 }
 
-.progress,
-.progress1 {
+.flight-progress,
+.hotel-progress {
     text-align: center;
     display: flex;
     flex-wrap: wrap;
@@ -32,7 +32,7 @@
 
 .hotel-stats,
 .flights-stats {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 #AEB6BF  ;
     margin: 20px auto;
 }
 

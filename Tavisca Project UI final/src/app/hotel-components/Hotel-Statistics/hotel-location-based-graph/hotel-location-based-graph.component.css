@@ -1,7 +1,7 @@
 #hotel-location-chart {
     height: 350px;
 }
-#hotel-location-chart-container {
+.hotel-location-chart-container {
     margin: 30px auto;
     box-shadow: 10px 10px 20px #888888;
 }

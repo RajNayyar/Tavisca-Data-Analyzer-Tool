@@ -25,22 +25,20 @@ export class HotelNamesWithDatesGraphComponent implements OnInit {
   id:string="hotel-with-dates-chart";
   
   constructor (private service:GraphsServiceService) { }
-  
+
   ngOnInit(){
     this.loaderDisplay = true;
     }
-    reRender()
+    reRenderChart()
     {
-
       this.defaultGraphType = "line";
       this.service.httpResponseFilters("Hotels","HotelLocationWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
-      .subscribe( data=>{
-              
-                      for(var i=0;i<Object.keys(data).length;i++)
+      .subscribe( data=>{    
+                      for(var index=0;index<Object.keys(data).length;index++)
                         {
-                          this.HotelsAtParticularLocation.push(data[i].hotelsAtParticularLocation[0]["hotelName"]+"-"+data[i].hotelsAtParticularLocation[0]["bookings"]);
-                          this.totalBookings.push(data[i].totalBookings);
-                          this.Place.push(data[i].place);
+                          this.HotelsAtParticularLocation.push(data[index].hotelsAtParticularLocation[0]["hotelName"]+"-"+data[index].hotelsAtParticularLocation[0]["bookings"]);
+                          this.totalBookings.push(data[index].totalBookings);
+                          this.Place.push(data[index].place);
                        }
                        if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                        this.service.statsReport.push(
@@ -56,14 +54,11 @@ export class HotelNamesWithDatesGraphComponent implements OnInit {
                       if(data.length ==0)
                       {
                         this.graphName = "No Data Found for " + this.graphName;
-         
                       }
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Place, this.totalBookings, this.id);
-                        this.loaderDisplay = false
-                      
+                        this.loaderDisplay = false                     
                   },
           error=>{ this.errorMsg = error;}
-
             );
     }
    

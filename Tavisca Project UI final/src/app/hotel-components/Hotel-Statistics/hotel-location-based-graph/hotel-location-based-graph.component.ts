@@ -29,15 +29,15 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
   ngOnInit(){
     this.loaderDisplay = true;
    }
-    async reRender(){
+    reRenderChart(){
     this.Bookings = []
     this.Hotels = []
-    await this.service.httpResponseFilters("Hotels","HotelNamesWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
+    this.service.httpResponseFilters("Hotels","HotelNamesWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
     .subscribe( data=>{
-                    for(var i=0;i<Object.keys(data).length;i++)
+                    for(var index=0;index<Object.keys(data).length;index++)
                       {
-                        this.Bookings.push(data[i].bookings);
-                        this.Hotels.push(data[i].hotelName);
+                        this.Bookings.push(data[index].bookings);
+                        this.Hotels.push(data[index].hotelName);
                       }
                       if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
@@ -53,15 +53,11 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
                       if(data.length ==0)
                       {
                         this.graphName = "No Data Found for " + this.graphName;
-         
                       }
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Hotels, this.Bookings, this.id);
                         this.loaderDisplay = false
-                      
-                     
                 },
         error=>{ this.errorMsg = error;}
-
           );
     }
     graphs: GraphTypes[] = [
@@ -71,8 +67,4 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
       {value: 'area', viewValue: 'Area Graph'},
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
-
-
-  
-
     }

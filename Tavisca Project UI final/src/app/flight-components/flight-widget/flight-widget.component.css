@@ -24,10 +24,10 @@ mat-form-field {
     font-family: sans-serif;
     font-size: 20px;
     height: 40px;
-    color: white;
+    color: #FFFFFF;
     background: #D84315;
     outline: none;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 #AEB6BF  ;
     margin: 10px auto;
 }
 
@@ -35,10 +35,10 @@ mat-form-field {
     width: 100%;
     margin: 0px auto;
     position: absolute;
-    background-color: white;
+    background-color: #FFFFFF;
     text-align: center;
     z-index: 1;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 #AEB6BF  ;
 }
 
 .flight-form-content {
@@ -64,11 +64,6 @@ mat-form-field {
         margin: 6em auto;
         margin-bottom: 10em;
     }
-    /* button {
-        width: 200px;
-        margin: 5px auto;
-        height: 40px;
-    } */
     .submit-button {
         width: 100%;
         height: 40px;

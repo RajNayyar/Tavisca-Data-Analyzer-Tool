@@ -29,19 +29,16 @@ export class BookingWithDatesGraphComponent implements OnInit {
   ngOnInit(){
     this.loaderDisplay = true;
     }
-    reRender()
+    reRenderChart()
     {
-      
       this.BookingDates = []
       this.NumberOfBooking= []
-
       this.service.httpResponseFilters("Hotels","BookingDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
       .subscribe( data=>{
-              
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var index=0;index<Object.keys(data).length;index++)
                         {
-                          this.BookingDates.push(data[i].bookingDates);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.BookingDates.push(data[index].bookingDates);
+                          this.NumberOfBooking.push(data[index].numberOfBookings);
                         }
                         this.service.statsReport.push(
                           {
@@ -56,17 +53,12 @@ export class BookingWithDatesGraphComponent implements OnInit {
                         if(data.length ==0)
                         {
                           this.graphName = "No Data Found for " + this.graphName;
-           
                         }
                           this.loaderDisplay = false
-                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingDates, this.NumberOfBooking, this.id);
-                          
-                        
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingDates, this.NumberOfBooking, this.id);                      
                   },
           error=>{ this.errorMsg = error;}
-
             );
-
     }
     graphs: GraphTypes[] = [
       {value: 'bar', viewValue: 'Bar Graph'},
@@ -75,8 +67,6 @@ export class BookingWithDatesGraphComponent implements OnInit {
       {value: 'area', viewValue: 'area Graph'},
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
-
-  
     }
    
   

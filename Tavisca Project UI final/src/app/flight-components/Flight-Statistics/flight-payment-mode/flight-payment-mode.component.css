@@ -1,9 +1,9 @@
 
 #flight-payment-mode-chart {
-    
+    text-align: center;
     height: 350px;
 }
-#flight-payment-mode-chart-container {
+.flight-payment-mode-chart-container {
     margin: 20px auto;
     box-shadow: 10px 10px 20px #888888;
 }

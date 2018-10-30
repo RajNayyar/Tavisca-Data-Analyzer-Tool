@@ -25,29 +25,23 @@ export class PaymentModeBasedGraphComponent implements OnInit {
   loaderDisplay: boolean
   id:string = "payment-mode-chart";
   graphName: string = "Mode of Payment Analysis";
-  constructor (private service:GraphsServiceService) {
-   
-   }
+  constructor (private service:GraphsServiceService) {}
 
- 
   ngOnInit(){
     this.loaderDisplay = true;
     }
-    reRender()
+    reRenderChart()
     {
     this.loaderDisplay=true
     this.defaultGraphType = "line";
     this.paymentType = []
     this.numberOfBooking= []
-
        this.service.httpResponseFilters("Hotels","PaymentType?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
     .subscribe( data=>{
-           debugger
-                    for(var i=0;i<Object.keys(data).length;i++)
+                    for(var index=0;index<Object.keys(data).length;index++)
                       {
-                        this.paymentType.push(data[i].paymentType);
-                        this.numberOfBooking.push(data[i].numberOfBooking);
-                      //  console.log(this.Bookings);
+                        this.paymentType.push(data[index].paymentType);
+                        this.numberOfBooking.push(data[index].numberOfBooking);
                       } 
                       if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
@@ -63,17 +57,11 @@ export class PaymentModeBasedGraphComponent implements OnInit {
                       if(data.length ==0)
                       {
                         this.graphName = "No Data Found for " + this.graphName;
-         
                       }
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.numberOfBooking, this.id);
                         this.loaderDisplay = false
-                      
-                      
-                      
- 
                 },
-        error=>{ this.errorMsg = error;}
-                  
+        error=>{ this.errorMsg = error;}      
           );
     }
     graphs: GraphTypes[] = [
