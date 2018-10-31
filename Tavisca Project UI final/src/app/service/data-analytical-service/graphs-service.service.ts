@@ -57,7 +57,7 @@ export class GraphsServiceService {
        indexLabelPlacement: "outside",
        dataPoints: this.graphDataPoints,
        click: function (e) {
-         alert(e.dataPoint.y +" "+e.dataPoint.label)
+         
        }
      }]
    });
