@@ -54,7 +54,14 @@ export class SupplierNameBasedGraphComponent implements OnInit
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.SupplierName, this.NumberOfBooking, this.id);
                         this.loaderDisplay = false                   
                 },
-        error=>{ this.errorMsg = error;}
+                error=>{ 
+                  this.errorMsg = error;
+                  if(this.errorMsg!=null)
+                  {
+                    this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.SupplierName, this.NumberOfBooking, this.id);
+                    this.loaderDisplay = false;
+                  }
+                }
           );
   }
     graphs: GraphTypes[] = [

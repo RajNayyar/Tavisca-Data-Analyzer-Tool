@@ -58,7 +58,14 @@ export class HotelNamesWithDatesGraphComponent implements OnInit {
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Place, this.totalBookings, this.id);
                         this.loaderDisplay = false                     
                   },
-          error=>{ this.errorMsg = error;}
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.Place, this.totalBookings, this.id);
+                      this.loaderDisplay = false;
+                    }
+                  }
             );
     }
    

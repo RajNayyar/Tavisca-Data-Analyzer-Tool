@@ -56,7 +56,7 @@ export class StatsReportNotifierComponent implements OnInit {
     }
     this.service.httpEmailSending(this.EmailJson)
     .subscribe(
-      data=>{console.log(data);},
+      data=>{},
       error=>{this.errorMsg=error}
       );
   }

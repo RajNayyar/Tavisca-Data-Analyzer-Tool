@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
+import { IfStmt } from '@angular/compiler';
 declare var CanvasJS: any;
 @Component({
   selector: 'app-flight-booking-status-stats',
@@ -8,6 +9,7 @@ declare var CanvasJS: any;
 })
 export class FlightBookingStatusStatsComponent implements OnInit {
 
+  graphName: string="";
   chart: string = "doughnut";
   errorMsg: any
   bookingStatus: any=[];
@@ -20,29 +22,37 @@ export class FlightBookingStatusStatsComponent implements OnInit {
    
     this.service.httpResponseFilters("Air","TotalBookings")
     .subscribe( data=>{
-      for(var bookingStatsIndex=0;bookingStatsIndex<Object.keys(data).length;bookingStatsIndex++)
-      {           
-      if(data[bookingStatsIndex].bookingStatus=="Purchased") {
-        this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
-          this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
-          this.colors.push("#175b15");
-      }
-          if(data[bookingStatsIndex].bookingStatus=="Canceled"){
-            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
-          this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
-          this.colors.push("#d8b00d");
-          }
-          if(data[bookingStatsIndex].bookingStatus=="Planned"){
-            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
-          this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
-          this.colors.push("#d8350d");
-          }
-        }
-                     this.DisplayGraph( this.chart);
+                    for(var bookingStatsIndex=0;bookingStatsIndex<Object.keys(data).length;bookingStatsIndex++)
+                      {           
+                          if(data[bookingStatsIndex].bookingStatus=="Purchased") 
+                          {
+                            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+                            this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
+                            this.colors.push("#175b15");
+                          }
+                          if(data[bookingStatsIndex].bookingStatus=="Canceled")
+                          {
+                            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+                            this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
+                            this.colors.push("#d8b00d");
+                          }
+                          if(data[bookingStatsIndex].bookingStatus=="Planned")
+                          {
+                            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+                            this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
+                            this.colors.push("#d8350d");
+                          }
+                      }
+                    this.DisplayGraph( this.chart,this.graphName);
                 },
-        error=>{ this.errorMsg = error;}
-
-          );
+                error=>{ 
+                  this.errorMsg = error;
+                  if(this.errorMsg!=null)
+                  {
+                    this.DisplayGraph( this.chart,"Something Went Wrong! Please try again later..");
+                  }  
+                }
+    );
  }
  setDataPoints(xAxis, yAxis)
     {
@@ -53,7 +63,7 @@ export class FlightBookingStatusStatsComponent implements OnInit {
       }
       
     }
-    DisplayGraph(chart ) {
+    DisplayGraph(chart, graphName ) {
 
       this.setDataPoints(this.bookingStatus,this.numberOfBookings)
 
@@ -62,7 +72,10 @@ export class FlightBookingStatusStatsComponent implements OnInit {
         animationEnabled: true,
         exportEnabled: true,
         theme: "light2", 
-      
+        title:{
+          fontSize: 20,
+           text: graphName
+         },
         data: [{
           type: chart,
           indexLabelFontColor: "#5A5757",

@@ -121,7 +121,6 @@ export class WidgetComponent implements OnInit {
    var book = new BookingWithDatesGraphComponent(this.service)
    var supplierName = new SupplierNameBasedGraphComponent(this.service)
    var payment = new PaymentModeBasedGraphComponent(this.service)
-    console.log(this.checkValue);
     if(this.checkValue.includes('location')) { 
       hotelLocation.reRenderChart();
     }

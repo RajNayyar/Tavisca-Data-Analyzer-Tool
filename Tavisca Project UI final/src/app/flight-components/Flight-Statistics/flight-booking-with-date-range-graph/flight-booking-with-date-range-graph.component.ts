@@ -58,7 +58,14 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
                           this.loaderDisplay = false; 
                         }
                   },
-          error=>{ this.errorMsg = error;}
+                  error=>{ 
+                      this.errorMsg = error;
+                      if(this.errorMsg!=null)
+                      {
+                        this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later.." , this.Date, this.NumberOfBooking, this.id);
+                        this.loaderDisplay = false;
+                      }
+                  }
             );
 
     }

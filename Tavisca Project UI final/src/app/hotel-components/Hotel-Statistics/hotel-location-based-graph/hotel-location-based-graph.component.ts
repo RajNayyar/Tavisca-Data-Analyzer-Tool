@@ -57,7 +57,15 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
                         this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Hotels, this.Bookings, this.id);
                         this.loaderDisplay = false
                 },
-        error=>{ this.errorMsg = error;}
+                error=>{ 
+                  this.errorMsg = error;
+                  if(this.errorMsg!=null)
+                  {
+                    this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.Hotels, this.Bookings, this.id);
+                    this.loaderDisplay = false;
+                  }
+                }
+
           );
     }
     graphs: GraphTypes[] = [

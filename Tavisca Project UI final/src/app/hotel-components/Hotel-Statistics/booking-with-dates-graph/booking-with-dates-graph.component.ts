@@ -57,7 +57,14 @@ export class BookingWithDatesGraphComponent implements OnInit {
                           this.loaderDisplay = false
                           this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingDates, this.NumberOfBooking, this.id);                      
                   },
-          error=>{ this.errorMsg = error;}
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.BookingDates, this.NumberOfBooking, this.id);
+                      this.loaderDisplay = false;
+                    }
+                  }
             );
     }
     graphs: GraphTypes[] = [
