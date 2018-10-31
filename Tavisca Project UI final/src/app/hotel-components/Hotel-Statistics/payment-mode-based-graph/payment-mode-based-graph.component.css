@@ -1,0 +1,24 @@
+#payment-mode-chart{
+    height: 350px;
+    text-align: center;
+}
+.payment-mode-chart-container{
+    margin: 30px auto;
+    box-shadow: 10px 10px 20px #888888;  
+}
+mat-select{
+    width: 200px;
+    align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #payment-mode-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #payment-mode-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
+}

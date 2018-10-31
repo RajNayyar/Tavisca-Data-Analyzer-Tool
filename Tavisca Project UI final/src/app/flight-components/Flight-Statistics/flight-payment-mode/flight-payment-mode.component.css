@@ -1,0 +1,25 @@
+
+#flight-payment-mode-chart {
+    text-align: center;
+    height: 350px;
+}
+.flight-payment-mode-chart-container {
+    margin: 20px auto;
+    box-shadow: 10px 10px 20px #888888;
+}
+mat-select {
+    width: 200px;
+    align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #flight-payment-mode-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #flight-payment-mode-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
+}

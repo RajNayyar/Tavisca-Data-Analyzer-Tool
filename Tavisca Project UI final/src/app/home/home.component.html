@@ -1,0 +1,32 @@
+<h1 class="realtime-date-time">
+    {{dateMessage}}
+</h1>
+<hr>
+<div class="products-container">
+    <div class="hotel-stats">
+        <div class="img">
+            <h1 tabindex="2">Hotel Statistics</h1>
+        </div>
+        <div class="hotel-progress">
+            <app-hotel-booking-status-stats class="progressBar"></app-hotel-booking-status-stats>
+            <div>
+                <app-success class="progressBar"></app-success>
+                <app-cancelled class="progressBar"></app-cancelled>
+                <app-failure class="progressBar"></app-failure>
+            </div>
+        </div>
+    </div>
+    <div class="flights-stats">
+        <div class="img">
+            <h1>Flight Statistics</h1>
+        </div>
+        <div class="flight-progress">
+            <app-flight-booking-status-stats></app-flight-booking-status-stats>
+            <div>
+                <flight-app-success class="progressBar"></flight-app-success>
+                <flight-app-cancelled class="progressBar"></flight-app-cancelled>
+                <flight-app-failure class="progressBar"></flight-app-failure>
+            </div>
+        </div>
+    </div>
+</div>

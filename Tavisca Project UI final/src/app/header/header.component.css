@@ -1,0 +1,13 @@
+.header {
+    width: 100%;
+}
+.header-logo-area {
+    position: fixed;
+    width: 100%;
+    background-color: #133764;
+}
+.logo {
+    margin-top: 5px;
+    margin-left: 20px;
+    width: 150px;
+}
