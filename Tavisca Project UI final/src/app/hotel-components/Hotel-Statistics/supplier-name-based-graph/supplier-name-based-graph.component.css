@@ -2,7 +2,6 @@
     text-align: center;
     height: 350px;
 }
-
 .supplier-name-chart-container {
     margin: 30px auto;
     box-shadow: 10px 10px 20px #888888;
@@ -17,7 +16,6 @@ mat-select {
         height: 300px;
     }
 }
-
 @media only screen and (max-width: 800px) {
     #supplier-name-chart {
         margin: 20px auto;

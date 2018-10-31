@@ -8,12 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   constructor() { }
-  homeRoute: string = "home";
-  hotelRoute: string="hotel";
-  flightRoute: string="flight";
-
   ngOnInit() {
-    console.log("header")
   }
 
 }

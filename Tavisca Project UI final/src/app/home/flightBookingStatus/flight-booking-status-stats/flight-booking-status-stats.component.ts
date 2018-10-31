@@ -20,21 +20,21 @@ export class FlightBookingStatusStatsComponent implements OnInit {
    
     this.service.httpResponseFilters("Air","TotalBookings")
     .subscribe( data=>{
-      for(var i=0;i<Object.keys(data).length;i++)
+      for(var bookingStatsIndex=0;bookingStatsIndex<Object.keys(data).length;bookingStatsIndex++)
       {           
-      if(data[i].bookingStatus=="Purchased") {
-        this.bookingStatus.push(data[i].bookingStatus);
-          this.numberOfBookings.push(data[i].numberOfBookings);
+      if(data[bookingStatsIndex].bookingStatus=="Purchased") {
+        this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+          this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
           this.colors.push("#175b15");
       }
-          if(data[i].bookingStatus=="Canceled"){
-            this.bookingStatus.push(data[i].bookingStatus);
-          this.numberOfBookings.push(data[i].numberOfBookings);
+          if(data[bookingStatsIndex].bookingStatus=="Canceled"){
+            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+          this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
           this.colors.push("#d8b00d");
           }
-          if(data[i].bookingStatus=="Planned"){
-            this.bookingStatus.push(data[i].bookingStatus);
-          this.numberOfBookings.push(data[i].numberOfBookings);
+          if(data[bookingStatsIndex].bookingStatus=="Planned"){
+            this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+          this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
           this.colors.push("#d8350d");
           }
         }
@@ -47,9 +47,9 @@ export class FlightBookingStatusStatsComponent implements OnInit {
  setDataPoints(xAxis, yAxis)
     {
       this.graphDataPoints = []
-      for(var i = 0; i<xAxis.length;i++)
+      for(var index = 0; index<xAxis.length;index++)
       {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i],color:this.colors[i]});
+        this.graphDataPoints.push({label: xAxis[index], y: yAxis[index],color:this.colors[index]});
       }
       
     }

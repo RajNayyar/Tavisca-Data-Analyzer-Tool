@@ -20,21 +20,21 @@ export class HotelBookingStatusStatsComponent implements OnInit {
    
     this.service.httpResponseFilters("Hotels","TotalBookings")
     .subscribe( data=>{
-      for(var i=0;i<Object.keys(data).length;i++)
+      for(var hotelbookingStataIndex=0;hotelbookingStataIndex<Object.keys(data).length;hotelbookingStataIndex++)
       {           
-      if(data[i].type=="Purchased") {
-        this.bookingStatus.push(data[i].type);
-          this.numberOfBookings.push(data[i].count);
+      if(data[hotelbookingStataIndex].type=="Purchased") {
+        this.bookingStatus.push(data[hotelbookingStataIndex].type);
+          this.numberOfBookings.push(data[hotelbookingStataIndex].count);
           this.colors.push("#175b15");
       }
-          if(data[i].type=="Canceled"){
-            this.bookingStatus.push(data[i].type);
-          this.numberOfBookings.push(data[i].count);
+          if(data[hotelbookingStataIndex].type=="Canceled"){
+            this.bookingStatus.push(data[hotelbookingStataIndex].type);
+          this.numberOfBookings.push(data[hotelbookingStataIndex].count);
           this.colors.push("#d8b00d");
           }
-          if(data[i].type=="Planned"){
-            this.bookingStatus.push(data[i].type);
-          this.numberOfBookings.push(data[i].count);
+          if(data[hotelbookingStataIndex].type=="Planned"){
+            this.bookingStatus.push(data[hotelbookingStataIndex].type);
+          this.numberOfBookings.push(data[hotelbookingStataIndex].count);
           this.colors.push("#d8350d");
           }
         }
@@ -42,22 +42,17 @@ export class HotelBookingStatusStatsComponent implements OnInit {
                 },
         error=>{ this.errorMsg = error;}
 
-          );
-              
- }
- setDataPoints(xAxis, yAxis)
-    {
+          );   
+    }
+    setDataPoints(xAxis, yAxis) {
       this.graphDataPoints = []
-      for(var i = 0; i<xAxis.length;i++)
+      for(var index = 0; index<xAxis.length;index++)
       {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i],color:this.colors[i]});
-      }
-      
+        this.graphDataPoints.push({label: xAxis[index], y: yAxis[index],color:this.colors[index]});
+      } 
     }
     DisplayGraph(chart ) {
-
       this.setDataPoints(this.bookingStatus,this.numberOfBookings)
-
       var chart = new CanvasJS.Chart("stats-hotel", {
         backgroundColor: "transparent",
         zoomEnabled:true,
@@ -76,5 +71,4 @@ export class HotelBookingStatusStatsComponent implements OnInit {
       });
       chart.render();
     }
-  
 }

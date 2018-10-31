@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GraphsServiceService } from '../service/data-analytical-service/graphs-service.service';
 
 @Component({
-  selector: 'home',
+  selector: 'home-component',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

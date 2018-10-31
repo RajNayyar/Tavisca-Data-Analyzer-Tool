@@ -34,10 +34,10 @@ export class FlightPaymentModeComponent implements OnInit {
       this.service.httpResponseFilters("Air","PaymentType?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var paymentModeIndex=0;paymentModeIndex<Object.keys(data).length;paymentModeIndex++)
                         {
-                          this.paymentType.push(data[i].paymentType);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.paymentType.push(data[paymentModeIndex].paymentType);
+                          this.NumberOfBooking.push(data[paymentModeIndex].numberOfBookings);
                         }
                         this.service.statsReport.push(
                           {

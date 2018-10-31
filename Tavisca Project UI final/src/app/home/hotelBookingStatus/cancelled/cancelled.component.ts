@@ -16,10 +16,10 @@ export class CancelledComponent implements OnInit {
   
     this.service.httpResponseFilters("Hotels","TotalBookings")
     .subscribe( data=>{
-      for(var i=0;i<Object.keys(data).length;i++)
+      for(var hotelCancellationIndex=0;hotelCancellationIndex<Object.keys(data).length;hotelCancellationIndex++)
       {
-        if(data[i].type=="Canceled")
-            this.cancellationCount=data[i].count;
+        if(data[hotelCancellationIndex].type=="Canceled")
+            this.cancellationCount=data[hotelCancellationIndex].count;
       }
                 },
         error=>{ this.errorMsg = error;}

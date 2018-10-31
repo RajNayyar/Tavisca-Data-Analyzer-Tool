@@ -2,12 +2,10 @@
     text-align: center;
     height: 350px;
 }
-
 .hotel-with-dates-chart-container {
     margin: 30px auto;
     box-shadow: 10px 10px 20px #888888;
 }
-
 mat-select {
     width: 200px;
     align-content: right;
@@ -18,7 +16,6 @@ mat-select {
         height: 300px;
     }
 }
-
 @media only screen and (max-width: 800px) {
     #hotel-with-dates-chart {
         margin: 20px auto;

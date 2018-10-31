@@ -12,9 +12,6 @@ export interface GraphTypes {
   styleUrls: ['./flight-total-bookings-graph.component.css']
 })
 export class FlightTotalBookingsGraphComponent implements OnInit {
-
-
-  
   defaultGraphType: string = "line" 
   errorMsg: any
   BookingStatus: any=["Failure","Success","Cancelled"];
@@ -24,9 +21,8 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
-  ngOnInit(){
+    ngOnInit(){
     this.loaderDisplay = true;
-    // this.reRender()
     }
     reRender()
     {
@@ -36,9 +32,9 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
       this.service.httpResponseFilters("Air","TotalBookings")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var TotalBookingsIndex=0;TotalBookingsIndex<Object.keys(data).length;TotalBookingsIndex++)
                         {
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.NumberOfBooking.push(data[TotalBookingsIndex].numberOfBookings);
                         }
                         this.service.statsReport.push(
                           {

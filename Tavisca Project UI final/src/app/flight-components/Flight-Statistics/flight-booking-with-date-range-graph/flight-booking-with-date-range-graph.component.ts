@@ -33,10 +33,10 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
       this.service.httpResponseFilters("Air","BookingsWithinDateRange?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var dateRangeIndex=0;dateRangeIndex<Object.keys(data).length;dateRangeIndex++)
                         {
-                          this.Date.push(data[i].date);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.Date.push(data[dateRangeIndex].date);
+                          this.NumberOfBooking.push(data[dateRangeIndex].numberOfBookings);
                         }
                         this.service.statsReport.push(
                           {

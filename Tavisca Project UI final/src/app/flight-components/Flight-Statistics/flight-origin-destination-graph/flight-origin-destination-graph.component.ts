@@ -44,7 +44,6 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       'destinationControl':[null,[Validators.required]]
     });
     this.loaderDisplay = true;
-     //this.reRender()
     }
     deleteFromStatsReportIfExists()
     {
@@ -80,10 +79,10 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       this.service.httpResponseFilters("Air","BookingsForSpecificTrip?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&departAirportCode="+this.service.source+"&arrivalAirportCode="+this.service.destination)
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var specificTripIndex=0;specificTripIndex<Object.keys(data).length;specificTripIndex++)
                         {
-                          this.AirlineName.push(data[i].airlineName);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.AirlineName.push(data[specificTripIndex].airlineName);
+                          this.NumberOfBooking.push(data[specificTripIndex].numberOfBookings);
                         }
                         this.service.statsReport.push(
                           {
@@ -104,6 +103,7 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
                           this.service.DisplayGraph( this.defaultGraphType, this.graphName + " for: "+ this.service.source + " to " + this.service.destination , this.AirlineName, this.NumberOfBooking, this.id);
                           this.loaderDisplay = false
                         }
+                       
                   },
           error=>{ this.errorMsg = error;}
 
@@ -118,10 +118,4 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
     ];
 
     
-      private _markAsDirty2(group:FormGroup){
-        group.markAsDirty();
-        for(let i in group.controls){
-          group.controls[i].markAsDirty();
-        }
-      }
 }

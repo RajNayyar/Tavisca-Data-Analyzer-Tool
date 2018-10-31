@@ -85,8 +85,6 @@ onScreenResize(event) {
     {value: 'allBookings', viewValue: 'Total Bookings'},
     {value: 'paymentMode', viewValue: 'Payment Mode'}
   ];
-  response:any;
-  res:any [];
   errorMsg:any;
   flightInputForm:FormGroup;
   constructor(private fb:FormBuilder, private service:GraphsServiceService ){

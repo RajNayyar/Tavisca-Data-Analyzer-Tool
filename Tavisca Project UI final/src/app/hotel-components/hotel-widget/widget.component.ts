@@ -16,7 +16,7 @@ export interface Graph {
   viewValue: string;
 }
 @Component({
-  selector: 'widget',
+  selector: 'hotel-widget',
   templateUrl: './widget.component.html',
   styleUrls: ['./widget.component.css'],   
   animations: [

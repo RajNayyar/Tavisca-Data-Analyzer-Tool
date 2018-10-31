@@ -3,7 +3,6 @@ mat-form-field {
     margin: 15px auto;
     width: 200px;
 }
-
 .hotel-submit {
     height: 40px;
     margin-top: 1.5em;
@@ -63,8 +62,6 @@ mat-form-field {
         margin-bottom: 10em;
     }
 }
-
-
 @media only screen and (max-width: 978px) {
     .graphs {
         width: 90%;
@@ -96,6 +93,5 @@ mat-form-field {
         margin: 15px auto;
         width: 100%;
     }
-   
 }
 

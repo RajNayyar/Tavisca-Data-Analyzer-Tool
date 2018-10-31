@@ -12,8 +12,6 @@ export interface GraphTypes {
   styleUrls: ['./marketing-airline-graph.component.css']
 })
 export class MarketingAirlineGraphComponent implements OnInit {
-
- 
   defaultGraphType: string = "line" 
   errorMsg: any
   AirlineName: any=[];
@@ -24,9 +22,8 @@ export class MarketingAirlineGraphComponent implements OnInit {
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
-  ngOnInit(){
+    ngOnInit(){
     this.loaderDisplay = true;
-     //this.reRender()
     }
     reRender()
     {
@@ -36,10 +33,10 @@ export class MarketingAirlineGraphComponent implements OnInit {
       this.service.httpResponseFilters("Air","MarketingAirlineBookingInfo?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var airlineBookingIndex=0;airlineBookingIndex<Object.keys(data).length;airlineBookingIndex++)
                         {
-                          this.AirlineName.push(data[i].airlineName+"("+data[i].airLineCode+")");
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.AirlineName.push(data[airlineBookingIndex].airlineName+"("+data[airlineBookingIndex].airLineCode+")");
+                          this.NumberOfBooking.push(data[airlineBookingIndex].numberOfBookings);
                         }
                         this.service.statsReport.push(
                           {

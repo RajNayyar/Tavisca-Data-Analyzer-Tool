@@ -7,24 +7,17 @@ import { GraphsServiceService } from 'src/app/service/data-analytical-service/gr
   styleUrls: ['./success.component.css']
 })
 export class SuccessComponent implements OnInit {
-
- 
   errorMsg: any;
   successCount: any;
-
- // defaultStartDate: string = "2015-02-15"
-  //defaultEndDate: string = "2018-05-25";
-  //defaultLocation: string = "Las Vegas"
   constructor (private service:GraphsServiceService) { }
- 
   ngOnInit() {
   
     this.service.httpResponseFilters("Hotels","TotalBookings")
     .subscribe( data=>{ 
-      for(var i=0;i<Object.keys(data).length;i++)
+      for(var successIndex=0;successIndex<Object.keys(data).length;successIndex++)
       {
-        if(data[i].type=="Purchased")
-            this.successCount=data[i].count;
+        if(data[successIndex].type=="Purchased")
+            this.successCount=data[successIndex].count;
       }
                 },
         error=>{ this.errorMsg = error;}

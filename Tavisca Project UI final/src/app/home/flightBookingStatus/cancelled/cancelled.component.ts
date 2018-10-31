@@ -14,10 +14,10 @@ export class flightCancelledComponent implements OnInit {
   ngOnInit() {
     this.service.httpResponseFilters("Air","TotalBookings")
     .subscribe( data=>{
-      for(var i=0;i<Object.keys(data).length;i++)
+      for(var cancelledIndex=0;cancelledIndex<Object.keys(data).length;cancelledIndex++)
       {
-        if(data[i].bookingStatus=="Canceled")
-            this.flightCancellationCount=data[i].numberOfBookings;
+        if(data[cancelledIndex].bookingStatus=="Canceled")
+            this.flightCancellationCount=data[cancelledIndex].numberOfBookings;
       }
                 },
         error=>{ this.errorMsg = error;}
