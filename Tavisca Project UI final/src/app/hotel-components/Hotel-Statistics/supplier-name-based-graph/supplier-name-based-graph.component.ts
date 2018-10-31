@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Chart, ChartDataSets, ChartArea} from 'chart.js';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 
 export interface GraphTypes {
@@ -14,44 +14,33 @@ export interface GraphTypes {
 })
 export class SupplierNameBasedGraphComponent implements OnInit
 {
-  GraphTypeValue: string
-  chart: string = "line";
-  hotelLocationGraph: any;
-  defaultGraphType: string
+  defaultGraphType: string = "line" 
   errorMsg: any
   SupplierName: any=[];
   NumberOfBooking: any = [];
-  paymentStartDate: string;
-  paymentEndDate: string;
-  paymentLocation: string;
-  defaultStartDate: string = "2015-05-15"
-  defaultEndDate: string = "2018-05-15"
-  defaultLocation: string = "Las Vegas"
   graphDataPoints=[]
   loaderDisplay: boolean
-  id:string="supplier-name-chart";
+  id:string = "supplier-name-chart";
+  graphName: string = "Supplier-Booking Analysis";
   constructor (private service:GraphsServiceService) { }
   
   ngOnInit(){
-    this.reRender()
-  }
-  reRender(){
+    this.loaderDisplay = true;
+   }
+   reRenderChart() {
     this.loaderDisplay=true
-   this.hotelLocationGraph = null;
-    this.defaultGraphType = "line";
     this.SupplierName = [];
     this.NumberOfBooking= [];
     this.service.httpResponseFilters("Hotels","SupplierNamesWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&location="+this.service.location)
     .subscribe( data=>{
-              for(var i=0;i<Object.keys(data).length;i++)
-                      {
-                        this.SupplierName.push(data[i].supplierName);
-                        this.NumberOfBooking.push(data[i].bookings);
-                      }
+                    for(var index=0;index<Object.keys(data).length;index++) {
+                        this.SupplierName.push(data[index].supplierName);
+                        this.NumberOfBooking.push(data[index].bookings);
+                    }
                     if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                       this.service.statsReport.push(
                         {
-                          filter: "Suppliers Analysis",
+                          filter: this.graphName,
                           startDate: this.service.start,
                           endDate: this.service.end,
                           location: this.service.location,
@@ -59,10 +48,20 @@ export class SupplierNameBasedGraphComponent implements OnInit
                           statistics: this.NumberOfBooking
                         })
                       }
-                      this.DisplayGraph( this.chart);
+                      if(data.length ==0) {
+                        this.graphName = "No Data Found for " + this.graphName;
+                      }
+                        this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.SupplierName, this.NumberOfBooking, this.id);
+                        this.loaderDisplay = false                   
                 },
-        error=>{ this.errorMsg = error;}
-
+                error=>{ 
+                  this.errorMsg = error;
+                  if(this.errorMsg!=null)
+                  {
+                    this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.SupplierName, this.NumberOfBooking, this.id);
+                    this.loaderDisplay = false;
+                  }
+                }
           );
   }
     graphs: GraphTypes[] = [
@@ -72,54 +71,6 @@ export class SupplierNameBasedGraphComponent implements OnInit
       {value: 'area', viewValue: 'Area Graph'},
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
-
-
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-     this.DisplayGraph(this.chart);
-    }
-
-  setDataPoints(xAxis, yAxis)
-    {
-      this.graphDataPoints = [];
-      for(var i = 0; i<xAxis.length;i++)
-      {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-      }
-      
-    }
-    DisplayGraph(chart ) {
-       this.loaderDisplay=false
-      this.setDataPoints(this.SupplierName,this.NumberOfBooking);
-
-      var chart = new CanvasJS.Chart(this.id, {
-        zoomEnabled:true,
-        animationEnabled: true,
-        exportEnabled: true,
-        theme: "light1", 
-        title:{
-          text: "Supplier Name Graph"
-        },
-        data: [{
-          type: chart,
-          indexLabelFontColor: "#5A5757",
-          indexLabelPlacement: "outside",
-          dataPoints: this.graphDataPoints,
-          click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
-          }
-        }]
-      });
-      chart.render();
-      
-    }
-      showDetails(event)
-      {
-        alert("working");
-      }
-      
-   
     }
    
   

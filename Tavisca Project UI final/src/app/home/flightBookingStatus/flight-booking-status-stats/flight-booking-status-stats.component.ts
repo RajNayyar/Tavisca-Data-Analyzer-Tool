@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 @Component({
   selector: 'app-flight-booking-status-stats',
@@ -8,38 +8,60 @@ declare var CanvasJS: any;
 })
 export class FlightBookingStatusStatsComponent implements OnInit {
 
+  graphName:string="";
   chart: string = "doughnut";
   errorMsg: any
-  bookingStatus: any=["Success","Failure","Cancelled"];
+  bookingStatus: any=[];
   numberOfBookings: any = [];
-  colors:any=["#175b15","#d8350d","#d8b00d"];
+  colors:any=[];
   count:any;
   graphDataPoints= [];
   constructor (private service:GraphsServiceService) { }
   ngOnInit() {
-   
     this.service.httpResponseFilters("Air","TotalBookings")
-    .subscribe( data=>{
-                   
-                        this.numberOfBookings.push(data[1].numberOfBookings);
-                        this.numberOfBookings.push(data[0].numberOfBookings);
-                        this.numberOfBookings.push(data[2].numberOfBookings);
-                     this.DisplayGraph( this.chart);
-                },
-        error=>{ this.errorMsg = error;}
-
+      .subscribe( data=>{
+                    for(var bookingStatsIndex=0;bookingStatsIndex<Object.keys(data).length;bookingStatsIndex++)
+                    {           
+                      if(data[bookingStatsIndex].bookingStatus=="Purchased") 
+                      {
+                        this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+                        this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
+                        this.colors.push("#175b15");
+                      }
+                      if(data[bookingStatsIndex].bookingStatus=="Canceled")
+                      {
+                        this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+                        this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
+                        this.colors.push("#d8b00d");
+                      }
+                      if(data[bookingStatsIndex].bookingStatus=="Planned")
+                      {
+                        this.bookingStatus.push(data[bookingStatsIndex].bookingStatus);
+                        this.numberOfBookings.push(data[bookingStatsIndex].numberOfBookings);
+                        this.colors.push("#d8350d");
+                      }
+                    }
+                    this.DisplayGraph( this.chart,this.graphName);
+                  },
+                  error=>{ 
+                        this.errorMsg = error;
+                        if(this.errorMsg!=null)
+                        {
+                          this.DisplayGraph( this.chart,"Something Went Wrong! Please try again later..");
+                        }  
+                  }
           );
  }
  setDataPoints(xAxis, yAxis)
     {
       this.graphDataPoints = []
-      for(var i = 0; i<xAxis.length;i++)
+      for(var index = 0; index<xAxis.length;index++)
       {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i],color:this.colors[i]});
+        this.graphDataPoints.push({label: xAxis[index], y: yAxis[index],color:this.colors[index]});
       }
       
     }
-    DisplayGraph(chart ) {
+    DisplayGraph(chart,graphName) {
 
       this.setDataPoints(this.bookingStatus,this.numberOfBookings)
 
@@ -47,15 +69,17 @@ export class FlightBookingStatusStatsComponent implements OnInit {
         zoomEnabled:true,
         animationEnabled: true,
         exportEnabled: true,
-        theme: "light2", 
-      
+        theme: "light2",
+        title:{
+          fontSize: 20,
+           text: graphName
+         }, 
         data: [{
           type: chart,
           indexLabelFontColor: "#5A5757",
           indexLabelPlacement: "outside",
           dataPoints: this.graphDataPoints,
           click: function (e) {
-            //alert(e.dataPoint.y +" "+e.dataPoint.label)
           }
         }]
       });

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from '../service/hotel-service/graphs-service.service';
-
+import { GraphsServiceService } from '../service/data-analytical-service/graphs-service.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { NotifierEmailDialogComponent } from '../notifier-email-dialog/notifier-email-dialog.component';
+export interface DialogData {
+}
 @Component({
   selector: 'app-stats-report-notifier',
   templateUrl: './stats-report-notifier.component.html',
@@ -16,12 +19,15 @@ export class StatsReportNotifierComponent implements OnInit {
   Labels = []
   Statistics = []
   EmailJson ={}
-  constructor(private service: GraphsServiceService) { }
-
+  constructor(private service: GraphsServiceService,public dialog: MatDialog) { }
   ngOnInit() {
   }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(NotifierEmailDialogComponent, {
+      width: '500px'
+    });
+  }
   SendEmail(){
-    console.log(this.service.statsReport)
     this.FilterName = []
     this.StartDate = []
     this.EndDate = []
@@ -39,7 +45,7 @@ export class StatsReportNotifierComponent implements OnInit {
       this.Labels.push(this.service.statsReport[i].labels)
       this.Statistics.push(this.service.statsReport[i].statistics)
     }
-   this.EmailJson = {
+    this.EmailJson = {
       "RecipientEmialId":this.EmailId,
       "FilterName":this.FilterName,
       "StartDate":this.StartDate,
@@ -48,7 +54,6 @@ export class StatsReportNotifierComponent implements OnInit {
       "Labels":this.Labels,
       "Statistics": this.Statistics
     }
-
     this.service.httpEmailSending(this.EmailJson)
     .subscribe(
       data=>{console.log(data);},

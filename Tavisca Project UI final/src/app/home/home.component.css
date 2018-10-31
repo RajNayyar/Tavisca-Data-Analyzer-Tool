@@ -1,23 +1,23 @@
-.realtime-date-time{
+.realtime-date-time {
     text-align: center;
     font-family: sans-serif;
     font-weight: lighter;
 }
-.booking-text{
+.booking-text {
     margin: 0 auto;
 }
-.progress, .progress1{
+.flight-progress,
+.hotel-progress {
     text-align: center;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
 }
-
-.img{
+.img {
     text-align: center;
 }
-.products-container{
+.products-container {
     margin: 0 auto;
     width: 100%;
     text-align: center;
@@ -25,13 +25,13 @@
     flex: wrap;
     justify-content: center;
 }
-.hotel-stats,.flights-stats{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.hotel-stats,
+.flights-stats {
+    box-shadow: 0 8px 16px 0 #AEB6BF  ;
     margin: 20px auto;
 }
-
 @media only screen and (max-width: 1400px) {
     .products-container {
-       flex-direction: column;
+        flex-direction: column;
     }
 }

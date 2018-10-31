@@ -4,7 +4,8 @@ html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif;
 padding: 0;
  }
-
 .loader{
-    margin-left:45em;
+    float: center;
+    margin:0 auto;
+    width: 300px;  
 }

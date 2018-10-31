@@ -1,14 +1,24 @@
-#booking-with-dates-chart{
-    margin: 20px auto;
-    height: 400px;
+#booking-with-dates-chart {
+    text-align: center;
+    height: 350px;
 }
-#booking-with-dates-chart-container{
-    box-shadow: 10px 10px 20px #888888;  
+.booking-with-dates-chart-container {
+    margin: 30px auto;
+    box-shadow: 10px 10px 20px #888888;
 }
-#lol{
-    color: red;
-}
-mat-select{
+mat-select {
     width: 200px;
     align-content: right;
+}
+@media only screen and (max-width: 1200px) {
+    #booking-with-dates-chart {
+        margin: 20px auto;
+        height: 300px;
+    }
+}
+@media only screen and (max-width: 800px) {
+    #booking-with-dates-chart {
+        margin: 20px auto;
+        height: 200px;
+    }
 }

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FlightWidgetComponent } from '../../flight-widget/flight-widget.component';
-declare var CanvasJS: any;
-
 export interface GraphTypes {
   value: string;
   viewValue: string;
@@ -14,11 +11,11 @@ export interface GraphTypes {
   styleUrls: ['./flight-origin-destination-graph.component.css']
 })
 export class FlightOriginDestinationGraphComponent implements OnInit {
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
-  AirlineName: any=[];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  AirlineName: any = []
+  graphName: string = "Origin-Destination Booking Analysis";
   id:string="origin-destination-chart";
   loaderDisplay: boolean
   sourceTerm:any;
@@ -28,14 +25,8 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
   src:any;
   dest:any;
   sourceDestinationForm:FormGroup;
-  constructor (private service:GraphsServiceService,private fb:FormBuilder) { 
-    this.service.httpResponseFilters("Air","ListOfAirportsWithCode")
-    .subscribe( data=>{ 
-      this.response = data;
-        this.res = data["airportNameWithCode"]; 
-                        },
-                error=>{ this.errorMsg = error;});
-
+  constructor (private service:GraphsServiceService,private fb:FormBuilder) {
+        this.getAirports();
   }
  
   ngOnInit(){
@@ -43,8 +34,26 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       'sourceControl':[null,[Validators.required]],
       'destinationControl':[null,[Validators.required]]
     });
+    this.loaderDisplay = true;
+    }
+    getAirports(){
+      this.service.httpResponseFilters("Air","ListOfAirportsWithCode")
+      .subscribe( data=>{ 
+        this.response = data;
+          this.res = data["airportNameWithCode"]; 
+                          },
+                  error=>{ this.errorMsg = error;});
   
-     this.reRender()
+    }
+    deleteFromStatsReportIfExists()
+    {
+      for(var index=0;index<this.service.statsReport.length; index++)
+      {
+        if(this.service.statsReport[index].filter==this.graphName)
+        {
+          this.service.statsReport.splice(index,1)
+        }
+      }
     }
     AirportCheck(){
       if(this.sourceTerm!=null) {
@@ -56,7 +65,7 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       if(this.destinationTerm!=null) {
         this.dest=this.destinationTerm.split("-");
         this.destinationTerm=this.dest[1];
-        
+      this.deleteFromStatsReportIfExists() 
       this.service.destination=this.destinationTerm;
       
       }
@@ -64,22 +73,47 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
     }
     reRender()
     {
-     
-      this.loaderDisplay = true;
       this.AirlineName = []
       this.NumberOfBooking= []
 
       this.service.httpResponseFilters("Air","BookingsForSpecificTrip?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000&departAirportCode="+this.service.source+"&arrivalAirportCode="+this.service.destination)
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var specificTripIndex=0;specificTripIndex<Object.keys(data).length;specificTripIndex++)
                         {
-                          this.AirlineName.push(data[i].airlineName);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.AirlineName.push(data[specificTripIndex].airlineName);
+                          this.NumberOfBooking.push(data[specificTripIndex].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        this.service.statsReport.push(
+                          {
+                            filter: this.graphName,
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: this.service.source + " to " + this.service.destination,
+                            labels: this.AirlineName,
+                            statistics: this.NumberOfBooking
+                          })
+                        if(data.length ==0)
+                        {
+                          this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName + " for: "+ this.service.source + " to " + this.service.destination , this.AirlineName, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false        
+                        }
+                        else
+                        {
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName + " for: "+ this.service.source + " to " + this.service.destination , this.AirlineName, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
+                        }
+                       
                   },
-          error=>{ this.errorMsg = error;}
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.AirlineName, this.NumberOfBooking, this.id);
+                      this.loaderDisplay = false;
+                    }
+                  }
+          
 
             );
     }
@@ -91,49 +125,5 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
-
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.AirlineName,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Flight Origin Destination Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
-      private _markAsDirty2(group:FormGroup){
-        group.markAsDirty();
-        for(let i in group.controls){
-          group.controls[i].markAsDirty();
-        }
-      }
+    
 }

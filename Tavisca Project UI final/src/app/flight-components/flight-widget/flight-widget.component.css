@@ -1,17 +1,107 @@
-button,mat-form-field{
+mat-form-field {
     height: 40px;
-    margin-top: 10px;
-    margin-left:2em;
+    margin: 15px auto;
+    width: 220px;
 }
-#flight-graphs {
+.submit-button {
+    width: 250px;
+    margin: 15px auto;
+    height: 40px;
+}
+.flight-graphs {
     width: 90%;
-    margin: 100px auto;
+    margin: 8em auto;
+    margin-bottom: 10em;
 }
-.flight-form{
+.flight-filter-widget-button {
+    border: 0;
+    width: 200px;
+    font-weight: lighter;
+    border-radius: 50px;
+    font-family: sans-serif;
+    font-size: 20px;
+    height: 40px;
+    color: #FFFFFF;
+    background: #D84315;
+    outline: none;
+    box-shadow: 0 4px 8px 0 #AEB6BF  ;
+    margin: 10px auto;
+}
+.flight-form {
     width: 100%;
-    margin: 0 auto;
+    margin: 0px auto;
     position: absolute;
-    background-color: white;
+    background-color: #FFFFFF;
     text-align: center;
-    z-index : 1;
+    z-index: 1;
+    box-shadow: 0 4px 8px 0 #AEB6BF  ;
+}
+.flight-form-content {
+    margin: 13px auto;
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+@media only screen and (max-width: 656px) {
+    .flight-form-content {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    mat-form-field {
+        margin: 0 auto;
+        width: 300px;
+    }
+    .flight-graphs {
+        width: 90%;
+        margin: 6em auto;
+        margin-bottom: 10em;
+    }
+    .submit-button {
+        width: 100%;
+        height: 40px;
+    }
+}
+@media only screen and (max-width: 978px) {
+    .flight-graphs {
+        width: 90%;
+        margin: 6em auto;
+        margin-bottom: 10em;
+    }
+    mat-form-field {
+        height: 40px;
+        margin: 15px auto;
+        width: 250px;
+    }
+    .submit-button {
+        width: 100%;
+        margin: 15px auto;
+        height: 40px;
+    }
+}
+@media only screen and (max-width: 1360px) {
+    .flight-graphs {
+        width: 90%;
+        margin: 6em auto;
+        margin-bottom: 10em;
+    }
+    .flight-form-content{
+        margin: 13px auto;
+        display: flex;
+        width: 70%;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    mat-form-field {
+        height: 40px;
+        margin: 15px auto;
+        width: 100%;
+    }
+    .submit-button {
+        width: 100%;
+        margin: 15px auto;
+        height: 40px;
+    }
 }

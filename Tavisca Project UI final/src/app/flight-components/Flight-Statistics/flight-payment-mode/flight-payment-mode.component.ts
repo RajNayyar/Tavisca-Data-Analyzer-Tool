@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 
 export interface GraphTypes {
@@ -13,36 +13,60 @@ export interface GraphTypes {
 })
 export class FlightPaymentModeComponent implements OnInit {
 
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
-  paymentType: any=[];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  paymentType: any = []
+  graphName: string = "Payment Mode Analysis";
   id:string="flight-payment-mode-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    
-     this.reRender()
+    this.loaderDisplay = true;
+     //this.reRender()
     }
     reRender()
     {
-      this.loaderDisplay = true;
       this.paymentType = []
       this.NumberOfBooking= []
 
       this.service.httpResponseFilters("Air","PaymentType?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var paymentModeIndex=0;paymentModeIndex<Object.keys(data).length;paymentModeIndex++)
                         {
-                          this.paymentType.push(data[i].paymentType);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.paymentType.push(data[paymentModeIndex].paymentType);
+                          this.NumberOfBooking.push(data[paymentModeIndex].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        this.service.statsReport.push(
+                          {
+                            filter: this.graphName,
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: "-",
+                            labels: this.paymentType,
+                            statistics: this.NumberOfBooking
+                          })
+                        if(data.length ==0)
+                        {
+                          this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.paymentType, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
+                        }
+                        else{
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.paymentType, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false
+                          }
+                        
                   },
-          error=>{ this.errorMsg = error;}
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.paymentType, this.NumberOfBooking, this.id);
+                      this.loaderDisplay = false;
+                    }
+                  }
 
             );
 
@@ -55,44 +79,6 @@ export class FlightPaymentModeComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
-
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.paymentType,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Payment Mode Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
+   
  
 }

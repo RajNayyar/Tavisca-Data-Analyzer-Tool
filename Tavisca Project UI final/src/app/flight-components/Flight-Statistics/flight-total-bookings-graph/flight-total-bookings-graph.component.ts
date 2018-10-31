@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 
 export interface GraphTypes {
@@ -12,37 +12,58 @@ export interface GraphTypes {
   styleUrls: ['./flight-total-bookings-graph.component.css']
 })
 export class FlightTotalBookingsGraphComponent implements OnInit {
-
-
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
   BookingStatus: any=["Failure","Success","Cancelled"];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  graphName: string = "Status-Booking Analysis";
   id:string="total-bookings-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
-  ngOnInit(){
-    
-     this.reRender()
+    ngOnInit(){
+    this.loaderDisplay = true;
     }
     reRender()
     {
-      this.loaderDisplay = true;
       this.BookingStatus = ["Failure","Success","Cancelled"]
       this.NumberOfBooking= []
 
       this.service.httpResponseFilters("Air","TotalBookings")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var TotalBookingsIndex=0;TotalBookingsIndex<Object.keys(data).length;TotalBookingsIndex++)
                         {
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.NumberOfBooking.push(data[TotalBookingsIndex].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        this.service.statsReport.push(
+                          {
+                            filter: this.graphName,
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: "-",
+                            labels: this.BookingStatus,
+                            statistics: this.NumberOfBooking
+                          })
+                          if(data.length ==0)
+                          {
+                            this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.BookingStatus, this.NumberOfBooking, this.id);
+                            this.loaderDisplay = false
+                          }
+                          else{
+                            this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.BookingStatus, this.NumberOfBooking, this.id);
+                            this.loaderDisplay = false
+                            }
+                        
                   },
-          error=>{ this.errorMsg = error;}
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.BookingStatus, this.NumberOfBooking, this.id);
+                      this.loaderDisplay = false;
+                    }
+                  }
 
             );
 
@@ -55,43 +76,5 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
 
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.BookingStatus,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Total Bookings Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
 }

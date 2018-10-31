@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 
 export interface GraphTypes {
@@ -13,37 +13,59 @@ export interface GraphTypes {
 })
 export class FlightBookingWithDateRangeGraphComponent implements OnInit {
 
-  chart: string = "line";
+  defaultGraphType: string = "line" 
   errorMsg: any
-  Date: any=[];
   NumberOfBooking: any = [];
-  graphDataPoints= [];
+  Date: any = []
+  graphName: string = "Date-Booking Analysis";
   id:string="flight-booking-date-chart";
   loaderDisplay: boolean
   constructor (private service:GraphsServiceService) { }
  
   ngOnInit(){
-    
-     this.reRender()
+    this.loaderDisplay = true;
     }
     reRender()
     {
-      this.loaderDisplay = true;
       this.Date = []
       this.NumberOfBooking= []
 
       this.service.httpResponseFilters("Air","BookingsWithinDateRange?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
       .subscribe( data=>{
               
-                      for(var i=0;i<Object.keys(data).length;i++)
+                      for(var dateRangeIndex=0;dateRangeIndex<Object.keys(data).length;dateRangeIndex++)
                         {
-                          this.Date.push(data[i].date);
-                          this.NumberOfBooking.push(data[i].numberOfBookings);
+                          this.Date.push(data[dateRangeIndex].date);
+                          this.NumberOfBooking.push(data[dateRangeIndex].numberOfBookings);
                         }
-                        this.DisplayGraph( this.chart);
+                        this.service.statsReport.push(
+                          {
+                            filter: this.graphName,
+                            startDate: this.service.start,
+                            endDate: this.service.end,
+                            location: "-",
+                            labels: this.Date,
+                            statistics: this.NumberOfBooking
+                          })
+                        if(data.length == 0)
+                        {
+                          this.service.DisplayGraph( this.defaultGraphType, "No Data Found for " + this.graphName, this.Date, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false;
+                        }
+                        else
+                        {
+                          this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Date, this.NumberOfBooking, this.id);
+                          this.loaderDisplay = false; 
+                        }
                   },
-          error=>{ this.errorMsg = error;}
-
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later.." , this.Date, this.NumberOfBooking, this.id);
+                      this.loaderDisplay = false;
+                    }
+                }
             );
 
     }
@@ -55,43 +77,4 @@ export class FlightBookingWithDateRangeGraphComponent implements OnInit {
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
 
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-      this.DisplayGraph(this.chart);
-    }
-
-      setDataPoints(xAxis, yAxis)
-      {
-        this.graphDataPoints = [];
-        for(var i = 0; i<xAxis.length;i++)
-        {
-          this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-        }
-        
-      }
-      DisplayGraph(chart ) {
-        this.loaderDisplay = false;
-        this.setDataPoints(this.Date,this.NumberOfBooking)
-
-        var chart = new CanvasJS.Chart(this.id, {
-          zoomEnabled:true,
-          animationEnabled: true,
-          exportEnabled: true,
-          theme: "light1", 
-          title:{
-            text: "Flight Booking Date Graph"
-          },
-          data: [{
-            type: chart, 
-            indexLabelFontColor: "#5A5757",
-            indexLabelPlacement: "outside",
-            dataPoints: this.graphDataPoints,
-            click: function (e) {
-              alert(e.dataPoint.y +" "+e.dataPoint.label)
-            }
-          }]
-        });
-        chart.render();
-      }
 }

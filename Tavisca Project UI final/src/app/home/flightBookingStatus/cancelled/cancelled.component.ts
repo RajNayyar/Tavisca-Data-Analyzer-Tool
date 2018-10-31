@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 
 @Component({
   selector: 'flight-app-cancelled',
@@ -14,7 +14,11 @@ export class flightCancelledComponent implements OnInit {
   ngOnInit() {
     this.service.httpResponseFilters("Air","TotalBookings")
     .subscribe( data=>{
-      this.flightCancellationCount=data[2].numberOfBookings;
+      for(var cancelledIndex=0;cancelledIndex<Object.keys(data).length;cancelledIndex++)
+      {
+        if(data[cancelledIndex].bookingStatus=="Canceled")
+            this.flightCancellationCount=data[cancelledIndex].numberOfBookings;
+      }
                 },
         error=>{ this.errorMsg = error;}
 

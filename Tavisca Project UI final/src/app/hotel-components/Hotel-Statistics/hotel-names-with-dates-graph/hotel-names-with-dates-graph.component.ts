@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 import { ChartDataSets } from 'chart.js';
 import * as Chart from 'chart.js';
@@ -14,51 +14,36 @@ export interface GraphTypes {
 })
 export class HotelNamesWithDatesGraphComponent implements OnInit {
 
-  GraphTypeValue: string
-  title = 'Hotels with Dates Graph';
-  chart: string = "line";
-  hotelLocationGraph: any;
-  defaultGraphType: string
+  defaultGraphType: string = "line" 
   errorMsg: any
   HotelsAtParticularLocation: any=[];
   totalBookings: any = [];
-  Place: any = [];
-  paymentStartDate: string;
-  paymentEndDate: string;
-  paymentLocation: string;
-  defaultStartDate: string = "2015-05-15"
-  defaultEndDate: string = "2018-05-15"
-  defaultLocation: string = "Las Vegas"
-  graphDataPoints= [];
-  id:string="hotel-with-dates-chart";
+  Place: any = []
+  graphDataPoints=[]
   loaderDisplay: boolean
-  constructor (private service:GraphsServiceService) { }
+  graphName: string = "Loacation-Booking analysis";
+  id:string="hotel-with-dates-chart";
   
-  ngOnInit(){
-      this.reRender()
+  constructor (private service:GraphsServiceService) { }
 
+  ngOnInit(){
+    this.loaderDisplay = true;
     }
-    reRender()
+    reRenderChart()
     {
-      this.loaderDisplay=true
-      this.hotelLocationGraph = null;
       this.defaultGraphType = "line";
-      this.HotelsAtParticularLocation = []
-      this.totalBookings= []
-      this.Place= []
       this.service.httpResponseFilters("Hotels","HotelLocationWithDates?fromDate="+ this.service.start +" 00:00:00.000&toDate="+this.service.end+" 00:00:00.000")
-      .subscribe( data=>{
-              
-                      for(var i=0;i<Object.keys(data).length;i++)
+      .subscribe( data=>{    
+                      for(var index=0;index<Object.keys(data).length;index++)
                         {
-                          this.HotelsAtParticularLocation.push(data[i].hotelsAtParticularLocation[0]["hotelName"]+"-"+data[i].hotelsAtParticularLocation[0]["bookings"]);
-                          this.totalBookings.push(data[i].totalBookings);
-                          this.Place.push(data[i].place);
+                          this.HotelsAtParticularLocation.push(data[index].hotelsAtParticularLocation[0]["hotelName"]+"-"+data[index].hotelsAtParticularLocation[0]["bookings"]);
+                          this.totalBookings.push(data[index].totalBookings);
+                          this.Place.push(data[index].place);
                        }
                        if(!this.service.statsReport.includes(this.service.statsReport.filter)){
                        this.service.statsReport.push(
                         {
-                          filter: "Hotel names based on Dates",
+                          filter: this.graphName,
                           startDate: this.service.start,
                           endDate: this.service.end,
                           location: this.service.location,
@@ -66,10 +51,21 @@ export class HotelNamesWithDatesGraphComponent implements OnInit {
                           statistics: this.totalBookings
                         })
                       }
-                        this.DisplayGraph( this.chart);
+                      if(data.length ==0)
+                      {
+                        this.graphName = "No Data Found for " + this.graphName;
+                      }
+                        this.service.DisplayGraph( this.defaultGraphType, this.graphName, this.Place, this.totalBookings, this.id);
+                        this.loaderDisplay = false                     
                   },
-          error=>{ this.errorMsg = error;}
-
+                  error=>{ 
+                    this.errorMsg = error;
+                    if(this.errorMsg!=null)
+                    {
+                      this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.Place, this.totalBookings, this.id);
+                      this.loaderDisplay = false;
+                    }
+                  }
             );
     }
    
@@ -80,54 +76,4 @@ export class HotelNamesWithDatesGraphComponent implements OnInit {
       {value: 'area', viewValue: 'Area Graph'},
       {value: 'doughnut', viewValue: 'Doughnut Graph'}
     ];
-
-
-    GraphSelect(graphValue)
-    {
-      this.chart = graphValue;
-  
-
-     this.DisplayGraph(this.chart);
-    }
-
-
-    setDataPoints(xAxis, yAxis)
-    {
-      this.graphDataPoints = [];
-      for(var i = 0; i<xAxis.length;i++)
-      {
-        this.graphDataPoints.push({label: xAxis[i], y: yAxis[i]});
-      }
-      
-    }
-    DisplayGraph(chart ) {
-      this.loaderDisplay=false
-      this.setDataPoints(this.Place,this.totalBookings)
-
-      var chart = new CanvasJS.Chart(this.id, {
-        zoomEnabled:true,
-        animationEnabled: true,
-        exportEnabled: true,
-        theme: "light1", // "light1", "light2", "dark1", "dark2"
-        title:{
-          text: "Hotel Names with Dates Graph"
-        },
-        data: [{
-          type: chart,
-          indexLabelFontColor: "#5A5757",
-          indexLabelPlacement: "outside",
-          dataPoints: this.graphDataPoints,
-          click: function (e) {
-            alert(e.dataPoint.y +" "+e.dataPoint.label)
-          }
-        }]
-      });
-      chart.render();
-    }
-      showDetails(event)
-      {
-        alert("working");
-      }
-      
-   
 }

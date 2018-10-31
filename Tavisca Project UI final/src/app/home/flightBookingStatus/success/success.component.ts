@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 
 @Component({
   selector: 'flight-app-success',
@@ -13,8 +13,12 @@ export class flightSuccessComponent implements OnInit {
 
   ngOnInit() {
     this.service.httpResponseFilters("Air","TotalBookings")
-    .subscribe( data=>{
-      this.flightSuccessCount=data[1].numberOfBookings;
+    .subscribe( data=>{   
+       for(var successIndex=0;successIndex<Object.keys(data).length;successIndex++)
+      {
+        if(data[successIndex].bookingStatus=="Purchased")
+            this.flightSuccessCount=data[successIndex].numberOfBookings;
+      }
                 },
         error=>{ this.errorMsg = error;}
 

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { GraphsServiceService } from '../service/data-analytical-service/graphs-service.service';
 
 @Component({
-  selector: 'home',
+  selector: 'home-component',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 dateMessage: string;
-  constructor() { 
+  constructor(private service: GraphsServiceService) { 
     setInterval(()=> {
       let currentDate = new Date();
       this.dateMessage = currentDate.toDateString() + ' ' + currentDate.toLocaleTimeString()
@@ -15,6 +16,7 @@ dateMessage: string;
   }
 
   ngOnInit() {
+    this.service.statsReport=[];
     let currentDate = new Date();
     this.dateMessage = currentDate.toDateString() + ' ' + currentDate.toLocaleTimeString()
   }
