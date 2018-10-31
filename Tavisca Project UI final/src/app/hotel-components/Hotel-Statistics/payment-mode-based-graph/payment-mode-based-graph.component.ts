@@ -68,7 +68,7 @@ export class PaymentModeBasedGraphComponent implements OnInit {
                     this.service.DisplayGraph( this.defaultGraphType, "Something Went wrong! Please Try again later..", this.paymentType, this.numberOfBooking, this.id);
                     this.loaderDisplay = false;
                   }
-                }     
+                }       
           );
     }
     graphs: GraphTypes[] = [

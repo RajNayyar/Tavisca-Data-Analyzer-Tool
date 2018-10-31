@@ -65,7 +65,6 @@ export class HotelLocationBasedGraphComponent implements OnInit  {
                     this.loaderDisplay = false;
                   }
                 }
-
           );
     }
     graphs: GraphTypes[] = [

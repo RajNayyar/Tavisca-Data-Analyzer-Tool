@@ -1,12 +1,14 @@
 <div class="email-popup">
     <div mat-dialog-content class="dialog-content">
         <h2>Please Enter your Email Address: </h2>
+        <form [formGroup]="emailForm" class="form" novalidate>
         <mat-form-field class="email-input">
-            <input matInput [(ngModel)]="notifierLabel.EmailId">
+            <input matInput type="email" formControlName="email" [(ngModel)]="notifierLabel.EmailId" name="email">
         </mat-form-field>
+        </form>
     </div>
     <div mat-dialog-actions class="popup-buttons">
         <button mat-button (click)="onNoClick()">No Thanks</button>
-        <button mat-button (click)="onSendClick()" cdkFocusInitial>Send</button>
+        <button mat-button (click)="onSendClick()" [disabled]="!emailForm.valid" cdkFocusInitial>Send</button>
     </div>
 </div>

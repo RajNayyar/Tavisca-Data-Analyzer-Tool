@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FlightWidgetComponent } from '../../flight-widget/flight-widget.component';
-declare var CanvasJS: any;
-
 export interface GraphTypes {
   value: string;
   viewValue: string;
@@ -28,14 +25,8 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
   src:any;
   dest:any;
   sourceDestinationForm:FormGroup;
-  constructor (private service:GraphsServiceService,private fb:FormBuilder) { 
-    this.service.httpResponseFilters("Air","ListOfAirportsWithCode")
-    .subscribe( data=>{ 
-      this.response = data;
-        this.res = data["airportNameWithCode"]; 
-                        },
-                error=>{ this.errorMsg = error;});
-
+  constructor (private service:GraphsServiceService,private fb:FormBuilder) {
+        this.getAirports();
   }
  
   ngOnInit(){
@@ -44,6 +35,15 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
       'destinationControl':[null,[Validators.required]]
     });
     this.loaderDisplay = true;
+    }
+    getAirports(){
+      this.service.httpResponseFilters("Air","ListOfAirportsWithCode")
+      .subscribe( data=>{ 
+        this.response = data;
+          this.res = data["airportNameWithCode"]; 
+                          },
+                  error=>{ this.errorMsg = error;});
+  
     }
     deleteFromStatsReportIfExists()
     {
@@ -113,6 +113,8 @@ export class FlightOriginDestinationGraphComponent implements OnInit {
                       this.loaderDisplay = false;
                     }
                   }
+          
+
             );
     }
     graphs: GraphTypes[] = [

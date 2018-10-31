@@ -67,6 +67,7 @@ export class FlightPaymentModeComponent implements OnInit {
                       this.loaderDisplay = false;
                     }
                   }
+
             );
 
     }

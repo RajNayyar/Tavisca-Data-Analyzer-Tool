@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule, MatTabsModule, MatIconModule} from '@angular/material';
+import { MatCheckboxModule, MatTabsModule, MatIconModule, MatSnackBarModule} from '@angular/material';
 import { WidgetComponent } from './hotel-components/hotel-widget/widget.component';
 import { HomeComponent } from './home/home.component';
 import {MatAutocompleteModule,MatButtonModule,MatFormFieldModule,MatInputModule,MatRippleModule,MatNativeDateModule,MatSelectModule} from "@angular/material";
@@ -110,12 +110,13 @@ import { MainComponent } from './main/main.component';
     MatCheckboxModule,
     MatTabsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     NotifierEmailDialogComponent
 ],
-  providers: [ GraphsServiceService],
+  providers: [ GraphsServiceService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

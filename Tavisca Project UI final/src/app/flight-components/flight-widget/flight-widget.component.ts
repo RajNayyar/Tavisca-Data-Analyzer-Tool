@@ -7,7 +7,7 @@ import { FlightBookingWithDateRangeGraphComponent } from '../Flight-Statistics/f
 import { FlightTotalBookingsGraphComponent } from '../Flight-Statistics/flight-total-bookings-graph/flight-total-bookings-graph.component';
 import { MarketingAirlineGraphComponent } from '../Flight-Statistics/marketing-airline-graph/marketing-airline-graph.component';
 import { FlightOriginDestinationGraphComponent } from '../Flight-Statistics/flight-origin-destination-graph/flight-origin-destination-graph.component';
-
+import { MatSnackBar} from '@angular/material';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 export interface Graph {
   value: string;
@@ -68,11 +68,13 @@ onScreenResize(event) {
   flightEndDate:string;
   flightStartDate: string;
   selectedValue:string;
-  minDate = new Date(2016, 0, 1);
+  minDate = new Date(2014, 0, 1);
   maxDate = new Date();
   startDate:Date=null;
   location:any;
   ids:any;
+  message:string="Drag Left/Right on the Graph To Zoom it"
+  action:string="Close"
   IsVisible:boolean=true;
   searchTerm:any;
   checkValue:Array<string>=['place', 'marketingAirline', 'bookDate', 'allBookings', 'paymentMode'];
@@ -87,7 +89,13 @@ onScreenResize(event) {
   ];
   errorMsg:any;
   flightInputForm:FormGroup;
-  constructor(private fb:FormBuilder, private service:GraphsServiceService ){
+  constructor(private fb:FormBuilder, private service:GraphsServiceService,public snackBar: MatSnackBar ){
+    this.snackBar.open(this.message, this.action, {
+      duration:5000,
+      panelClass: ['snackbar'],
+      verticalPosition: 'top',
+      horizontalPosition:'center'
+    }); 
 }
 
 ngOnInit() {

@@ -25,6 +25,10 @@ mat-form-field {
     width: 200px;
     height: 200px;
 }
+.snackbar{
+    color:#000000;
+    background-color: #FFFFFF;
+}
 .hotel-form {
     width: 100%;
     margin: 0 auto;

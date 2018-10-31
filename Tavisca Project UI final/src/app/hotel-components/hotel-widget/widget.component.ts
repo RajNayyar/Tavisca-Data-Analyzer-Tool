@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, Validators,FormControl,FormBuilder } from '@angular/forms';
 import {  GraphsServiceService } from '../../service/data-analytical-service/graphs-service.service';
@@ -10,6 +10,7 @@ import { HotelNamesWithDatesGraphComponent } from '../Hotel-Statistics/hotel-nam
 import { PaymentModeBasedGraphComponent } from '../Hotel-Statistics/payment-mode-based-graph/payment-mode-based-graph.component';
 import { SupplierNameBasedGraphComponent } from '../Hotel-Statistics/supplier-name-based-graph/supplier-name-based-graph.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material';
 
 export interface Graph {
   value: string;
@@ -63,6 +64,7 @@ export class WidgetComponent implements OnInit {
   get isNavbarCollapsedAnim() : string {
       return this._isNavbarCollapsedAnim;
   }
+ 
   currentStartDate:Date;
   currentEndDate:Date=new Date();
   hotelEndDate:string;
@@ -71,6 +73,8 @@ export class WidgetComponent implements OnInit {
   minDate = new Date(2014, 0, 1);
   maxDate = new Date();
   startDate:Date=null;
+  message:string="Drag Left/Right on the Graph To Zoom it"
+  action:string="Close"
   location:any;
   IsVisible:boolean=true;
   selectedLocation:any;
@@ -89,11 +93,14 @@ export class WidgetComponent implements OnInit {
     res:any [];
     errorMsg:any;
     inputForm:FormGroup;
-    constructor(private fb:FormBuilder, private service:GraphsServiceService ){
-       this.service.httpResponseFilters("Hotels","HotelLocations")
-         .subscribe( data=>{ this.response = data;
-                          this.res = data["city"]; },
-                error=>{ this.errorMsg = error;});
+    constructor(private fb:FormBuilder, private service:GraphsServiceService,public snackBar: MatSnackBar ){
+       this.getHotelLocations();
+       this.snackBar.open(this.message, this.action, {
+             duration:5000,
+             panelClass: ['snackbar'],
+             verticalPosition: 'top',
+             horizontalPosition:'center'
+      });       
  }
 
   ngOnInit() {
@@ -111,6 +118,12 @@ export class WidgetComponent implements OnInit {
       'filterControl':[null,[Validators.required]]
     });
   
+  }
+  getHotelLocations(){
+    this.service.httpResponseFilters("Hotels","HotelLocations")
+    .subscribe( data=>{ this.response = data;
+                     this.res = data["city"]; },
+           error=>{ this.errorMsg = error;});
   }
   checkStartDate() {
     this.IsVisible=false;

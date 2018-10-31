@@ -64,6 +64,7 @@ export class FlightTotalBookingsGraphComponent implements OnInit {
                       this.loaderDisplay = false;
                     }
                   }
+
             );
 
     }
