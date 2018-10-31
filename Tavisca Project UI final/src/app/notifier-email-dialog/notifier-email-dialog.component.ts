@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { GraphsServiceService } from '../service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from '../service/data-analytical-service/graphs-service.service';
 import { StatsReportNotifierComponent, DialogData } from '../stats-report-notifier/stats-report-notifier.component';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 

@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, Validators,FormControl,FormBuilder } from '@angular/forms';
-import {  GraphsServiceService } from '../../service/hotel-service/graphs-service.service';
+import {  GraphsServiceService } from '../../service/data-analytical-service/graphs-service.service';
 import { stringify } from '@angular/core/src/util';
 import { BookingWithDatesGraphComponent } from '../Hotel-Statistics/booking-with-dates-graph/booking-with-dates-graph.component';
 import { HotelLocationBasedGraphComponent } from '../Hotel-Statistics/hotel-location-based-graph/hotel-location-based-graph.component';

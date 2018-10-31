@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Chart, ChartDataSets, ChartArea} from 'chart.js';
-import {  GraphsServiceService } from '../../../service/hotel-service/graphs-service.service';
+import {  GraphsServiceService } from '../../../service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 import 'hammerjs';
 

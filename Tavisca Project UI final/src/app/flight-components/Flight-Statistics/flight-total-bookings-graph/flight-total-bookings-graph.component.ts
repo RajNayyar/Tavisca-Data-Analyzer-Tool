@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 declare var CanvasJS: any;
 
 export interface GraphTypes {

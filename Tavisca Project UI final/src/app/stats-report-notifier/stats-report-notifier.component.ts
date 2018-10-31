@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphsServiceService } from '../service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from '../service/data-analytical-service/graphs-service.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { NotifierEmailDialogComponent } from '../notifier-email-dialog/notifier-email-dialog.component';
 export interface DialogData {

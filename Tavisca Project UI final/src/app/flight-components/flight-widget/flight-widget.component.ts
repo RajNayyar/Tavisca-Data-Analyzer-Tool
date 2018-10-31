@@ -1,7 +1,7 @@
 
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { GraphsServiceService } from 'src/app/service/hotel-service/graphs-service.service';
+import { GraphsServiceService } from 'src/app/service/data-analytical-service/graphs-service.service';
 import { FlightPaymentModeComponent } from '../Flight-Statistics/flight-payment-mode/flight-payment-mode.component';
 import { FlightBookingWithDateRangeGraphComponent } from '../Flight-Statistics/flight-booking-with-date-range-graph/flight-booking-with-date-range-graph.component';
 import { FlightTotalBookingsGraphComponent } from '../Flight-Statistics/flight-total-bookings-graph/flight-total-bookings-graph.component';
