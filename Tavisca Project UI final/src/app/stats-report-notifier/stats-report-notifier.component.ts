@@ -52,7 +52,8 @@ export class StatsReportNotifierComponent implements OnInit {
       "EndDate": this.EndDate,
       "Location": this.Location,
       "Labels":this.Labels,
-      "Statistics": this.Statistics
+      "Statistics": this.Statistics,
+      "ProductName": this.service.selectedProductName
     }
     this.service.httpEmailSending(this.EmailJson)
     .subscribe(

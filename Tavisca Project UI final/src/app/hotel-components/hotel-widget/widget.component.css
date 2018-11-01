@@ -57,13 +57,16 @@ mat-form-field {
         flex-direction: column;
     }
     mat-form-field {
-        margin: 5px auto;
+        margin: 0 auto;
         width: 300px;
     }
     .graphs {
         width: 90%;
         margin: 6em auto;
         margin-bottom: 10em;
+    }
+    .hotel-submit {
+        height: 40px;
     }
 }
 @media only screen and (max-width: 978px) {

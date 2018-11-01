@@ -18,9 +18,11 @@ export class GraphsServiceService {
   statsReport = []
   SearchParam:any;
   graphDataPoints=[]
+  selectedProductName: string;
   constructor(private http: HttpClient) { }
 
   httpResponseFilters(productName, filterParameters): Observable<any> {
+    this.selectedProductName = productName;
     return this.http.get<any>('http://taviscadataanalyzertool.ap-south-1.elasticbeanstalk.com/api/'+productName+'/'+filterParameters)
                      .catch(this.errorHandler);
                      
@@ -57,7 +59,7 @@ export class GraphsServiceService {
        indexLabelPlacement: "outside",
        dataPoints: this.graphDataPoints,
        click: function (e) {
-         alert(e.dataPoint.y +" "+e.dataPoint.label)
+         
        }
      }]
    });
