@@ -5,7 +5,7 @@
         </button>
         <form novalidate [formGroup]="inputForm" [ngbCollapse]="isNavbarCollapsed" id="theNavbar" [@collapse]="isNavbarCollapsedAnim" class="forms navbar-collapse collapse navbar-toggleable">
             <mat-form-field>
-                <input matInput #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
+                <input matInput #sdate [min]="minDate" [max]="currentEndDate" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
                 <mat-error tabindex="-1" *ngIf="inputForm.controls.startDateControl.hasError('required')">
                     *Required
                 </mat-error>
@@ -13,7 +13,7 @@
                 <mat-datepicker touchUi #firstPicker ></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-                <input matInput #ldate [min]="currentStartDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" [disabled]="IsVisible" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
+                <input matInput #ldate [min]="minDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
                 <mat-error tabindex="-1" *ngIf="inputForm.controls.endDateControl.hasError('required')">
                     *Required
                 </mat-error>
@@ -32,7 +32,7 @@
                 </mat-autocomplete>
             </mat-form-field>
             <mat-form-field>
-                <mat-select placeholder="Graph Type" #check multiple formControlName="filterControl" required>
+                <mat-select placeholder="Filters" #check multiple formControlName="filterControl" required>
                     <mat-error *ngIf="inputForm.controls.filterControl.hasError('required')">
                         *Required
                     </mat-error>
@@ -47,7 +47,9 @@
         </form>
     </nav>
 </div>
+
 <div id="graphs" class="graphs">
+    <h2 class = "results-description">Showing Results for " {{service.start}} " to " {{service.end}} " in {{service.location}}</h2>
     <booking-with-dates-graph tabindex="1" *ngIf="checkValue.includes('bookDate')"></booking-with-dates-graph>
     <supplier-name-based-graph tabindex="2" *ngIf="checkValue.includes('supplierName')"></supplier-name-based-graph>
     <hotel-names-with-dates-graph tabindex="3" *ngIf="checkValue.includes('name')"></hotel-names-with-dates-graph>

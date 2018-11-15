@@ -76,7 +76,6 @@ export class WidgetComponent implements OnInit {
   message:string="Drag Left/Right on the Graph To Zoom it"
   action:string="Close"
   location:any;
-  IsVisible:boolean=true;
   selectedLocation:any;
   checkValue:Array<string>=['location', 'name', 'bookDate', 'supplierName', 'failure', 'paymentMode'];
   paymentServiceResponse: any;
@@ -124,9 +123,6 @@ export class WidgetComponent implements OnInit {
     .subscribe( data=>{ this.response = data;
                      this.res = data["city"]; },
            error=>{ this.errorMsg = error;});
-  }
-  checkStartDate() {
-    this.IsVisible=false;
   }
    ServiceCalls() {
    var hotelLocation = new HotelLocationBasedGraphComponent(this.service)

@@ -5,7 +5,7 @@
         </button>
         <form novalidate [formGroup]="flightInputForm" [ngbCollapse]="isFlightNavbarCollapsed" id="theFlightNavbar" [@collapse]="isFlightNavbarCollapsedAnim" class="flight-form-content navbar-collapse collapse navbar-toggleable">
             <mat-form-field>
-                <input matInput #sdate [min]="minDate" [max]="currentEndDate" (dateChange)="checkStartDate()" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
+                <input matInput #sdate [min]="minDate" [max]="currentEndDate" format="YYYY-MM-DD 00:00:00" [readonly]="true" [(ngModel)]="currentStartDate" [matDatepicker]="firstPicker" placeholder="Start Date" name="currentStartDate" formControlName="startDateControl" required>
                 <mat-error *ngIf="flightInputForm.controls.startDateControl.hasError('required')">
                     *Required
                 </mat-error>
@@ -13,7 +13,7 @@
                 <mat-datepicker touchUi #firstPicker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-                <input matInput #ldate [min]="currentStartDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" [disabled]="IsVisible" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
+                <input matInput #ldate [min]="minDate" [max]="maxDate" [matDatepicker]="secondPicker" [(ngModel)]="currentEndDate" [readonly]="true" placeholder="End Date" name="currentEndDate" formControlName="endDateControl" required>
                 <mat-error *ngIf="flightInputForm.controls.endDateControl.hasError('required')">
                     *Required
                 </mat-error>
@@ -21,7 +21,7 @@
                 <mat-datepicker touchUi #secondPicker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-                <mat-select placeholder="Graph Type" #check multiple formControlName="flightFilterControl" required>
+                <mat-select placeholder="Filters" #check multiple formControlName="flightFilterControl" required>
                     <mat-error *ngIf="flightInputForm.controls.flightFilterControl.hasError('required')">
                         *Required
                     </mat-error>
@@ -37,6 +37,7 @@
     </nav>
 </div>
 <div id="flight-graphs" class="flight-graphs">
+    <h2 class = "flight-results-description">Showing Results between " {{service.start}} " to " {{service.end}} "</h2>
     <app-flight-booking-with-date-range-graph *ngIf="checkValue.includes('bookDate')"></app-flight-booking-with-date-range-graph>
     <app-flight-origin-destination-graph *ngIf="checkValue.includes('place')"></app-flight-origin-destination-graph>
     <app-flight-payment-mode *ngIf="checkValue.includes('paymentMode')"></app-flight-payment-mode>

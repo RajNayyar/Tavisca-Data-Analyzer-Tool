@@ -75,7 +75,6 @@ onScreenResize(event) {
   ids:any;
   message:string="Drag Left/Right on the Graph To Zoom it"
   action:string="Close"
-  IsVisible:boolean=true;
   searchTerm:any;
   checkValue:Array<string>=['place', 'marketingAirline', 'bookDate', 'allBookings', 'paymentMode'];
 
@@ -131,9 +130,6 @@ ServiceCalls()
   if(this.checkValue.includes('place')){ 
     this.originDestination.reRender();
   }
-}
-checkStartDate(){
-  this.IsVisible=false;
 }
 dataAnalysis(startDate, endDate,checkVal){
     
