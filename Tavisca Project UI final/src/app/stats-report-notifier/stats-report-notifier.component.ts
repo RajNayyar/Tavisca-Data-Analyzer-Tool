@@ -46,7 +46,7 @@ export class StatsReportNotifierComponent implements OnInit {
       this.Statistics.push(this.service.statsReport[i].statistics)
     }
     this.EmailJson = {
-      "RecipientEmialId":this.EmailId,
+      "RecipientEmailId":this.EmailId,
       "FilterName":this.FilterName,
       "StartDate":this.StartDate,
       "EndDate": this.EndDate,
